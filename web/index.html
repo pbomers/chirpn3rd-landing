@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Chirp'n 3rd — Have Fun. Shift Hard.</title>
+<meta name="description" content="Chirp'n 3rd Motorsports. Throw it in third, break the tires loose, chirp 'em. Stickers & merch for manual-transmission degenerates." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@500;600;700&family=Roboto:wght@400;500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- top nav -->
+<header class="nav">
+  <a class="brand" href="#top">
+    <img src="assets/bird-white.png" alt="" class="brand-bird" />
+    <span>CHIRP'N <b>3RD</b></span>
+  </a>
+  <nav class="nav-links">
+    <a href="#whatis">The Bit</a>
+    <a href="#stickers">Stickers</a>
+    <a href="#shop">Shop</a>
+    <button id="muteBtn" class="mute" aria-label="Toggle sound" aria-pressed="false">
+      <span class="ic-sound">SOUND ON</span>
+    </button>
+  </nav>
+</header>
+
+<!-- HERO -->
+<main id="top">
+<section class="hero" id="hero">
+  <div class="asphalt"></div>
+  <div class="halftone"></div>
+  <div class="stripes" aria-hidden="true"></div>
+  <canvas class="smoke-canvas" id="smokeCanvas" aria-hidden="true"></canvas>
+
+  <div class="hero-inner">
+    <p class="eyebrow">MANUAL TRANSMISSION · NO APOLOGIES</p>
+
+    <div class="hero-stage" id="heroStage">
+      <!-- EK9-style round tachometer (homage to the Civic Type R cluster) -->
+      <svg class="tach" viewBox="0 0 400 400" aria-hidden="true">
+        <defs>
+          <pattern id="carbon" patternUnits="userSpaceOnUse" width="10" height="10" patternTransform="rotate(45)">
+            <rect width="10" height="10" fill="#242422" />
+            <rect width="5" height="5" fill="#3e3e3b" />
+            <rect x="5" y="5" width="5" height="5" fill="#3e3e3b" />
+            <rect x="5" width="5" height="5" fill="#2d2d2a" />
+            <rect y="5" width="5" height="5" fill="#2d2d2a" />
+          </pattern>
+          <radialGradient id="dialShade" cx="50%" cy="42%" r="62%">
+            <stop offset="0%" stop-color="rgba(255,255,255,0.05)" />
+            <stop offset="70%" stop-color="rgba(0,0,0,0)" />
+            <stop offset="100%" stop-color="rgba(0,0,0,0.55)" />
+          </radialGradient>
+        </defs>
+        <circle cx="200" cy="200" r="196" fill="#050505" />
+        <circle cx="200" cy="200" r="190" fill="#2e2e2c" />
+        <circle cx="200" cy="200" r="183" fill="#0c0c0b" />
+        <circle cx="200" cy="200" r="176" fill="url(#carbon)" />
+        <circle cx="200" cy="200" r="176" fill="url(#dialShade)" />
+        <g id="tachRedline"></g>
+        <g id="tachTicks"></g>
+        <g id="tachNumbers"></g>
+        <text x="200" y="117" class="tach-unit">X1000r/min</text>
+        <line id="tachNeedle" class="tach-needle" x1="200" y1="228" x2="200" y2="66" />
+        <circle cx="200" cy="200" r="15" fill="#26282b" stroke="#4a4d52" stroke-width="1.5" />
+        <circle cx="200" cy="200" r="6" fill="#0d0d0c" />
+      </svg>
+
+      <div class="hero-bird-wrap">
+        <img src="assets/bird-white.png" alt="Chirp'n 3rd winged bird logo" class="hero-bird" id="heroBird" />
+      </div>
+
+      <!-- chirp stamp -->
+      <div class="stamp" id="stamp">CHIRP'N&nbsp;3RD!</div>
+    </div>
+
+    <h1 class="headline" id="headline">THROW IT IN <span class="hl-3rd">THIRD</span></h1>
+    <p class="subhead" id="subhead">Row through the gears. Break the tires loose. Chirp&nbsp;'em.</p>
+
+    <!-- SHIFTER -->
+    <div class="shifter-wrap">
+      <div class="shifter-cue" id="shifterCue"><span>drag the knob into</span> <b>3rd</b></div>
+      <svg class="gate" id="gate" viewBox="0 0 240 180" tabindex="0" role="slider"
+           aria-label="Gear shifter — drag or use arrow keys, land on 3rd gear"
+           aria-valuetext="Neutral">
+        <rect class="gate-plate" x="3" y="3" width="234" height="174" rx="16" />
+        <g class="gate-slots">
+          <line x1="55"  y1="46" x2="55"  y2="134" />
+          <line x1="120" y1="46" x2="120" y2="134" />
+          <line x1="185" y1="46" x2="185" y2="134" />
+          <line x1="55"  y1="90" x2="185" y2="90" />
+        </g>
+        <g class="gate-labels">
+          <text x="55"  y="34">1</text>
+          <text x="55"  y="158">2</text>
+          <text x="120" y="34" class="g3">3</text>
+          <text x="120" y="158">4</text>
+          <text x="185" y="34">5</text>
+          <text x="185" y="158">R</text>
+        </g>
+        <circle id="knob" class="knob" cx="120" cy="90" r="19" />
+        <circle id="knobDot" class="knob-dot" cx="120" cy="90" r="5" />
+      </svg>
+    </div>
+    <p class="scroll-cue">scroll down ↓</p>
+  </div>
+</section>
+
+<!-- STICKERS -->
+<section class="stickers" id="stickers">
+  <div class="section-head">
+    <h2>Slap 'em on <span class="orangetxt">everything</span></h2>
+    <p>Bumpers, toolboxes, helmets, your buddy's laptop. Sticker pack &amp; merch dropping soon.</p>
+  </div>
+  <div class="sticker-wall" id="stickerWall">
+    <div class="sticker"><img src="assets/stickers/chirpcirclebadge.png" alt="Chirp'n 3rd circle badge sticker" /></div>
+    <div class="sticker"><img src="assets/stickers/CHRP3MOTORSPORTS.png" alt="CHRP3 Motorsports sticker" /></div>
+    <div class="sticker"><img src="assets/stickers/chirpnewbadge.png" alt="Chirp'n 3rd badge sticker" /></div>
+    <div class="sticker"><img src="assets/stickers/chirpwingsandbolt.png" alt="Chirp'n wings and bolt sticker" /></div>
+    <div class="sticker"><img src="assets/stickers/traceflag.png" alt="Chirp'n 3rd flag sticker" /></div>
+    <div class="sticker"><img src="assets/stickers/sticker.png" alt="Chirp'n 3rd sticker" /></div>
+  </div>
+</section>
+
+<!-- SHOP CTA -->
+<section class="shop" id="shop">
+  <div class="stripes alt" aria-hidden="true"></div>
+  <div class="shop-inner">
+    <p class="eyebrow">THE GEAR'S WARMING UP THE TIRES</p>
+    <h2>Get some <span class="tealtxt">Chirp'n 3rd</span> on you.</h2>
+    <a class="shop-btn" id="shopBtn" href="#" data-placeholder="true">SHOP — DROPPING SOON</a>
+    <p class="shop-note">Store's powered by Printful — link goes live the second it drops.</p>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <img src="assets/bird-white.png" alt="" class="footer-bird" />
+  <div class="footer-tag">HAVE FUN. SHIFT HARD.</div>
+  <div class="footer-socials">
+    <a href="#" data-placeholder="true">Instagram</a>
+    <a href="#" data-placeholder="true">TikTok</a>
+    <a href="#" data-placeholder="true">YouTube</a>
+  </div>
+  <div class="footer-copy">© <span id="yr"></span> Chirp'n 3rd Motorsports — chirp responsibly.</div>
+</footer>
+
+<!-- optional real tire-chirp clip; auto-used if present, else synthesized fallback -->
+<audio id="sfxChirp" preload="auto">
+  <source src="assets/sfx/chirp.mp3" type="audio/mpeg" />
+  <source src="assets/sfx/chirp.wav" type="audio/wav" />
+  <source src="assets/sfx/chirp.m4a" type="audio/mp4" />
+</audio>
+
+<script src="script.js"></script>
+</body>
+</html>

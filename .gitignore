@@ -1,0 +1,22 @@
+# OS / editor
+.DS_Store
+*.log
+
+# Node
+node_modules/
+
+# --- Not part of the landing site (top-level only; web/assets IS shipped) ---
+# Design source art (440MB of .ai/.psd/mockups) — lives locally only
+/assets/
+# Separate PB-Dashboard agent tooling
+/directives/
+/execution/
+/SKILLS/
+/AGENTS.md
+/docs/
+# Raw font downloads (processed copies live in web/assets/fonts/)
+/fonts/
+
+# Local scratch
+/.claude/
+web/scripts/

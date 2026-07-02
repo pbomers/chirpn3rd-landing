@@ -1,0 +1,7 @@
+chirp.wav  (the tire chirp that plays when you shift into 3rd)
+  Trimmed from: "Chrysler LHS tire squeal 02 (04-25-2009)"
+  Source: Pixabay — https://pixabay.com/sound-effects/city-chrysler-lhs-tire-squeal-02-04-25-2009wav-14764/
+  Contributor: freesound_community
+  License: Pixabay Content License — free for commercial use, no attribution required.
+           (Credit kept here as good practice.)
+  Edit: cut to ~0.60s (the chirp at ~5.9s of the original), normalized, micro-faded. Done locally with afconvert + Python.

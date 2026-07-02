@@ -216,3 +216,10 @@ img{display:block;max-width:100%}
   .tach-needle{transition:none}
   .stamp.go{animation-duration:.01ms}
 }
+
+/* === TEMPORARY: hide sections below the hero, keep the footer (delete this block to restore) === */
+.stickers,
+.shop,
+.scroll-cue,
+.nav-links a{display:none !important}
+/* === END TEMPORARY === */

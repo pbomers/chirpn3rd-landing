@@ -58,13 +58,13 @@
     {%- if settings.logo != blank -%}
       <div class="toolbar__logo">
         <a href="{{ routes.root_url }}">
-          {{ settings.logo | image_url: width: 200 | image_tag: alt: shop.name, loading: 'eager' }}
+          {{ settings.logo | image_url: width: 200 | image_tag: alt: settings.brand_name, loading: 'eager' }}
         </a>
       </div>
     {%- else -%}
       <div class="toolbar__logo">
         <a href="{{ routes.root_url }}">
-          <img src="{{ 'helmet.jpg' | asset_url }}" alt="{{ shop.name }}" width="43" height="34">
+          <img src="{{ 'helmet.jpg' | asset_url }}" alt="{{ settings.brand_name | default: shop.name }}" width="43" height="34">
         </a>
       </div>
     {%- endif -%}

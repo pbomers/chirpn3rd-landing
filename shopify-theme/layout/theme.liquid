@@ -9,7 +9,7 @@
     <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
   {%- endif -%}
 
-  <title>{{ page_title }}{% if current_tags %} &middot; {{ current_tags | join: ', ' }}{% endif %}{% unless page_title contains shop.name %} &middot; {{ shop.name }}{% endunless %}</title>
+  <title>{{ page_title }}{% if current_tags %} &middot; {{ current_tags | join: ', ' }}{% endif %}{% unless page_title contains shop.name %} &middot; {{ settings.brand_name | default: shop.name }}{% endunless %}</title>
   {%- if page_description -%}<meta name="description" content="{{ page_description | escape }}">{%- endif -%}
 
   {{ content_for_header }}
@@ -35,7 +35,7 @@
   {% sections 'footer-group' %}
 
   {%- if template.name == 'index' -%}
-    <div class="signon" data-signon role="dialog" aria-modal="true" aria-label="Sign on to {{ shop.name }}">
+    <div class="signon" data-signon role="dialog" aria-modal="true" aria-label="Sign on to {{ settings.brand_name | default: shop.name }}">
       <div class="win signon__dialog">
         <div class="win__bar">
           <svg class="win__icon" aria-hidden="true"><use href="#i-bird"/></svg>
@@ -48,8 +48,8 @@
         </div>
         <div class="win__body">
           <div class="signon__body">
-            <img src="{{ 'wings.jpg' | asset_url }}" alt="{{ shop.name }}" width="190" height="137">
-            <p class="signon__brand">{{ shop.name }} Online</p>
+            <img src="{{ 'wings.jpg' | asset_url }}" alt="{{ settings.brand_name | default: shop.name }}" width="190" height="137">
+            <p class="signon__brand">{{ settings.brand_name | default: shop.name }} Online</p>
             <p class="signon__ver">version 3.0 &middot; Have Fun Shift Hard</p>
 
             <div class="signon__field">
@@ -69,7 +69,7 @@
 
             <button class="btn btn--send" type="button" data-signon-go>Sign On</button>
             <button class="signon__skip" type="button" data-signon-skip>Skip, just show me the merch</button>
-            <p class="signon__fine">1,000 Free Hours Of {{ shop.name }}. No CD Required.</p>
+            <p class="signon__fine">1,000 Free Hours Of {{ settings.brand_name | default: shop.name }}. No CD Required.</p>
           </div>
         </div>
       </div>

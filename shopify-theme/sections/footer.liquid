@@ -10,7 +10,7 @@
     </nav>
     <p class="sitefoot__fine">
       {{ section.settings.fine_print }}<br>
-      &copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. Printed on demand. Shipped by birds.
+      &copy; {{ 'now' | date: '%Y' }} {{ settings.brand_name | default: shop.name }}. Printed on demand. Shipped by birds.
     </p>
   </div>
 

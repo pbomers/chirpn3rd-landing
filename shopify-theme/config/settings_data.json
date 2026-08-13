@@ -1,5 +1,6 @@
 {
   "current": {
+    "brand_name": "Chirpn3rd",
     "logo": "",
     "favicon": "",
     "social_instagram": "",
@@ -7,6 +8,7 @@
   },
   "presets": {
     "Default": {
+      "brand_name": "Chirpn3rd",
       "logo": "",
       "favicon": "",
       "social_instagram": "",

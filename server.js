@@ -43,7 +43,10 @@ http
         res.writeHead(404);
         return res.end("Not found");
       }
-      res.writeHead(200, { "Content-Type": TYPES[path.extname(filePath)] || "application/octet-stream" });
+      const headers = { "Content-Type": TYPES[path.extname(filePath)] || "application/octet-stream" };
+      // print files are fetched cross-origin by Printful's uploader
+      if (urlPath.startsWith("/print-files/")) headers["Access-Control-Allow-Origin"] = "*";
+      res.writeHead(200, headers);
       res.end(data);
     });
   })

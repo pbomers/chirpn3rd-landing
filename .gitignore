@@ -22,3 +22,6 @@ node_modules/
 web/scripts/
 .vercel
 .env*
+
+# Shopify CLI local state
+shopify-theme/.shopify/

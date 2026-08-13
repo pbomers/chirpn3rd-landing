@@ -1,0 +1,107 @@
+{%- assign greeting = 'Welcome!' -%}
+{%- if customer -%}{%- assign greeting = 'Welcome, ' | append: customer.first_name | append: '!' -%}{%- endif -%}
+
+{%- capture win_body_1 -%}
+
+  <div class="welcome">
+    <div class="welcome__rail">
+      <div class="welcome__logo">
+        <img src="{{ 'wings.jpg' | asset_url }}" alt="{{ shop.name }}" width="120" height="87">
+      </div>
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'rail_link' -%}
+          <a class="railbtn" href="{{ block.settings.url | default: '#' }}" {{ block.shopify_attributes }}>
+            <svg aria-hidden="true"><use href="#{{ block.settings.icon }}"/></svg>{{ block.settings.label }}
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    <div class="welcome__main">
+      <div class="mast">
+        <div style="flex:1">
+          <p class="mast__on">on</p>
+          <h2>{{ section.settings.masthead }}</h2>
+          <p class="mast__date">{{ 'now' | date: '%A, %B %d, %Y' }}</p>
+        </div>
+        <div class="mast__photo">
+          <img src="{{ 'helmet.jpg' | asset_url }}" alt="" aria-hidden="true" width="78" height="62">
+        </div>
+      </div>
+
+      <div class="rule"></div>
+
+      <div class="bullets">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'story' -%}
+            <p class="bullet" {{ block.shopify_attributes }}>
+              <span class="bullet__dot" aria-hidden="true"></span>
+              <span>
+                {%- if block.settings.url != blank -%}
+                  <a href="{{ block.settings.url }}"><b>{{ block.settings.headline }}</b></a>
+                {%- else -%}
+                  <b>{{ block.settings.headline }}</b>
+                {%- endif -%}
+                {% if block.settings.body != blank %}<br>{{ block.settings.body }}{% endif %}
+              </span>
+            </p>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+{%- endcapture -%}
+{% render 'window', title: greeting, icon: 'i-bird', content: win_body_1 %}
+
+
+{% schema %}
+{
+  "name": "Welcome screen",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "masthead", "label": "Masthead", "default": "CHIRPN3RD TODAY" }
+  ],
+  "blocks": [
+    {
+      "type": "story",
+      "name": "Story",
+      "settings": [
+        { "type": "text", "id": "headline", "label": "Headline", "default": "Top News Story" },
+        { "type": "text", "id": "body", "label": "Body" },
+        { "type": "url", "id": "url", "label": "Link" }
+      ]
+    },
+    {
+      "type": "rail_link",
+      "name": "Sidebar button",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Merch Center" },
+        { "type": "url", "id": "url", "label": "Link" },
+        { "type": "select", "id": "icon", "label": "Icon", "default": "i-merch",
+          "options": [
+            { "value": "i-merch", "label": "Shirt" },
+            { "value": "i-chan", "label": "Channels" },
+            { "value": "i-chat", "label": "Chat" },
+            { "value": "i-fav", "label": "Star" },
+            { "value": "i-deals", "label": "Deals" },
+            { "value": "i-info", "label": "Info" }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Welcome screen",
+      "blocks": [
+        { "type": "rail_link", "settings": { "label": "Merch Center", "icon": "i-merch" } },
+        { "type": "rail_link", "settings": { "label": "Chirpn3rd Channels", "icon": "i-chan" } },
+        { "type": "rail_link", "settings": { "label": "Race Days", "icon": "i-fav" } },
+        { "type": "story", "settings": { "headline": "Top News Story", "body": "Local Man Chirps 3rd, Refuses To Elaborate" } },
+        { "type": "story", "settings": { "headline": "You've Got Merch.", "body": "The new drop is the latest and greatest Chirpn3rd has to offer." } },
+        { "type": "story", "settings": { "headline": "Coop's Best Deal:", "body": "Free sticker in every bag." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

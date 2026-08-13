@@ -1,0 +1,42 @@
+{%- paginate search.results by 24 -%}
+  {%- capture win_body_1 -%}
+
+    <form action="{{ routes.search_url }}" method="get" role="search" style="display:flex;gap:6px;margin-bottom:10px">
+      <label class="visually-hidden" for="search-input">Search</label>
+      <input class="kwbar__input" id="search-input" type="search" name="q" value="{{ search.terms | escape }}"
+             placeholder="What are you looking for?">
+      <button class="btn btn--go" type="submit">Go</button>
+    </form>
+
+    {%- if search.performed -%}
+      {%- if search.results_count > 0 -%}
+        <p class="muted" style="margin-bottom:8px">
+          {{ search.results_count }} result{% unless search.results_count == 1 %}s{% endunless %} for "{{ search.terms | escape }}"
+        </p>
+        <div class="grid">
+          {%- for item in search.results -%}
+            {%- if item.object_type == 'product' -%}
+              {% render 'product-card', product: item %}
+            {%- else -%}
+              <a class="card" href="{{ item.url }}">
+                <span class="card__bar"><svg aria-hidden="true"><use href="#i-files"/></svg><span>{{ item.title | truncate: 26 }}</span></span>
+                <span class="card__meta"><span class="card__name">{{ item.title }}</span></span>
+              </a>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+        {% render 'pagination', paginate: paginate %}
+      {%- else -%}
+        <p class="center muted" style="padding:20px">
+          No results for "{{ search.terms | escape }}".<br>Try "tee", "hoodie", or "knob".
+        </p>
+      {%- endif -%}
+    {%- endif -%}
+{%- endcapture -%}
+{% render 'window', title: 'Find', icon: 'i-search', content: win_body_1 %}
+
+{%- endpaginate -%}
+
+{% schema %}
+{ "name": "Search", "tag": "section", "settings": [] }
+{% endschema %}

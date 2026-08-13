@@ -1,0 +1,76 @@
+{%- capture win_body_1 -%}
+
+  {%- if cart.item_count > 0 -%}
+    <form action="{{ routes.cart_url }}" method="post" novalidate>
+      <table class="cart__table">
+        <thead>
+          <tr>
+            <th scope="col">Item</th>
+            <th scope="col">Qty</th>
+            <th scope="col">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%- for item in cart.items -%}
+            <tr>
+              <td>
+                <div class="cart__item">
+                  <span class="cart__thumb">
+                    {%- if item.image -%}
+                      {{ item.image | image_url: width: 160 | image_tag: loading: 'lazy', alt: item.title | escape }}
+                    {%- endif -%}
+                  </span>
+                  <span>
+                    <a class="cart__name" href="{{ item.url }}">{{ item.product.title }}</a>
+                    {%- unless item.product.has_only_default_variant -%}
+                      <span class="cart__variant">{{ item.variant.title }}</span>
+                    {%- endunless -%}
+                    <span class="cart__variant">{{ item.final_price | money }} each</span>
+                    <a class="cart__remove" href="{{ item.url_to_remove }}">Remove</a>
+                  </span>
+                </div>
+              </td>
+              <td>
+                <label class="visually-hidden" for="qty-{{ item.index | plus: 1 }}">Quantity for {{ item.title }}</label>
+                <input class="qty" id="qty-{{ item.index | plus: 1 }}" type="number" min="0"
+                       name="updates[]" value="{{ item.quantity }}" data-cart-qty
+                       style="height:24px;border:0;padding:0 5px;box-shadow:inset 1px 1px 0 #848484,inset 2px 2px 0 #404040">
+              </td>
+              <td><b>{{ item.final_line_price | money }}</b></td>
+            </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+
+      <div class="cart__foot">
+        <button class="btn" type="submit" name="update">Update Cart</button>
+        <div class="cart__totals">
+          <p class="cart__total">Subtotal {{ cart.total_price | money }}</p>
+          <p class="cart__note">Shipping and taxes figured at checkout.</p>
+        </div>
+      </div>
+
+      <div style="display:flex;justify-content:flex-end;margin-top:10px">
+        <button class="btn btn--go btn--send" type="submit" name="checkout">Check Out</button>
+      </div>
+    </form>
+
+    <p class="imnote" style="margin-top:10px">
+      Heads up: checkout is Shopify's secure page, so it looks like the rest of the modern internet. We'll be here when you get back.
+    </p>
+  {%- else -%}
+    <div class="cart__empty">
+      <img src="{{ 'bird-white.png' | asset_url }}" alt="" aria-hidden="true" width="110" height="80"
+           style="margin:0 auto 10px;opacity:.5">
+      <p><b>Your cart is empty.</b></p>
+      <p class="muted">The bird is disappointed but not surprised.</p>
+      <p style="margin-top:12px"><a class="btn" href="{{ routes.all_products_collection_url }}">Go Get Something</a></p>
+    </div>
+  {%- endif -%}
+{%- endcapture -%}
+{% render 'window', title: 'Shopping Cart', icon: 'i-cart', content: win_body_1 %}
+
+
+{% schema %}
+{ "name": "Cart", "tag": "section", "settings": [] }
+{% endschema %}

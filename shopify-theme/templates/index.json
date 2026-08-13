@@ -1,0 +1,90 @@
+{
+  "sections": {
+    "hero": {
+      "type": "im-hero",
+      "blocks": {
+        "l1": { "type": "line", "settings": { "text": "yo" } },
+        "l2": { "type": "line", "settings": { "text": "u up?" } },
+        "l3": { "type": "line", "settings": { "text": "new drop just hit the coop" } },
+        "l4": { "type": "line", "settings": { "text": "tees, hoods, knobs, lids. the works" } },
+        "l5": { "type": "line", "settings": { "text": "so what you doing today" } }
+      },
+      "block_order": ["l1", "l2", "l3", "l4", "l5"],
+      "settings": {
+        "screen_name": "Chirpn3rd",
+        "reply_text": "nothin. show me the merch",
+        "button_label": "Send It",
+        "disclaimer": "Reminder: Chirpn3rd will never ask for your password, only your compression numbers."
+      }
+    },
+    "welcome": {
+      "type": "welcome",
+      "blocks": {
+        "r1": { "type": "rail_link", "settings": { "label": "Merch Center", "icon": "i-merch" } },
+        "r2": { "type": "rail_link", "settings": { "label": "Chirpn3rd Channels", "icon": "i-chan" } },
+        "r3": { "type": "rail_link", "settings": { "label": "Race Days", "icon": "i-fav" } },
+        "s1": {
+          "type": "story",
+          "settings": {
+            "headline": "Top News Story",
+            "body": "Local Man Chirps 3rd, Refuses To Elaborate"
+          }
+        },
+        "s2": {
+          "type": "story",
+          "settings": {
+            "headline": "You've Got Merch.",
+            "body": "What are you waiting for? The new drop is the latest and greatest Chirpn3rd has to offer."
+          }
+        },
+        "s3": {
+          "type": "story",
+          "settings": {
+            "headline": "Coop's Best Deal:",
+            "body": "Free sticker in every bag. Every time. No exceptions."
+          }
+        }
+      },
+      "block_order": ["r1", "r2", "r3", "s1", "s2", "s3"],
+      "settings": { "masthead": "CHIRPN3RD TODAY" }
+    },
+    "channels": {
+      "type": "channels",
+      "blocks": {
+        "c1": { "type": "channel", "settings": { "label": "NEW DROPS" } },
+        "c2": { "type": "channel", "settings": { "label": "Tees" } },
+        "c3": { "type": "channel", "settings": { "label": "HOODIES" } },
+        "c4": { "type": "channel", "settings": { "label": "Shift Knobs" } },
+        "c5": { "type": "channel", "settings": { "label": "Lids" } },
+        "c6": { "type": "channel", "settings": { "label": "Stickers", "soon": true } },
+        "c7": { "type": "channel", "settings": { "label": "RACE DAYS" } },
+        "c8": { "type": "channel", "settings": { "label": "The Story" } }
+      },
+      "block_order": ["c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8"],
+      "settings": { "title": "Channels", "heading": "Chirpn3rd Channels" }
+    },
+    "featured": {
+      "type": "featured-merch",
+      "settings": { "title": "New Drops", "count": 8, "stripe_text": "FRESH OUT THE COOP" }
+    },
+    "buddies": {
+      "type": "buddy-list",
+      "blocks": {
+        "b1": { "type": "buddy", "settings": { "screen_name": "xX_FreshTees_Xx" } },
+        "b2": { "type": "buddy", "settings": { "screen_name": "HoodieHooligan" } },
+        "b3": { "type": "buddy", "settings": { "screen_name": "LidLord99" } },
+        "b4": { "type": "buddy", "settings": { "screen_name": "ShiftKnobKid" } },
+        "b5": { "type": "buddy", "settings": { "screen_name": "NewDropz2K26" } },
+        "b6": { "type": "buddy", "settings": { "screen_name": "StickerBomber", "offline": true } }
+      },
+      "block_order": ["b1", "b2", "b3", "b4", "b5", "b6"],
+      "settings": {
+        "title": "Buddy List",
+        "heading": "Chirpn3rd Buddies",
+        "group_name": "THE COOP",
+        "keyword": "THE COOP"
+      }
+    }
+  },
+  "order": ["hero", "welcome", "channels", "featured", "buddies"]
+}

@@ -1,0 +1,37 @@
+{%- capture win_body_1 -%}
+
+  {%- paginate customer.addresses by 6 -%}
+    {%- for address in customer.addresses -%}
+      <div class="convo" style="margin-bottom:8px;padding:8px 10px;line-height:1.5">
+        {{ address | format_address }}
+        <p style="margin-top:5px">
+          <a href="{{ address.url }}" data-address-edit>Edit</a> &middot;
+          <a href="{{ address.url }}" data-address-delete>Delete</a>
+        </p>
+      </div>
+    {%- else -%}
+      <p class="center muted" style="padding:16px">No addresses saved yet.</p>
+    {%- endfor -%}
+    {% render 'pagination', paginate: paginate %}
+  {%- endpaginate -%}
+
+  <details style="margin-top:10px">
+    <summary style="cursor:pointer;font-weight:bold;padding:5px 0">Add a new address</summary>
+    {%- form 'customer_address', customer.new_address -%}
+      <div class="field" style="margin:7px 0"><label for="a-first">First</label><input id="a-first" type="text" name="address[first_name]"></div>
+      <div class="field" style="margin:7px 0"><label for="a-last">Last</label><input id="a-last" type="text" name="address[last_name]"></div>
+      <div class="field" style="margin:7px 0"><label for="a-street">Street</label><input id="a-street" type="text" name="address[address1]"></div>
+      <div class="field" style="margin:7px 0"><label for="a-city">City</label><input id="a-city" type="text" name="address[city]"></div>
+      <div class="field" style="margin:7px 0"><label for="a-zip">ZIP</label><input id="a-zip" type="text" name="address[zip]"></div>
+      <button class="btn btn--go" type="submit" style="margin-top:6px">Save Address</button>
+    {%- endform -%}
+  </details>
+
+  <p style="margin-top:12px"><a class="btn" href="{{ routes.account_url }}">Back To Account</a></p>
+{%- endcapture -%}
+{% render 'window', title: 'Address Book', icon: 'i-files', content: win_body_1 %}
+
+
+{% schema %}
+{ "name": "Addresses", "settings": [] }
+{% endschema %}

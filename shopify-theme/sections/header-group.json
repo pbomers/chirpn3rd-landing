@@ -1,0 +1,14 @@
+{
+  "type": "header",
+  "name": "Header",
+  "sections": {
+    "header": {
+      "type": "header",
+      "settings": {
+        "menu": "main-menu",
+        "keyword_placeholder": "Type Keyword or Web Address here and click Go"
+      }
+    }
+  },
+  "order": ["header"]
+}

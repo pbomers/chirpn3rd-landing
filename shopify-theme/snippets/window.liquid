@@ -1,0 +1,18 @@
+{% comment %}
+  A window frame. Pass the body in as `content`:
+    {%- capture win_body -%} ... {%- endcapture -%}
+    {% render 'window', title: 'Buddy List', icon: 'i-people', content: win_body %}
+  Params: title, content, icon (symbol id), idle (gray inactive titlebar), paper (white sunken sheet), class
+{% endcomment %}
+<div class="win {{ class }}">
+  <div class="win__bar{% if idle %} win__bar--idle{% endif %}">
+    <svg class="win__icon" aria-hidden="true"><use href="#{{ icon | default: 'i-bird' }}"/></svg>
+    <span class="win__title">{{ title }}</span>
+    <span class="win__btns" aria-hidden="true">
+      <span class="win__btn"><svg><use href="#i-min"/></svg></span>
+      <span class="win__btn"><svg><use href="#i-max"/></svg></span>
+      <span class="win__btn"><svg><use href="#i-x"/></svg></span>
+    </span>
+  </div>
+  <div class="win__body{% if paper %} win__body--paper{% endif %}">{{ content }}</div>
+</div>

@@ -1,0 +1,38 @@
+{%- assign win_title = 'Order ' | append: order.name -%}
+{%- capture win_body_1 -%}
+
+  <p class="muted" style="margin-bottom:8px">Placed {{ order.created_at | date: '%B %d, %Y' }} &middot; {{ order.financial_status_label }}</p>
+  <table class="cart__table">
+    <thead>
+      <tr><th scope="col">Item</th><th scope="col">Qty</th><th scope="col">Total</th></tr>
+    </thead>
+    <tbody>
+      {%- for line in order.line_items -%}
+        <tr>
+          <td>
+            <b>{{ line.title }}</b>
+            {%- unless line.product.has_only_default_variant -%}
+              <span class="cart__variant">{{ line.variant.title }}</span>
+            {%- endunless -%}
+          </td>
+          <td>{{ line.quantity }}</td>
+          <td><b>{{ line.final_line_price | money }}</b></td>
+        </tr>
+      {%- endfor -%}
+    </tbody>
+  </table>
+  <div class="cart__foot">
+    <div class="cart__totals">
+      <p>Subtotal {{ order.subtotal_price | money }}</p>
+      <p>Shipping {{ order.shipping_price | money }}</p>
+      <p class="cart__total">Total {{ order.total_price | money }}</p>
+    </div>
+  </div>
+  <p style="margin-top:12px"><a class="btn" href="{{ routes.account_url }}">Back To Account</a></p>
+{%- endcapture -%}
+{% render 'window', title: win_title, icon: 'i-files', content: win_body_1 %}
+
+
+{% schema %}
+{ "name": "Order", "settings": [] }
+{% endschema %}

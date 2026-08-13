@@ -1,0 +1,68 @@
+{%- capture win_body_1 -%}
+
+  <div class="channels">
+    <div class="channels__side">
+      <img src="{{ 'bird-white.png' | asset_url }}" alt="" aria-hidden="true" width="88" height="64">
+      <p class="channels__name">{{ section.settings.heading }}</p>
+      <a class="btn" href="{{ routes.all_products_collection_url }}" style="font-size:10px">All Merch</a>
+    </div>
+
+    <div class="channels__grid">
+      {%- for block in section.blocks -%}
+        {%- assign col = collections[block.settings.collection] -%}
+        {%- assign style_ix = forloop.index0 | modulo: 8 -%}
+        <a class="chan chan--{{ style_ix }}"
+           href="{{ col.url | default: block.settings.url | default: '#' }}"
+           {{ block.shopify_attributes }}>
+          {{ block.settings.label | default: col.title | default: 'Channel' }}
+          {%- if block.settings.soon -%}<span class="chan__soon">SOON</span>{%- endif -%}
+        </a>
+      {%- else -%}
+        {%- for col in collections limit: 8 -%}
+          {%- assign style_ix = forloop.index0 | modulo: 8 -%}
+          <a class="chan chan--{{ style_ix }}" href="{{ col.url }}">{{ col.title }}</a>
+        {%- endfor -%}
+      {%- endfor -%}
+    </div>
+  </div>
+{%- endcapture -%}
+{% render 'window', title: section.settings.title, icon: 'i-chan', content: win_body_1 %}
+
+
+{% schema %}
+{
+  "name": "Channels",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Window title", "default": "Channels" },
+    { "type": "text", "id": "heading", "label": "Sidebar heading", "default": "Chirpn3rd Channels" }
+  ],
+  "blocks": [
+    {
+      "type": "channel",
+      "name": "Channel",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Button label" },
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "url", "id": "url", "label": "Or a custom link" },
+        { "type": "checkbox", "id": "soon", "label": "Mark as coming soon", "default": false }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Channels",
+      "blocks": [
+        { "type": "channel", "settings": { "label": "NEW DROPS" } },
+        { "type": "channel", "settings": { "label": "Tees" } },
+        { "type": "channel", "settings": { "label": "HOODIES" } },
+        { "type": "channel", "settings": { "label": "Shift Knobs" } },
+        { "type": "channel", "settings": { "label": "Lids" } },
+        { "type": "channel", "settings": { "label": "Stickers", "soon": true } },
+        { "type": "channel", "settings": { "label": "RACE DAYS" } },
+        { "type": "channel", "settings": { "label": "The Story" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,14 @@
+{
+  "type": "footer",
+  "name": "Footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "settings": {
+        "menu": "footer",
+        "fine_print": "1,000 Free Hours Of Chirpn3rd. No CD Required."
+      }
+    }
+  },
+  "order": ["footer"]
+}

@@ -1,0 +1,40 @@
+{%- assign col = collections[section.settings.collection] -%}
+{%- assign title = section.settings.title | default: col.title | default: 'Featured Merch' -%}
+
+{%- capture win_body_1 -%}
+
+  {%- if section.settings.stripe_text != blank -%}
+    <div class="stripe" style="margin-bottom:8px"><span>{{ section.settings.stripe_text }}</span></div>
+  {%- endif -%}
+
+  {%- if col.products.size > 0 -%}
+    <div class="grid">
+      {%- for product in col.products limit: section.settings.count -%}
+        {% render 'product-card', product: product %}
+      {%- endfor -%}
+    </div>
+    <div style="display:flex;justify-content:flex-end;margin-top:9px">
+      <a class="btn" href="{{ col.url }}">See All {{ col.title }}</a>
+    </div>
+  {%- else -%}
+    <p class="center muted" style="padding:18px">
+      No products in this collection yet. Pick one in the theme editor, or add products in Shopify admin.
+    </p>
+  {%- endif -%}
+{%- endcapture -%}
+{% render 'window', title: title, icon: 'i-merch', content: win_body_1 %}
+
+
+{% schema %}
+{
+  "name": "Featured merch",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Window title" },
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "range", "id": "count", "label": "Products shown", "min": 2, "max": 16, "step": 1, "default": 8 },
+    { "type": "text", "id": "stripe_text", "label": "Caution stripe text" }
+  ],
+  "presets": [ { "name": "Featured merch" } ]
+}
+{% endschema %}

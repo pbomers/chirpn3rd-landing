@@ -1,0 +1,38 @@
+{%- liquid
+  assign tips = section.settings.tips | split: '|'
+-%}
+<footer>
+  <div class="sitefoot">
+    <nav class="sitefoot__links" aria-label="Footer">
+      {%- for link in linklists[section.settings.menu].links -%}
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      {%- endfor -%}
+    </nav>
+    <p class="sitefoot__fine">
+      {{ section.settings.fine_print }}<br>
+      &copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. Printed on demand. Shipped by birds.
+    </p>
+  </div>
+
+  <div class="statusbar">
+    <div class="statusbar__cell statusbar__cell--grow" data-tip data-tips='{{ tips | json | escape }}'>
+      {{ tips[0] }}
+    </div>
+    <div class="statusbar__cell">{{ cart.item_count }} item{% unless cart.item_count == 1 %}s{% endunless %}</div>
+    <div class="statusbar__cell" data-clock>12:00 PM</div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Footer menu", "default": "footer" },
+    { "type": "text", "id": "fine_print", "label": "Fine print",
+      "default": "1,000 Free Hours Of Chirpn3rd. No CD Required." },
+    { "type": "textarea", "id": "tips", "label": "Status bar tips (separate with |)",
+      "default": "Welcome to Chirpn3rd Online. Have Fun Shift Hard.|Tip: click a buddy to shop that category.|Tip: 3rd gear is right there. Send it.|Keyword: CHIRP" }
+  ],
+  "enabled_on": { "groups": ["footer"] }
+}
+{% endschema %}

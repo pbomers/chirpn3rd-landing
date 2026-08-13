@@ -1,0 +1,25 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Chirpn3rd Online",
+    "theme_version": "1.0.0",
+    "theme_author": "Chirpn3rd",
+    "theme_documentation_url": "https://new.chirpn3rd.com",
+    "theme_support_url": "https://new.chirpn3rd.com"
+  },
+  {
+    "name": "Brand",
+    "settings": [
+      { "type": "image_picker", "id": "logo", "label": "Toolbar logo",
+        "info": "Small mark shown at the right of the toolbar. Leave empty to use the helmet bird." },
+      { "type": "image_picker", "id": "favicon", "label": "Favicon" }
+    ]
+  },
+  {
+    "name": "Social",
+    "settings": [
+      { "type": "url", "id": "social_instagram", "label": "Instagram" },
+      { "type": "url", "id": "social_youtube", "label": "YouTube" }
+    ]
+  }
+]

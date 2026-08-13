@@ -1,0 +1,102 @@
+{%- capture win_body_1 -%}
+
+  <div class="buddies__head">
+    <img src="{{ 'bird-white.png' | asset_url }}" alt="" aria-hidden="true" width="26" height="19">
+    <span>{{ section.settings.heading }}</span>
+  </div>
+
+  <div class="buddies__tabs" aria-hidden="true">
+    <span class="buddies__tab on">Online</span>
+    <span class="buddies__tab">Setup</span>
+  </div>
+
+  {%- liquid
+    assign online_count = 0
+    for block in section.blocks
+      if block.type == 'buddy' and block.settings.offline != true
+        assign online_count = online_count | plus: 1
+      endif
+    endfor
+  -%}
+
+  <div class="buddies__list">
+    <p class="buddies__group">
+      &#9660; {{ section.settings.group_name }}
+      <span class="cnt">({{ online_count }}/{{ online_count }})</span>
+    </p>
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'buddy' and block.settings.offline != true -%}
+        {%- assign col = collections[block.settings.collection] -%}
+        <a class="buddy" href="{{ col.url | default: block.settings.url | default: '#' }}" {{ block.shopify_attributes }}>
+          {{ block.settings.screen_name | default: col.title }}
+        </a>
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- assign has_offline = false -%}
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'buddy' and block.settings.offline -%}{%- assign has_offline = true -%}{%- endif -%}
+    {%- endfor -%}
+
+    {%- if has_offline -%}
+      <p class="buddies__group">&#9660; Offline</p>
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'buddy' and block.settings.offline -%}
+          {%- assign col = collections[block.settings.collection] -%}
+          <a class="buddy buddy--off" href="{{ col.url | default: block.settings.url | default: '#' }}" {{ block.shopify_attributes }}>
+            {{ block.settings.screen_name | default: col.title }}
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+  </div>
+
+  <div class="buddies__foot">
+    <a class="fbtn b-out" href="{{ routes.all_products_collection_url }}" aria-label="All merch"><svg aria-hidden="true"><use href="#i-merch"/></svg></a>
+    <a class="fbtn b-out" href="{{ routes.search_url }}" aria-label="Search"><svg aria-hidden="true"><use href="#i-search"/></svg></a>
+    <a class="fbtn b-out" href="{{ routes.collections_url }}" aria-label="Channels"><svg aria-hidden="true"><use href="#i-chan"/></svg></a>
+    <a class="fbtn b-out" href="{{ routes.cart_url }}" aria-label="Cart"><svg aria-hidden="true"><use href="#i-cart"/></svg></a>
+  </div>
+  <p class="buddies__kw">Keyword: {{ section.settings.keyword }}</p>
+{%- endcapture -%}
+{% render 'window', title: section.settings.title, icon: 'i-people', content: win_body_1 %}
+
+
+{% schema %}
+{
+  "name": "Buddy list",
+  "tag": "section",
+  "class": "section--side",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Window title", "default": "Buddy List" },
+    { "type": "text", "id": "heading", "label": "Header text", "default": "Chirpn3rd Buddies" },
+    { "type": "text", "id": "group_name", "label": "Group name", "default": "THE COOP" },
+    { "type": "text", "id": "keyword", "label": "Keyword line", "default": "THE COOP" }
+  ],
+  "blocks": [
+    {
+      "type": "buddy",
+      "name": "Buddy",
+      "settings": [
+        { "type": "text", "id": "screen_name", "label": "Screen name" },
+        { "type": "collection", "id": "collection", "label": "Links to collection" },
+        { "type": "url", "id": "url", "label": "Or a custom link" },
+        { "type": "checkbox", "id": "offline", "label": "Show as offline (coming soon)", "default": false }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Buddy list",
+      "blocks": [
+        { "type": "buddy", "settings": { "screen_name": "xX_FreshTees_Xx" } },
+        { "type": "buddy", "settings": { "screen_name": "HoodieHooligan" } },
+        { "type": "buddy", "settings": { "screen_name": "LidLord99" } },
+        { "type": "buddy", "settings": { "screen_name": "ShiftKnobKid" } },
+        { "type": "buddy", "settings": { "screen_name": "NewDropz2K26" } },
+        { "type": "buddy", "settings": { "screen_name": "StickerBomber", "offline": true } }
+      ]
+    }
+  ]
+}
+{% endschema %}

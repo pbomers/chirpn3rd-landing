@@ -1,0 +1,29 @@
+<div style="width:min(380px,100%);margin:0 auto">
+  {%- capture win_body_1 -%}
+
+    {%- form 'customer_login' -%}
+      {%- if form.errors -%}
+        <div class="errors">{{ form.errors | default_errors }}</div>
+      {%- endif -%}
+      <div class="field" style="margin-bottom:7px">
+        <label for="cl-email">Email</label>
+        <input id="cl-email" type="email" name="customer[email]" autocomplete="email" required>
+      </div>
+      <div class="field" style="margin-bottom:10px">
+        <label for="cl-pass">Password</label>
+        <input id="cl-pass" type="password" name="customer[password]" autocomplete="current-password">
+      </div>
+      <button class="btn btn--go btn--send btn--block" type="submit">Sign On</button>
+      <p style="margin-top:9px;text-align:center;font-size:10px">
+        <a href="{{ routes.account_register_url }}">Create an account</a> &middot;
+        <a href="{{ routes.account_recover_url }}">Forgot password</a>
+      </p>
+    {%- endform -%}
+{%- endcapture -%}
+{% render 'window', title: 'Sign On', icon: 'i-bird', content: win_body_1 %}
+
+</div>
+
+{% schema %}
+{ "name": "Login", "settings": [] }
+{% endschema %}

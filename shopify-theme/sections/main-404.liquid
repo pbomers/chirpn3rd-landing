@@ -1,0 +1,19 @@
+{%- capture win_body_1 -%}
+
+  <div class="center" style="padding:24px 14px;line-height:1.8">
+    <img src="{{ 'bird-white.png' | asset_url }}" alt="" aria-hidden="true" width="120" height="87"
+         style="margin:0 auto 12px;opacity:.55">
+    <p style="font-size:15px;font-weight:bold;color:#0d2a70">404: Page Not Found</p>
+    <p class="muted">The page you asked for missed the shift.</p>
+    <p style="margin-top:14px">
+      <a class="btn" href="{{ routes.root_url }}">Return To Welcome</a>
+      <a class="btn" href="{{ routes.all_products_collection_url }}">Merch Center</a>
+    </p>
+  </div>
+{%- endcapture -%}
+{% render 'window', title: 'Error', icon: 'i-info', content: win_body_1 %}
+
+
+{% schema %}
+{ "name": "404", "tag": "section", "settings": [] }
+{% endschema %}

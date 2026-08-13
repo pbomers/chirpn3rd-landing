@@ -1,0 +1,12 @@
+{%- capture win_body_1 -%}
+
+  <h1 style="font:italic bold 22px Georgia,serif;color:#0d2a70;margin-bottom:8px">{{ page.title }}</h1>
+  <div class="rule"></div>
+  <div class="prose">{{ page.content }}</div>
+{%- endcapture -%}
+{% render 'window', title: page.title, icon: 'i-files', paper: true, content: win_body_1 %}
+
+
+{% schema %}
+{ "name": "Page", "tag": "section", "settings": [] }
+{% endschema %}

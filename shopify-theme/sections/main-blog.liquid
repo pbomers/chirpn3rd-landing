@@ -1,0 +1,23 @@
+{%- paginate blog.articles by 10 -%}
+  {%- capture win_body_1 -%}
+
+    <h1 style="font:italic bold 22px Georgia,serif;color:#0d2a70">{{ blog.title }}</h1>
+    <div class="rule"></div>
+    {%- for article in blog.articles -%}
+      <article style="margin-bottom:16px">
+        <h2 style="font-size:14px"><a href="{{ article.url }}">{{ article.title }}</a></h2>
+        <p class="muted" style="font-size:10px">{{ article.published_at | date: '%B %d, %Y' }}</p>
+        <p style="line-height:1.6;margin-top:4px">{{ article.excerpt_or_content | strip_html | truncate: 240 }}</p>
+      </article>
+    {%- else -%}
+      <p class="muted">No posts yet.</p>
+    {%- endfor -%}
+    {% render 'pagination', paginate: paginate %}
+{%- endcapture -%}
+{% render 'window', title: blog.title, icon: 'i-files', paper: true, content: win_body_1 %}
+
+{%- endpaginate -%}
+
+{% schema %}
+{ "name": "Blog", "tag": "section", "settings": [] }
+{% endschema %}

@@ -1,0 +1,40 @@
+{
+  "general": {
+    "meta": {
+      "tags": "Tagged \"{{ tags }}\"",
+      "page": "Page {{ page }}"
+    },
+    "search": {
+      "title": "Find",
+      "placeholder": "What are you looking for?",
+      "submit": "Go"
+    },
+    "404": {
+      "title": "404: Page Not Found",
+      "subtext": "The page you asked for missed the shift."
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Send It",
+      "sold_out": "Sold Out",
+      "unavailable": "Unavailable",
+      "quantity": "Qty"
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Shopping Cart",
+      "empty": "Your cart is empty.",
+      "subtotal": "Subtotal",
+      "update": "Update Cart",
+      "checkout": "Check Out",
+      "remove": "Remove"
+    }
+  },
+  "customer": {
+    "login": { "title": "Sign On", "email": "Email", "password": "Password", "submit": "Sign On" },
+    "register": { "title": "New Screen Name", "submit": "Create Account" },
+    "account": { "title": "My Account", "logout": "Sign Off", "orders": "Orders" }
+  }
+}

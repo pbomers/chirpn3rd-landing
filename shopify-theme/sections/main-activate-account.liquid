@@ -1,0 +1,28 @@
+<div style="width:min(380px,100%);margin:0 auto">
+  {%- capture win_body_1 -%}
+
+    {%- form 'activate_customer_password' -%}
+      {%- if form.errors -%}
+        <div class="errors">{{ form.errors | default_errors }}</div>
+      {%- endif -%}
+      <div class="field" style="margin-bottom:7px">
+        <label for="ac-pass">Password</label>
+        <input id="ac-pass" type="password" name="customer[password]" autocomplete="new-password">
+      </div>
+      <div class="field" style="margin-bottom:10px">
+        <label for="ac-conf">Confirm</label>
+        <input id="ac-conf" type="password" name="customer[password_confirmation]" autocomplete="new-password">
+      </div>
+      <button class="btn btn--go btn--send btn--block" type="submit">Activate</button>
+      <p style="margin-top:8px;text-align:center">
+        <button class="btn" type="submit" name="decline">No Thanks</button>
+      </p>
+    {%- endform -%}
+{%- endcapture -%}
+{% render 'window', title: 'Activate Account', icon: 'i-people', content: win_body_1 %}
+
+</div>
+
+{% schema %}
+{ "name": "Activate account", "settings": [] }
+{% endschema %}

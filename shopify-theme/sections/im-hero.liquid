@@ -1,0 +1,76 @@
+{%- assign sn = section.settings.screen_name | default: 'Chirpn3rd' -%}
+{%- assign win_title = 'Instant Message From: ' | append: sn -%}
+{%- capture win_body_1 -%}
+
+  <div class="convo" style="min-height:120px">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'line' -%}
+        <p {{ block.shopify_attributes }}>
+          <b class="convo__sn">{{ sn }}:</b>
+          <span class="convo__msg">{{ block.settings.text }}</span>
+        </p>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+
+  <div class="imtools" aria-hidden="true">
+    <span class="fmt b-out"><b>A</b></span>
+    <span class="fmt b-out" style="font-size:8px"><b>A</b></span>
+    <span class="fmt b-out"><b>B</b></span>
+    <span class="fmt b-out"><i>I</i></span>
+    <span class="fmt b-out" style="text-decoration:underline">U</span>
+  </div>
+
+  <form class="convo" style="margin-top:2px;padding:0" action="{{ section.settings.button_url | default: routes.all_products_collection_url }}" method="get">
+    <label class="visually-hidden" for="im-reply">Your reply</label>
+    <input id="im-reply" style="width:100%;border:0;padding:8px;font:11px Verdana,sans-serif" readonly
+           value="{{ section.settings.reply_text }}">
+  </form>
+
+  <div style="display:flex;gap:6px;justify-content:flex-end;margin-top:7px">
+    <a class="btn btn--send" href="{{ section.settings.button_url | default: routes.all_products_collection_url }}">
+      {{ section.settings.button_label }}
+    </a>
+    <a class="btn" href="{{ routes.collections_url }}">Browse Channels</a>
+  </div>
+
+  {%- if section.settings.disclaimer != blank -%}
+    <p class="imnote">{{ section.settings.disclaimer }}</p>
+  {%- endif -%}
+{%- endcapture -%}
+{% render 'window', title: win_title, icon: 'i-bird', content: win_body_1 %}
+
+
+{% schema %}
+{
+  "name": "IM hero",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "screen_name", "label": "Screen name", "default": "Chirpn3rd" },
+    { "type": "text", "id": "reply_text", "label": "Prefilled reply", "default": "nothin. show me the merch" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Send It" },
+    { "type": "url", "id": "button_url", "label": "Button link" },
+    { "type": "text", "id": "disclaimer", "label": "Small print",
+      "default": "Reminder: Chirpn3rd will never ask for your password, only your compression numbers." }
+  ],
+  "blocks": [
+    {
+      "type": "line",
+      "name": "Message line",
+      "settings": [ { "type": "text", "id": "text", "label": "Message", "default": "yo" } ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "IM hero",
+      "blocks": [
+        { "type": "line", "settings": { "text": "yo" } },
+        { "type": "line", "settings": { "text": "u up?" } },
+        { "type": "line", "settings": { "text": "new drop just hit the coop" } },
+        { "type": "line", "settings": { "text": "tees, hoods, knobs, lids. the works" } },
+        { "type": "line", "settings": { "text": "so what you doing today" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

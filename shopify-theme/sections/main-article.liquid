@@ -1,0 +1,19 @@
+{%- capture win_body_1 -%}
+
+  <h1 style="font:italic bold 22px Georgia,serif;color:#0d2a70">{{ article.title }}</h1>
+  <p class="muted" style="font-size:10px">{{ article.published_at | date: '%B %d, %Y' }}{% if article.author != blank %} &middot; {{ article.author }}{% endif %}</p>
+  <div class="rule"></div>
+  {%- if article.image -%}
+    <div style="margin-bottom:10px">
+      {{ article.image | image_url: width: 1200 | image_tag: loading: 'eager', alt: article.title | escape }}
+    </div>
+  {%- endif -%}
+  <div class="prose">{{ article.content }}</div>
+  <p style="margin-top:14px"><a class="btn" href="{{ blog.url }}">Back To {{ blog.title }}</a></p>
+{%- endcapture -%}
+{% render 'window', title: article.title, icon: 'i-files', paper: true, content: win_body_1 %}
+
+
+{% schema %}
+{ "name": "Article", "tag": "section", "settings": [] }
+{% endschema %}

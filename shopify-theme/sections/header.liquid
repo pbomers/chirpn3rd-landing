@@ -1,0 +1,91 @@
+<header>
+  <nav class="menubar" aria-label="Main">
+    <button class="menubar__item" type="button" data-menu="menu-file" aria-expanded="false" aria-haspopup="true">File</button>
+    <button class="menubar__item" type="button" data-menu="menu-shop" aria-expanded="false" aria-haspopup="true">Shop</button>
+    <a class="menubar__item" href="{{ routes.cart_url }}">Cart</a>
+    <a class="menubar__item" href="{{ routes.account_url }}">{% if customer %}Account{% else %}Sign On{% endif %}</a>
+    <button class="menubar__item" type="button" data-menu="menu-help" aria-expanded="false" aria-haspopup="true">Help</button>
+
+    <div class="menubar__drop" id="menu-file" style="left:4px">
+      <a href="{{ routes.root_url }}">Home</a>
+      <a href="{{ routes.all_products_collection_url }}">All Merch</a>
+      <a href="{{ routes.cart_url }}">View Cart</a>
+      <a href="{{ routes.search_url }}">Find...</a>
+    </div>
+    <div class="menubar__drop" id="menu-shop" style="left:48px">
+      {%- for link in linklists[section.settings.menu].links -%}
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      {%- endfor -%}
+    </div>
+    <div class="menubar__drop" id="menu-help" style="right:8px">
+      {%- for link in linklists[section.settings.help_menu].links -%}
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      {%- else -%}
+        <a href="{{ routes.search_url }}">Search The Coop</a>
+      {%- endfor -%}
+    </div>
+  </nav>
+
+  <div class="toolbar">
+    <a class="tbtn" href="{{ routes.root_url }}">
+      <svg aria-hidden="true"><use href="#i-home"/></svg>Welcome
+    </a>
+    <a class="tbtn" href="{{ routes.all_products_collection_url }}">
+      <svg aria-hidden="true"><use href="#i-merch"/></svg>Merch Center
+    </a>
+    <a class="tbtn" href="{{ routes.collections_url }}">
+      <svg aria-hidden="true"><use href="#i-chan"/></svg>Channels
+    </a>
+    <div class="tsep" aria-hidden="true"></div>
+    {%- for link in linklists[section.settings.menu].links limit: 4 -%}
+      <a class="tbtn" href="{{ link.url }}">
+        <svg aria-hidden="true"><use href="#i-files"/></svg>{{ link.title | truncate: 12 }}
+      </a>
+    {%- endfor -%}
+    <div class="tsep" aria-hidden="true"></div>
+    <a class="tbtn" href="{{ routes.search_url }}">
+      <svg aria-hidden="true"><use href="#i-search"/></svg>Find
+    </a>
+    <a class="tbtn" href="{{ routes.cart_url }}">
+      <svg aria-hidden="true"><use href="#i-cart"/></svg>Cart
+      <span class="tbtn__badge" data-cart-count {% if cart.item_count == 0 %}style="display:none"{% endif %}>{{ cart.item_count }}</span>
+    </a>
+    {%- if settings.logo != blank -%}
+      <div class="toolbar__logo">
+        <a href="{{ routes.root_url }}">
+          {{ settings.logo | image_url: width: 200 | image_tag: alt: shop.name, loading: 'eager' }}
+        </a>
+      </div>
+    {%- else -%}
+      <div class="toolbar__logo">
+        <a href="{{ routes.root_url }}">
+          <img src="{{ 'helmet.jpg' | asset_url }}" alt="{{ shop.name }}" width="43" height="34">
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+
+  <form class="kwbar" action="{{ routes.search_url }}" method="get" role="search" data-keyword-form>
+    <a class="navbtn" href="javascript:history.back()" aria-label="Back"><svg aria-hidden="true"><use href="#i-back"/></svg></a>
+    <a class="navbtn" href="javascript:history.forward()" aria-label="Forward"><svg aria-hidden="true"><use href="#i-fwd"/></svg></a>
+    <a class="navbtn" href="{{ request.path }}" aria-label="Reload"><svg aria-hidden="true"><use href="#i-reload"/></svg></a>
+    <a class="navbtn" href="{{ routes.root_url }}" aria-label="Home"><svg aria-hidden="true"><use href="#i-home"/></svg></a>
+    <label class="visually-hidden" for="kw">Search</label>
+    <input class="kwbar__input" id="kw" type="search" name="q" value="{{ search.terms | escape }}"
+           placeholder="{{ section.settings.keyword_placeholder }}">
+    <button class="btn btn--go kwbar__go" type="submit">Go</button>
+  </form>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Shop menu", "default": "main-menu" },
+    { "type": "link_list", "id": "help_menu", "label": "Help menu" },
+    { "type": "text", "id": "keyword_placeholder", "label": "Keyword bar placeholder",
+      "default": "Type Keyword or Web Address here and click Go" }
+  ],
+  "enabled_on": { "groups": ["header"] }
+}
+{% endschema %}

@@ -1,6 +1,6 @@
 {%- liquid
   assign current = product.selected_or_first_available_variant
-  assign sn = section.settings.screen_name | default: 'TheCoop'
+  assign sn = section.settings.screen_name | default: 'TheGarage'
 -%}
 
 <div data-product-root>
@@ -53,7 +53,7 @@
 
         <p class="stock" data-stock>
           {%- if current.available -%}
-            <span class="stock__dot"></span> In the coop, ships in 2-5 days
+            <span class="stock__dot"></span> On the shelf, ships in 2-5 days
           {%- else -%}
             <span class="stock__dot stock__dot--out"></span> Sold out. Sorry bud.
           {%- endif -%}
@@ -141,7 +141,7 @@
   "name": "Product",
   "tag": "section",
   "settings": [
-    { "type": "text", "id": "screen_name", "label": "Screen name in title bar", "default": "TheCoop" },
+    { "type": "text", "id": "screen_name", "label": "Screen name in title bar", "default": "TheGarage" },
     { "type": "textarea", "id": "pitch", "label": "IM pitch line",
       "default": "heavyweight blank, print goes hard. free sticker in the bag." },
     { "type": "text", "id": "disclaimer", "label": "Small print",

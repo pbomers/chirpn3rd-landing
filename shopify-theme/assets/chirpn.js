@@ -128,7 +128,7 @@
       }
       if (stockEl) {
         stockEl.innerHTML = v.available
-          ? '<span class="stock__dot"></span> In the coop, ships in 2-5 days'
+          ? '<span class="stock__dot"></span> On the shelf, ships in 2-5 days'
           : '<span class="stock__dot stock__dot--out"></span> Sold out. Sorry bud.';
       }
       if (submitBtn) {

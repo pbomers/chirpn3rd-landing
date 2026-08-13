@@ -5,7 +5,7 @@
       "blocks": {
         "l1": { "type": "line", "settings": { "text": "yo" } },
         "l2": { "type": "line", "settings": { "text": "u up?" } },
-        "l3": { "type": "line", "settings": { "text": "new drop just hit the coop" } },
+        "l3": { "type": "line", "settings": { "text": "new drop just hit the garage" } },
         "l4": { "type": "line", "settings": { "text": "tees, hoods, knobs, lids. the works" } },
         "l5": { "type": "line", "settings": { "text": "so what you doing today" } }
       },
@@ -40,7 +40,7 @@
         "s3": {
           "type": "story",
           "settings": {
-            "headline": "Coop's Best Deal:",
+            "headline": "Garage Deal:",
             "body": "Free sticker in every bag. Every time. No exceptions."
           }
         }
@@ -65,7 +65,7 @@
     },
     "featured": {
       "type": "featured-merch",
-      "settings": { "title": "New Drops", "count": 8, "stripe_text": "FRESH OUT THE COOP" }
+      "settings": { "title": "New Drops", "count": 8, "stripe_text": "STRAIGHT OFF THE LIFT" }
     },
     "buddies": {
       "type": "buddy-list",
@@ -81,8 +81,8 @@
       "settings": {
         "title": "Buddy List",
         "heading": "Chirpn3rd Buddies",
-        "group_name": "THE COOP",
-        "keyword": "THE COOP"
+        "group_name": "THE GARAGE",
+        "keyword": "THE GARAGE"
       }
     }
   },

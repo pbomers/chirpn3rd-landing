@@ -20,3 +20,5 @@ node_modules/
 # Local scratch
 /.claude/
 web/scripts/
+.vercel
+.env*

@@ -5,8 +5,9 @@
     {
       "source": "/",
       "has": [{ "type": "host", "value": "new.chirpn3rd.com" }],
-      "destination": "/mockups/chirpn-online"
+      "destination": "/mockups/chirpn-online.html"
     },
+    { "source": "/mockups/chirpn-online", "destination": "/mockups/chirpn-online.html" },
     { "source": "/(.*)", "destination": "/web/$1" }
   ],
   "headers": [

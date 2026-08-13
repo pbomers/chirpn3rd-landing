@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-chirp="/assets/chirp.wav">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Theme CSS harness</title>
 <link rel="stylesheet" href="/assets/chirpn.css">
 </head>
-<body>
+<body class="template-index">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
   <symbol id="i-bird" viewBox="0 0 22 22"><ellipse cx="10.5" cy="13" rx="6.5" ry="7" fill="#fff" stroke="#111" stroke-width="1.4"/><path d="M5 6.5c0-3 3-4.5 5.5-4.5 2 0 4.5 1 5 3.5l-1.2 2.2H6z" fill="#fff" stroke="#111" stroke-width="1.4"/><circle cx="13" cy="8.6" r="1" fill="#111"/><path d="M15 10l4 1.6-4 1.4z" fill="#f26a1b" stroke="#111" stroke-width=".7"/><path d="M8 12l2 5 2-5" fill="none" stroke="#111" stroke-width="1.2"/></symbol>
   <symbol id="i-merch" viewBox="0 0 22 22"><path d="M3 9a4 4 0 014-4h8a4 4 0 014 4v7H3z" fill="#1d8f8f" stroke="#0d5a58"/><rect x="3" y="16" width="16" height="2" fill="#848484"/><rect x="9" y="2" width="2" height="6" fill="#7a3000"/><path d="M11 2h5l-2 2 2 2h-5z" fill="#f26a1b" stroke="#7a3000" stroke-width=".6"/><rect x="6" y="9" width="6" height="4" fill="#fff" stroke="#0d5a58" stroke-width=".7"/></symbol>
@@ -26,7 +26,7 @@
 </defs></svg>
 
 <header>
-  <nav class="menubar"><button class="menubar__item">File</button><button class="menubar__item">Shop</button><a class="menubar__item" href="#">Cart</a><a class="menubar__item" href="#">Sign On</a><button class="menubar__item">Help</button></nav>
+  <nav class="menubar"><button class="menubar__item">File</button><button class="menubar__item">Shop</button><a class="menubar__item" href="#">Cart</a><a class="menubar__item" href="#">Sign On</a><button class="menubar__item" type="button" data-restore-all>Restore All</button><button class="menubar__item" type="button" data-arrange>Arrange</button></nav>
   <div class="toolbar">
     <a class="tbtn" href="#"><svg><use href="#i-home"/></svg>Welcome</a>
     <a class="tbtn" href="#"><svg><use href="#i-merch"/></svg>Merch Center</a>
@@ -53,10 +53,10 @@
   <img class="desktop__mark" src="/assets/bird-white.png" alt="" width="420" height="305">
 
   <!-- PRODUCT PAGE -->
-  <section>
-  <div class="win">
-    <div class="win__bar"><svg class="win__icon"><use href="#i-bird"/></svg><span class="win__title">Instant Message From: TheCoop</span><span class="win__btns"><span class="win__btn"><svg><use href="#i-min"/></svg></span><span class="win__btn"><svg><use href="#i-max"/></svg></span><span class="win__btn"><svg><use href="#i-x"/></svg></span></span></div>
-    <div class="win__body">
+  <section class="section--im">
+  <div class="win" data-win>
+    <div class="win__bar" data-win-bar><svg class="win__icon"><use href="#i-bird"/></svg><span class="win__title">Instant Message From: TheCoop</span><span class="win__btns"><button class="win__btn" type="button" data-win-min aria-label="Minimize"><svg aria-hidden="true"><use href="#i-min"/></svg></button><button class="win__btn" type="button" data-win-max aria-label="Maximize"><svg aria-hidden="true"><use href="#i-max"/></svg></button><button class="win__btn" type="button" data-win-close aria-label="Close"><svg aria-hidden="true"><use href="#i-x"/></svg></button></span></div>
+    <div class="win__body" data-win-body>
       <div class="product">
         <div class="product__media">
           <div class="product__stage"><img src="/assets/wings.jpg" alt="" width="520" height="376"></div>
@@ -83,10 +83,10 @@
   </section>
 
   <!-- COLLECTION GRID -->
-  <section>
-  <div class="win">
-    <div class="win__bar"><svg class="win__icon"><use href="#i-merch"/></svg><span class="win__title">New Drops</span><span class="win__btns"><span class="win__btn"><svg><use href="#i-min"/></svg></span><span class="win__btn"><svg><use href="#i-max"/></svg></span><span class="win__btn"><svg><use href="#i-x"/></svg></span></span></div>
-    <div class="win__body">
+  <section class="section--featured">
+  <div class="win" data-win>
+    <div class="win__bar" data-win-bar><svg class="win__icon"><use href="#i-merch"/></svg><span class="win__title">New Drops</span><span class="win__btns"><button class="win__btn" type="button" data-win-min aria-label="Minimize"><svg aria-hidden="true"><use href="#i-min"/></svg></button><button class="win__btn" type="button" data-win-max aria-label="Maximize"><svg aria-hidden="true"><use href="#i-max"/></svg></button><button class="win__btn" type="button" data-win-close aria-label="Close"><svg aria-hidden="true"><use href="#i-x"/></svg></button></span></div>
+    <div class="win__body" data-win-body>
       <div class="stripe" style="margin-bottom:8px"><span>FRESH OUT THE COOP</span></div>
       <div class="grid">
         <a class="card" href="#"><span class="card__bar"><svg><use href="#i-bird"/></svg><span>Classic Bird Tee</span></span><span class="card__shot"><img src="/assets/wings.jpg" alt=""></span><span class="card__meta"><span class="card__name">Classic Bird Tee</span><span class="card__price">$28.00</span></span></a>
@@ -99,10 +99,10 @@
   </section>
 
   <!-- CHANNELS -->
-  <section>
-  <div class="win">
-    <div class="win__bar win__bar--idle"><svg class="win__icon"><use href="#i-chan"/></svg><span class="win__title">Channels</span><span class="win__btns"><span class="win__btn"><svg><use href="#i-min"/></svg></span><span class="win__btn"><svg><use href="#i-max"/></svg></span><span class="win__btn"><svg><use href="#i-x"/></svg></span></span></div>
-    <div class="win__body">
+  <section class="section--channels">
+  <div class="win" data-win>
+    <div class="win__bar win__bar--idle" data-win-bar><svg class="win__icon"><use href="#i-chan"/></svg><span class="win__title">Channels</span><span class="win__btns"><button class="win__btn" type="button" data-win-min aria-label="Minimize"><svg aria-hidden="true"><use href="#i-min"/></svg></button><button class="win__btn" type="button" data-win-max aria-label="Maximize"><svg aria-hidden="true"><use href="#i-max"/></svg></button><button class="win__btn" type="button" data-win-close aria-label="Close"><svg aria-hidden="true"><use href="#i-x"/></svg></button></span></div>
+    <div class="win__body" data-win-body>
       <div class="channels">
         <div class="channels__side">
           <img src="/assets/bird-white.png" alt="" width="88" height="64">
@@ -125,10 +125,10 @@
   </section>
 
   <!-- CART -->
-  <section>
-  <div class="win">
-    <div class="win__bar"><svg class="win__icon"><use href="#i-cart"/></svg><span class="win__title">Shopping Cart</span><span class="win__btns"><span class="win__btn"><svg><use href="#i-x"/></svg></span></span></div>
-    <div class="win__body">
+  <section class="section--welcome">
+  <div class="win" data-win>
+    <div class="win__bar" data-win-bar><svg class="win__icon"><use href="#i-cart"/></svg><span class="win__title">Shopping Cart</span><span class="win__btns"><button class="win__btn" type="button" data-win-close aria-label="Close"><svg aria-hidden="true"><use href="#i-x"/></svg></button></span></div>
+    <div class="win__body" data-win-body>
       <table class="cart__table">
         <thead><tr><th>Item</th><th>Qty</th><th>Total</th></tr></thead>
         <tbody>
@@ -146,9 +146,9 @@
 
   <!-- BUDDY LIST docked -->
   <section class="section--side">
-  <div class="win">
-    <div class="win__bar"><svg class="win__icon"><use href="#i-people"/></svg><span class="win__title">Buddy List</span><span class="win__btns"><span class="win__btn"><svg><use href="#i-x"/></svg></span></span></div>
-    <div class="win__body">
+  <div class="win" data-win>
+    <div class="win__bar" data-win-bar><svg class="win__icon"><use href="#i-people"/></svg><span class="win__title">Buddy List</span><span class="win__btns"><button class="win__btn" type="button" data-win-close aria-label="Close"><svg aria-hidden="true"><use href="#i-x"/></svg></button></span></div>
+    <div class="win__body" data-win-body>
       <div class="buddies__head"><img src="/assets/bird-white.png" alt="" width="26" height="19"><span>Chirpn3rd Buddies</span></div>
       <div class="buddies__tabs"><span class="buddies__tab on">Online</span><span class="buddies__tab">Setup</span></div>
       <div class="buddies__list">
@@ -184,9 +184,41 @@
     <div class="statusbar__cell">9:45 PM</div>
   </div>
 </footer>
+<div class="tray" data-tray aria-label="Minimized windows"></div>
+
+<div class="signon" data-signon role="dialog" aria-modal="true" aria-label="Sign on">
+  <div class="win signon__dialog">
+    <div class="win__bar">
+      <svg class="win__icon" aria-hidden="true"><use href="#i-bird"/></svg>
+      <span class="win__title">Sign On</span>
+      <span class="win__btns">
+        <button class="win__btn" type="button" data-signon-skip aria-label="Skip"><svg aria-hidden="true"><use href="#i-x"/></svg></button>
+      </span>
+    </div>
+    <div class="win__body">
+      <div class="signon__body">
+        <img src="/assets/wings.jpg" alt="Chirpn3rd" width="190" height="137">
+        <p class="signon__brand">Chirpn3rd Online</p>
+        <p class="signon__ver">version 3.0 &middot; Have Fun Shift Hard</p>
+        <div class="signon__field">
+          <label for="signon-name">Screen Name:</label>
+          <select id="signon-name"><option>ChirpFan2K3</option><option>Guest</option></select>
+        </div>
+        <div class="signon__steps" data-signon-steps>
+          <div class="signon__step" data-signon-step>Clutch In</div>
+          <div class="signon__step" data-signon-step>Grabbing 3rd</div>
+          <div class="signon__step" data-signon-step>CHIRP</div>
+        </div>
+        <button class="btn btn--send" type="button" data-signon-go>Sign On</button>
+        <button class="signon__skip" type="button" data-signon-skip>Skip, just show me the merch</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="/assets/chirpn-windows.js"></script>
 
 <div class="win toast show" style="position:static;width:250px;margin:12px">
-  <div class="win__bar"><svg class="win__icon"><use href="#i-bird"/></svg><span class="win__title">Chirpn3rd Online</span><span class="win__btns"><span class="win__btn"><svg><use href="#i-x"/></svg></span></span></div>
+  <div class="win__bar" data-win-bar><svg class="win__icon"><use href="#i-bird"/></svg><span class="win__title">Chirpn3rd Online</span><span class="win__btns"><button class="win__btn" type="button" data-win-close aria-label="Close"><svg aria-hidden="true"><use href="#i-x"/></svg></button></span></div>
   <div class="toast__body"><img src="/assets/bird-white.png" alt="" width="38" height="28"><p class="toast__msg"><b>You've Got Merch.</b><br>Classic Bird Tee is in your cart. <a href="#">View Cart</a></p></div>
 </div>
 </body>

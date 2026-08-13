@@ -3,16 +3,25 @@
     {%- capture win_body -%} ... {%- endcapture -%}
     {% render 'window', title: 'Buddy List', icon: 'i-people', content: win_body %}
   Params: title, content, icon (symbol id), idle (gray inactive titlebar), paper (white sunken sheet), class
+
+  The titlebar controls are real buttons. With JS off they simply do nothing visible,
+  which is why every window renders fully open by default.
 {% endcomment %}
-<div class="win {{ class }}">
-  <div class="win__bar{% if idle %} win__bar--idle{% endif %}">
+<div class="win {{ class }}" data-win>
+  <div class="win__bar{% if idle %} win__bar--idle{% endif %}" data-win-bar>
     <svg class="win__icon" aria-hidden="true"><use href="#{{ icon | default: 'i-bird' }}"/></svg>
     <span class="win__title">{{ title }}</span>
-    <span class="win__btns" aria-hidden="true">
-      <span class="win__btn"><svg><use href="#i-min"/></svg></span>
-      <span class="win__btn"><svg><use href="#i-max"/></svg></span>
-      <span class="win__btn"><svg><use href="#i-x"/></svg></span>
+    <span class="win__btns">
+      <button class="win__btn" type="button" data-win-min aria-label="Minimize {{ title | escape }}">
+        <svg aria-hidden="true"><use href="#i-min"/></svg>
+      </button>
+      <button class="win__btn" type="button" data-win-max aria-label="Maximize {{ title | escape }}">
+        <svg aria-hidden="true"><use href="#i-max"/></svg>
+      </button>
+      <button class="win__btn" type="button" data-win-close aria-label="Close {{ title | escape }}">
+        <svg aria-hidden="true"><use href="#i-x"/></svg>
+      </button>
     </span>
   </div>
-  <div class="win__body{% if paper %} win__body--paper{% endif %}">{{ content }}</div>
+  <div class="win__body{% if paper %} win__body--paper{% endif %}" data-win-body>{{ content }}</div>
 </div>

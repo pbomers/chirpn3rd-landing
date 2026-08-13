@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="{{ 'chirpn.css' | asset_url }}">
   <script>window.Chirpn3rd = { moneyFormat: {{ shop.money_format | json }} };</script>
   <script src="{{ 'chirpn.js' | asset_url }}" defer></script>
+  <script src="{{ 'chirpn-windows.js' | asset_url }}" defer></script>
 </head>
 <body class="template-{{ template.name }}">
   <a class="skip visually-hidden" href="#main">Skip to content</a>
@@ -29,7 +30,51 @@
     {{ content_for_layout }}
   </main>
 
+  <div class="tray" data-tray aria-label="Minimized windows"></div>
+
   {% sections 'footer-group' %}
+
+  {%- if template.name == 'index' -%}
+    <div class="signon" data-signon role="dialog" aria-modal="true" aria-label="Sign on to {{ shop.name }}">
+      <div class="win signon__dialog">
+        <div class="win__bar">
+          <svg class="win__icon" aria-hidden="true"><use href="#i-bird"/></svg>
+          <span class="win__title">Sign On</span>
+          <span class="win__btns">
+            <button class="win__btn" type="button" data-signon-skip aria-label="Skip sign on">
+              <svg aria-hidden="true"><use href="#i-x"/></svg>
+            </button>
+          </span>
+        </div>
+        <div class="win__body">
+          <div class="signon__body">
+            <img src="{{ 'wings.jpg' | asset_url }}" alt="{{ shop.name }}" width="190" height="137">
+            <p class="signon__brand">{{ shop.name }} Online</p>
+            <p class="signon__ver">version 3.0 &middot; Have Fun Shift Hard</p>
+
+            <div class="signon__field">
+              <label for="signon-name">Screen Name:</label>
+              <select id="signon-name">
+                <option>ChirpFan2K3</option>
+                <option>SlammedCivicGuy</option>
+                <option>Guest</option>
+              </select>
+            </div>
+
+            <div class="signon__steps" data-signon-steps>
+              <div class="signon__step" data-signon-step>Clutch In</div>
+              <div class="signon__step" data-signon-step>Grabbing 3rd</div>
+              <div class="signon__step" data-signon-step>CHIRP</div>
+            </div>
+
+            <button class="btn btn--send" type="button" data-signon-go>Sign On</button>
+            <button class="signon__skip" type="button" data-signon-skip>Skip, just show me the merch</button>
+            <p class="signon__fine">1,000 Free Hours Of {{ shop.name }}. No CD Required.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
 
   <div class="win toast" data-toast role="status" aria-live="polite">
     <div class="win__bar">

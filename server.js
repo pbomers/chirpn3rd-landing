@@ -28,7 +28,11 @@ const TYPES = {
 http
   .createServer((req, res) => {
     let urlPath = decodeURIComponent(req.url.split("?")[0]);
+    const host = (req.headers.host || "").toLowerCase();
+    // new.chirpn3rd.com fronts the Chirpn3rd Online rebrand mockup
+    if (urlPath === "/" && host.startsWith("new.")) urlPath = "/mockups/chirpn-online.html";
     if (urlPath === "/") urlPath = "/index.html";
+    if (urlPath === "/mockups/chirpn-online") urlPath = "/mockups/chirpn-online.html";
     const filePath = path.join(ROOT, path.normalize(urlPath));
     if (!filePath.startsWith(ROOT)) {
       res.writeHead(403);

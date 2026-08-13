@@ -2,11 +2,6 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "rewrites": [
-    {
-      "source": "/",
-      "has": [{ "type": "host", "value": "new.chirpn3rd.com" }],
-      "destination": "/mockups/chirpn-online"
-    },
     { "source": "/(.*)", "destination": "/web/$1" }
   ],
   "headers": [

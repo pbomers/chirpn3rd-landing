@@ -10,7 +10,7 @@
       </div>
       {%- for block in section.blocks -%}
         {%- if block.type == 'rail_link' -%}
-          <a class="railbtn" href="{{ block.settings.url | default: '#' }}" {{ block.shopify_attributes }}>
+          <a class="railbtn" href="{{ block.settings.url | default: routes.all_products_collection_url }}" {{ block.shopify_attributes }}>
             <svg aria-hidden="true"><use href="#{{ block.settings.icon }}"/></svg>{{ block.settings.label }}
           </a>
         {%- endif -%}

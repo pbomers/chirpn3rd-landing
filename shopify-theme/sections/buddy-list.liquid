@@ -27,7 +27,7 @@
     {%- for block in section.blocks -%}
       {%- if block.type == 'buddy' and block.settings.offline != true -%}
         {%- assign col = collections[block.settings.collection] -%}
-        <a class="buddy" href="{{ col.url | default: block.settings.url | default: '#' }}" {{ block.shopify_attributes }}>
+        <a class="buddy" href="{{ col.url | default: block.settings.url | default: routes.all_products_collection_url }}" {{ block.shopify_attributes }}>
           {{ block.settings.screen_name | default: col.title }}
         </a>
       {%- endif -%}
@@ -43,7 +43,7 @@
       {%- for block in section.blocks -%}
         {%- if block.type == 'buddy' and block.settings.offline -%}
           {%- assign col = collections[block.settings.collection] -%}
-          <a class="buddy buddy--off" href="{{ col.url | default: block.settings.url | default: '#' }}" {{ block.shopify_attributes }}>
+          <a class="buddy buddy--off" href="{{ col.url | default: block.settings.url | default: routes.all_products_collection_url }}" {{ block.shopify_attributes }}>
             {{ block.settings.screen_name | default: col.title }}
           </a>
         {%- endif -%}

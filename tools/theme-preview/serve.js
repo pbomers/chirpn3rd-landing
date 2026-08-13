@@ -19,20 +19,25 @@ const TYPES = {
 http
   .createServer((req, res) => {
     let urlPath = decodeURIComponent(req.url.split("?")[0]);
-    const base = urlPath === "/" ? HARNESS : ROOT;
     if (urlPath === "/") urlPath = "/index.html";
-    const filePath = path.join(base, path.normalize(urlPath));
-    if (!filePath.startsWith(ROOT) && !filePath.startsWith(HARNESS)) {
-      res.writeHead(403);
-      return res.end("Forbidden");
-    }
-    fs.readFile(filePath, (err, data) => {
-      if (err) {
+    const rel = path.normalize(urlPath);
+    // harness pages win; anything else (assets/*) comes from the real theme
+    const candidates = [path.join(HARNESS, rel), path.join(ROOT, rel)].filter(
+      (p) => p.startsWith(HARNESS) || p.startsWith(ROOT)
+    );
+    const send = (i) => {
+      if (i >= candidates.length) {
         res.writeHead(404);
         return res.end("Not found");
       }
-      res.writeHead(200, { "Content-Type": TYPES[path.extname(filePath)] || "application/octet-stream" });
-      res.end(data);
-    });
+      fs.readFile(candidates[i], (err, data) => {
+        if (err) return send(i + 1);
+        res.writeHead(200, {
+          "Content-Type": TYPES[path.extname(candidates[i])] || "application/octet-stream",
+        });
+        res.end(data);
+      });
+    };
+    send(0);
   })
   .listen(PORT, () => console.log("theme preview on http://localhost:" + PORT));

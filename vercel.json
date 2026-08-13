@@ -2,6 +2,22 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "rewrites": [
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "new.chirpn3rd.com" }],
+      "destination": "/mockups/chirpn-online.html"
+    },
     { "source": "/(.*)", "destination": "/web/$1" }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "new.chirpn3rd.com" }],
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
+    },
+    {
+      "source": "/mockups/(.*)",
+      "headers": [{ "key": "X-Robots-Tag", "value": "noindex, nofollow" }]
+    }
   ]
 }

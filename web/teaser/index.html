@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chirp'n3rd Online — You've Got Merch.</title>
+<meta name="description" content="Chirp'n3rd Online is warming up. The Garage opens soon. Have Fun. Shift Hard.">
+<meta property="og:title" content="Chirp'n3rd Online — You've Got Merch.">
+<meta property="og:description" content="Dial in. The Garage opens soon. Have Fun. Shift Hard.">
+<meta property="og:image" content="https://chirpn3rd.com/assets/stickers/CHRP3MOTORSPORTS.png">
+<meta property="og:url" content="https://chirpn3rd.com/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/bird-white.png">
+<style>
+  :root{
+    --blue:#003a9e; --blue-dk:#002a75;
+    --chrome:#c0c0c0; --chrome-hi:#ffffff; --chrome-lo:#6d6d6d; --chrome-dkr:#3a3a3a;
+    --title1:#000080; --title2:#1084d0;
+    --yell:#ffcc00; --ink:#111;
+  }
+  *{box-sizing:border-box; margin:0; padding:0}
+  html,body{height:100%}
+  body{
+    font-family:Tahoma,"MS Sans Serif",Geneva,Verdana,sans-serif;
+    background:
+      repeating-linear-gradient(45deg, transparent 0 34px, rgba(255,255,255,.025) 34px 36px),
+      radial-gradient(120% 90% at 50% 8%, #0b57d0 0%, var(--blue) 45%, var(--blue-dk) 100%);
+    color:var(--ink);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    min-height:100%; padding:18px 12px 64px;
+    cursor:default; overflow-x:hidden;
+  }
+  /* CRT scanlines + vignette */
+  body::after{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:60;
+    background:
+      repeating-linear-gradient(0deg, rgba(0,0,0,.10) 0 1px, transparent 1px 3px),
+      radial-gradient(130% 130% at 50% 50%, transparent 62%, rgba(0,0,10,.38) 100%);
+  }
+
+  .bev{border:2px solid; border-color:var(--chrome-hi) var(--chrome-lo) var(--chrome-lo) var(--chrome-hi); background:var(--chrome)}
+  .bev-in{border:2px solid; border-color:var(--chrome-lo) var(--chrome-hi) var(--chrome-hi) var(--chrome-lo)}
+
+  .win{
+    width:min(480px, 96vw);
+    box-shadow:6px 6px 0 rgba(0,0,20,.45);
+    position:relative; z-index:5;
+  }
+  .tbar{
+    display:flex; align-items:center; gap:6px;
+    background:linear-gradient(90deg, var(--title1), var(--title2));
+    color:#fff; font-weight:bold; font-size:13px;
+    padding:3px 4px 3px 6px; letter-spacing:.2px;
+  }
+  .tbar img{width:16px; height:16px; object-fit:contain; image-rendering:auto}
+  .tbar .sp{flex:1}
+  .tbtn{width:18px; height:16px; font-size:10px; line-height:1; font-family:inherit; font-weight:bold; color:#000;
+    display:inline-flex; align-items:center; justify-content:center}
+  .menu{display:flex; gap:2px; font-size:12px; padding:2px 4px; background:var(--chrome); border-bottom:1px solid #a8a8a8}
+  .menu span{padding:2px 7px}
+  .menu span u{text-decoration:underline}
+
+  .body{padding:14px 14px 12px; background:var(--chrome)}
+
+  .brandplate{
+    background:#0a0a0a; border-radius:2px; padding:16px 10px 12px; text-align:center; position:relative; overflow:hidden;
+  }
+  .brandplate::before{
+    content:""; position:absolute; inset:0;
+    background:repeating-linear-gradient(0deg, rgba(255,255,255,.05) 0 1px, transparent 1px 4px);
+  }
+  .brandplate img.wings{width:min(300px,72%); display:block; margin:0 auto; filter:drop-shadow(0 0 14px rgba(255,204,0,.25))}
+  .brandplate .online{
+    color:var(--yell); font-size:13px; letter-spacing:5px; font-weight:bold; margin-top:8px; text-transform:uppercase;
+    text-shadow:0 0 8px rgba(255,204,0,.6);
+  }
+
+  .field{display:flex; align-items:center; gap:8px; margin:10px 2px 0; font-size:13px}
+  .field label{width:96px; text-align:right; color:#222}
+  .field .inp{flex:1; background:#fff; padding:4px 6px; font-size:13px; color:#000; white-space:nowrap; overflow:hidden}
+  .field select{flex:1; font-size:13px; padding:2px}
+
+  .btnrow{display:flex; justify-content:center; gap:10px; margin:14px 0 4px}
+  button.b{
+    font-family:inherit; font-size:13px; font-weight:bold; padding:6px 22px; cursor:pointer;
+    border:2px solid; border-color:var(--chrome-hi) var(--chrome-dkr) var(--chrome-dkr) var(--chrome-hi);
+    background:var(--chrome); color:#000;
+  }
+  button.b:active{border-color:var(--chrome-dkr) var(--chrome-hi) var(--chrome-hi) var(--chrome-dkr)}
+  button.b.primary{outline:1px dotted #000; outline-offset:-5px}
+  button.b:disabled{color:#777; cursor:default}
+
+  .steps{margin:12px 2px 2px; background:#fff; padding:8px 10px; font-size:12px; min-height:86px}
+  .steps .st{display:flex; gap:8px; align-items:center; color:#999; padding:3px 0}
+  .steps .st .dot{width:10px; height:10px; border-radius:50%; background:#ddd; border:1px solid #999; flex:none}
+  .steps .st.lit{color:#000}
+  .steps .st.lit .dot{background:var(--yell); border-color:#a80; box-shadow:0 0 6px rgba(255,204,0,.8)}
+  .pbar{height:14px; margin-top:8px; background:#fff; position:relative; overflow:hidden}
+  .pbar .fill{
+    position:absolute; inset:2px auto 2px 2px; width:0%;
+    background:repeating-linear-gradient(90deg, var(--title1) 0 10px, var(--title2) 10px 20px);
+    transition:width .55s steps(6);
+  }
+
+  /* stage 2 */
+  .gotmerch{display:none; text-align:center}
+  .gotmerch.on{display:block}
+  .gotmerch .mascot{width:min(190px,46%); margin:6px auto 2px; display:block;
+    filter:invert(1) drop-shadow(0 2px 0 rgba(0,0,0,.2));
+    animation:hop 2.4s ease-in-out infinite;
+  }
+  @keyframes hop{0%,100%{transform:translateY(0)} 8%{transform:translateY(-7px) rotate(-2deg)} 16%{transform:translateY(0)}}
+  .gotmerch h1{
+    font-size:clamp(26px, 7vw, 40px); letter-spacing:-.5px; color:#000080; margin-top:4px;
+    text-shadow:1px 1px 0 #fff, 3px 3px 0 rgba(0,0,64,.18);
+  }
+  .gotmerch .sub{font-size:13px; color:#222; margin:8px 12px 0; line-height:1.5}
+  .constr{
+    margin:14px auto 2px; width:min(330px,92%); font-weight:bold; font-size:12px; letter-spacing:2px; color:#000;
+    background:repeating-linear-gradient(-45deg, var(--yell) 0 16px, #111 16px 32px);
+    padding:3px;
+  }
+  .constr span{display:block; background:var(--yell); padding:5px 8px; text-transform:uppercase}
+  .signoff{font-size:11px; margin-top:12px}
+  .signoff a{color:#000080}
+
+  .statusbar{display:flex; gap:4px; font-size:11px; padding:3px 4px; background:var(--chrome); border-top:1px solid #eee}
+  .statusbar .cell{flex:1; padding:3px 8px; background:var(--chrome); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .statusbar .cell.r{flex:0 0 auto}
+
+  .ticker{
+    position:fixed; left:0; right:0; bottom:0; z-index:50;
+    background:#000; color:var(--yell); font-size:12px; letter-spacing:1px;
+    padding:6px 0; overflow:hidden; border-top:2px solid #333;
+  }
+  .ticker .tk{display:inline-block; white-space:nowrap; padding-left:100vw; animation:tick 26s linear infinite}
+  @keyframes tick{to{transform:translateX(-100%)}}
+
+  .fineprint{position:fixed; right:10px; bottom:34px; z-index:50; color:rgba(255,255,255,.55); font-size:10px; letter-spacing:1px}
+
+  @media (prefers-reduced-motion: reduce){
+    .gotmerch .mascot{animation:none}
+    .ticker .tk{animation:none; padding-left:12px}
+  }
+</style>
+</head>
+<body>
+
+<div class="win bev" role="dialog" aria-label="Chirp'n3rd Online Sign On">
+  <div class="tbar">
+    <img src="/assets/bird-white.png" alt="">
+    <span data-title>Sign On&nbsp;— Chirp'n3rd Online</span>
+    <span class="sp"></span>
+    <span class="tbtn bev" aria-hidden="true">_</span>
+    <span class="tbtn bev" aria-hidden="true">□</span>
+    <span class="tbtn bev" aria-hidden="true">×</span>
+  </div>
+  <div class="menu" aria-hidden="true">
+    <span><u>F</u>ile</span><span><u>E</u>dit</span><span><u>G</u>arage</span><span><u>S</u>ign On</span><span><u>H</u>elp</span>
+  </div>
+
+  <div class="body">
+    <div class="brandplate">
+      <img class="wings" src="/assets/stickers/chirpwingsandbolt.png" alt="Chirp'n3rd winged badge">
+      <div class="online">Online</div>
+    </div>
+
+    <div data-stage1>
+      <div class="field">
+        <label for="sn">Screen Name:</label>
+        <select id="sn">
+          <option>GarageFan2K26</option>
+          <option>ChirpKing_EG6</option>
+          <option>VTECJustKickdIn</option>
+          <option>3rdGearGremlin</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Password:</label>
+        <div class="inp bev-in" aria-label="password">••••••••</div>
+      </div>
+
+      <div class="steps bev-in" aria-live="polite">
+        <div class="st" data-st><span class="dot"></span>Dialing THE GARAGE...</div>
+        <div class="st" data-st><span class="dot"></span>Clutch in. Revs up.</div>
+        <div class="st" data-st><span class="dot"></span>CHIRP! Third gear engaged.</div>
+        <div class="pbar bev-in"><div class="fill" data-fill></div></div>
+      </div>
+
+      <div class="btnrow">
+        <button class="b primary" type="button" data-signon>Sign On</button>
+        <button class="b" type="button" data-later>Maybe Later</button>
+      </div>
+    </div>
+
+    <div class="gotmerch" data-stage2>
+      <img class="mascot" src="/assets/mascot-white.png" alt="The Chirp'n3rd helmet bird">
+      <h1>You've Got Merch.</h1>
+      <p class="sub">Well — almost. <b>Chirp'n3rd Online</b> is warming up in the garage.<br>
+      Tees, lids, knobs, and the whole flock. Doors open soon.</p>
+      <div class="constr"><span>&#9888; Under Construction &#9888;</span></div>
+      <p class="signoff">Have Fun. Shift Hard. — <a href="#" data-replay>Sign off &amp; dial again</a></p>
+    </div>
+  </div>
+
+  <div class="statusbar">
+    <div class="cell bev-in" data-tip>Welcome to Chirp'n3rd Online.</div>
+    <div class="cell bev-in r" data-clock>3:00 PM</div>
+  </div>
+</div>
+
+<div class="ticker" aria-hidden="true"><span class="tk">
+  COMING SOON TO CHIRPN3RD.COM &nbsp;&#9733;&nbsp; TEES &nbsp;&bull;&nbsp; LIDS &nbsp;&bull;&nbsp; SHIFT KNOBS &nbsp;&bull;&nbsp; STICKERS &nbsp;&bull;&nbsp; RACE DAY GOODS &nbsp;&#9733;&nbsp; TWO GUYS, ONE GARAGE, THIRD GEAR &nbsp;&#9733;&nbsp; HAVE FUN. SHIFT HARD. &nbsp;&#9733;&nbsp; EST. IN A GARAGE &nbsp;&#9733;&nbsp;
+</span></div>
+<div class="fineprint">CHIRP'N3RD MOTORSPORTS</div>
+
+<noscript><style>[data-stage1]{display:none}.gotmerch{display:block}</style></noscript>
+
+<script>
+(function(){
+  "use strict";
+  var $=function(s,r){return (r||document).querySelector(s)};
+  var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+
+  function clock(){
+    var d=new Date(), h=d.getHours(), m=d.getMinutes(), ap=h>=12?"PM":"AM";
+    h=h%12||12; $("[data-clock]").textContent=h+":"+(m<10?"0":"")+m+" "+ap;
+  }
+  clock(); setInterval(clock, 15000);
+
+  var chirp=null;
+  function playChirp(){
+    try{ chirp=chirp||new Audio("/assets/sfx/chirp.wav"); chirp.currentTime=0; chirp.volume=.6; chirp.play(); }catch(e){}
+  }
+  /* tiny synth dial tones so sign-on feels like 2003 without a modem wav */
+  function dialTones(){
+    try{
+      var ctx=new (window.AudioContext||window.webkitAudioContext)();
+      var t=ctx.currentTime;
+      [[440,.00],[350,.00],[697,.28],[770,.42],[852,.56],[941,.70]].forEach(function(p){
+        var o=ctx.createOscillator(), g=ctx.createGain();
+        o.frequency.value=p[0]; o.type="sine";
+        g.gain.setValueAtTime(.0001,t+p[1]);
+        g.gain.exponentialRampToValueAtTime(.06,t+p[1]+.02);
+        g.gain.exponentialRampToValueAtTime(.0001,t+p[1]+.12);
+        o.connect(g).connect(ctx.destination); o.start(t+p[1]); o.stop(t+p[1]+.14);
+      });
+    }catch(e){}
+  }
+
+  var busy=false;
+  function signOn(){
+    if(busy) return; busy=true;
+    var btn=$("[data-signon]"); btn.disabled=true; btn.textContent="Connecting...";
+    $("[data-tip]").textContent="Connecting at 56k (three pedals per second)...";
+    dialTones();
+    var sts=$$("[data-st]"), fill=$("[data-fill]");
+    fill.style.width="18%";
+    setTimeout(function(){ sts[0].classList.add("lit"); fill.style.width="46%"; }, 500);
+    setTimeout(function(){ sts[1].classList.add("lit"); fill.style.width="78%"; }, 1300);
+    setTimeout(function(){ sts[2].classList.add("lit"); fill.style.width="100%"; playChirp(); }, 2100);
+    setTimeout(function(){
+      $("[data-stage1]").style.display="none";
+      $("[data-stage2]").classList.add("on");
+      $("[data-title]").textContent="Welcome — Chirp'n3rd Online";
+      $("[data-tip]").textContent="Welcome back, "+$("#sn").value+". The Garage opens soon.";
+      busy=false;
+    }, 2900);
+  }
+
+  $("[data-signon]").addEventListener("click", signOn);
+  $("[data-later]").addEventListener("click", function(){
+    $("[data-tip]").textContent="That's fine. The tires will wait. (They won't.)";
+  });
+  $("[data-replay]").addEventListener("click", function(e){
+    e.preventDefault();
+    $("[data-stage2]").classList.remove("on");
+    $("[data-stage1]").style.display="";
+    var btn=$("[data-signon]"); btn.disabled=false; btn.textContent="Sign On";
+    $$("[data-st]").forEach(function(s){s.classList.remove("lit")});
+    $("[data-fill]").style.width="0%";
+    $("[data-title]").textContent="Sign On — Chirp'n3rd Online";
+    $("[data-tip]").textContent="Welcome to Chirp'n3rd Online.";
+  });
+
+  /* egg: triple-click the mascot for a burnout spin */
+  var clicks=0, timer=null;
+  document.addEventListener("click", function(e){
+    if(!e.target.classList || !e.target.classList.contains("mascot")) return;
+    clicks++; clearTimeout(timer); timer=setTimeout(function(){clicks=0}, 500);
+    if(clicks>=3){
+      clicks=0; playChirp();
+      e.target.style.transition="transform .8s cubic-bezier(.2,.8,.3,1.2)";
+      e.target.style.transform="rotate(720deg)";
+      setTimeout(function(){ e.target.style.transform=""; }, 900);
+      $("[data-tip]").textContent="Easter egg: burnout approved.";
+    }
+  });
+})();
+</script>
+</body>
+</html>

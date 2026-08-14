@@ -31,7 +31,10 @@ http
     const host = (req.headers.host || "").toLowerCase();
     // new.chirpn3rd.com fronts the Chirpn3rd Online rebrand mockup
     if (urlPath === "/" && host.startsWith("new.")) urlPath = "/mockups/chirpn-online.html";
+    // the apex (and www) tease the AOL experience until the Shopify store launches
+    if (urlPath === "/" && (host === "chirpn3rd.com" || host.startsWith("www.chirpn3rd"))) urlPath = "/teaser/index.html";
     if (urlPath === "/") urlPath = "/index.html";
+    if (urlPath === "/teaser" || urlPath === "/teaser/") urlPath = "/teaser/index.html";
     if (urlPath === "/mockups/chirpn-online") urlPath = "/mockups/chirpn-online.html";
     const filePath = path.join(ROOT, path.normalize(urlPath));
     if (!filePath.startsWith(ROOT)) {

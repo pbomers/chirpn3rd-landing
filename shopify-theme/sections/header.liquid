@@ -5,6 +5,7 @@
     <button class="menubar__item" type="button" data-menu="menu-window" aria-expanded="false" aria-haspopup="true">Window</button>
     <a class="menubar__item" href="{{ routes.cart_url }}">Cart</a>
     <a class="menubar__item" href="{{ routes.account_url }}">{% if customer %}Account{% else %}Sign On{% endif %}</a>
+    <button class="menubar__item" type="button" data-signoff>Sign Off</button>
     <button class="menubar__item" type="button" data-menu="menu-help" aria-expanded="false" aria-haspopup="true">Help</button>
 
     <div class="menubar__drop" id="menu-file" style="left:4px">
@@ -14,9 +15,11 @@
       <a href="{{ routes.search_url }}">Find...</a>
     </div>
     <div class="menubar__drop" id="menu-shop" style="left:48px">
-      {%- for link in linklists[section.settings.menu].links -%}
-        <a href="{{ link.url }}">{{ link.title }}</a>
+      {%- for col in collections limit: 10 -%}
+        {%- if col.handle == 'frontpage' -%}{%- continue -%}{%- endif -%}
+        <a href="{{ col.url }}">{{ col.title }}</a>
       {%- endfor -%}
+      <a href="{{ routes.all_products_collection_url }}">All Merch</a>
     </div>
     <div class="menubar__drop" id="menu-window" style="left:104px">
       <button type="button" data-restore-all>Restore All Windows</button>
@@ -43,6 +46,7 @@
     </a>
     <div class="tsep" aria-hidden="true"></div>
     {%- for link in linklists[section.settings.menu].links limit: 4 -%}
+      {%- if link.url == routes.root_url or link.url == routes.all_products_collection_url -%}{%- continue -%}{%- endif -%}
       <a class="tbtn" href="{{ link.url }}">
         <svg aria-hidden="true"><use href="#i-files"/></svg>{{ link.title | truncate: 12 }}
       </a>
@@ -71,9 +75,9 @@
   </div>
 
   <form class="kwbar" action="{{ routes.search_url }}" method="get" role="search" data-keyword-form>
-    <a class="navbtn" href="javascript:history.back()" aria-label="Back"><svg aria-hidden="true"><use href="#i-back"/></svg></a>
-    <a class="navbtn" href="javascript:history.forward()" aria-label="Forward"><svg aria-hidden="true"><use href="#i-fwd"/></svg></a>
-    <a class="navbtn" href="{{ request.path }}" aria-label="Reload"><svg aria-hidden="true"><use href="#i-reload"/></svg></a>
+    <button class="navbtn" type="button" data-nav="back" aria-label="Back"><svg aria-hidden="true"><use href="#i-back"/></svg></button>
+    <button class="navbtn" type="button" data-nav="forward" aria-label="Forward"><svg aria-hidden="true"><use href="#i-fwd"/></svg></button>
+    <button class="navbtn" type="button" data-nav="reload" aria-label="Reload"><svg aria-hidden="true"><use href="#i-reload"/></svg></button>
     <a class="navbtn" href="{{ routes.root_url }}" aria-label="Home"><svg aria-hidden="true"><use href="#i-home"/></svg></a>
     <label class="visually-hidden" for="kw">Search</label>
     <input class="kwbar__input" id="kw" type="search" name="q" value="{{ search.terms | escape }}"

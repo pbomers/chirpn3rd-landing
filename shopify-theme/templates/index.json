@@ -3,26 +3,79 @@
     "hero": {
       "type": "im-hero",
       "blocks": {
-        "l1": { "type": "line", "settings": { "text": "yo" } },
-        "l2": { "type": "line", "settings": { "text": "u up?" } },
-        "l3": { "type": "line", "settings": { "text": "new drop just hit the garage" } },
-        "l4": { "type": "line", "settings": { "text": "tees, hoods, knobs, lids. the works" } },
-        "l5": { "type": "line", "settings": { "text": "so what you doing today" } }
+        "l1": {
+          "type": "line",
+          "settings": {
+            "text": "yo"
+          }
+        },
+        "l2": {
+          "type": "line",
+          "settings": {
+            "text": "u up?"
+          }
+        },
+        "l3": {
+          "type": "line",
+          "settings": {
+            "text": "new drop just hit the garage"
+          }
+        },
+        "l4": {
+          "type": "line",
+          "settings": {
+            "text": "tees, hoods, knobs, lids. the works"
+          }
+        },
+        "l5": {
+          "type": "line",
+          "settings": {
+            "text": "so what you doing today"
+          }
+        }
       },
-      "block_order": ["l1", "l2", "l3", "l4", "l5"],
+      "block_order": [
+        "l1",
+        "l2",
+        "l3",
+        "l4",
+        "l5"
+      ],
       "settings": {
         "screen_name": "Chirpn3rd",
         "reply_text": "nothin. show me the merch",
         "button_label": "Send It",
-        "disclaimer": "Reminder: Chirpn3rd will never ask for your password, only your compression numbers."
+        "disclaimer": "Reminder: Chirpn3rd will never ask for your password, only your compression numbers.",
+        "button_url": "/collections/new-drops"
       }
     },
     "welcome": {
       "type": "welcome",
       "blocks": {
-        "r1": { "type": "rail_link", "settings": { "label": "Merch Center", "icon": "i-merch" } },
-        "r2": { "type": "rail_link", "settings": { "label": "Chirpn3rd Channels", "icon": "i-chan" } },
-        "r3": { "type": "rail_link", "settings": { "label": "Race Days", "icon": "i-fav" } },
+        "r1": {
+          "type": "rail_link",
+          "settings": {
+            "label": "Merch Center",
+            "icon": "i-merch",
+            "url": "/collections/all"
+          }
+        },
+        "r2": {
+          "type": "rail_link",
+          "settings": {
+            "label": "Chirpn3rd Channels",
+            "icon": "i-chan",
+            "url": "/collections"
+          }
+        },
+        "r3": {
+          "type": "rail_link",
+          "settings": {
+            "label": "Race Days",
+            "icon": "i-fav",
+            "url": "/collections/race-days"
+          }
+        },
         "s1": {
           "type": "story",
           "settings": {
@@ -34,53 +87,193 @@
           "type": "story",
           "settings": {
             "headline": "You've Got Merch.",
-            "body": "What are you waiting for? The new drop is the latest and greatest Chirpn3rd has to offer."
+            "body": "What are you waiting for? The new drop is the latest and greatest Chirpn3rd has to offer.",
+            "url": "/collections/new-drops"
           }
         },
         "s3": {
           "type": "story",
           "settings": {
             "headline": "Garage Deal:",
-            "body": "Free sticker in every bag. Every time. No exceptions."
+            "body": "Free sticker in every bag. Every time. No exceptions.",
+            "url": "/collections/stickers"
           }
         }
       },
-      "block_order": ["r1", "r2", "r3", "s1", "s2", "s3"],
-      "settings": { "masthead": "CHIRPN3RD TODAY" }
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "settings": {
+        "masthead": "CHIRPN3RD TODAY"
+      }
     },
     "channels": {
       "type": "channels",
       "blocks": {
-        "c1": { "type": "channel", "settings": { "label": "NEW DROPS", "collection": "new-drops" } },
-        "c2": { "type": "channel", "settings": { "label": "Tees", "collection": "tees" } },
-        "c3": { "type": "channel", "settings": { "label": "HOODIES", "collection": "hoodies" } },
-        "c4": { "type": "channel", "settings": { "label": "Shift Knobs", "collection": "shift-knobs" } },
-        "c5": { "type": "channel", "settings": { "label": "Lids", "collection": "lids" } },
-        "c6": { "type": "channel", "settings": { "label": "Stickers", "collection": "stickers" } },
-        "c7": { "type": "channel", "settings": { "label": "RACE DAYS", "collection": "race-days" } },
-        "c8": { "type": "channel", "settings": { "label": "Posters", "collection": "posters" } }
+        "c1": {
+          "type": "channel",
+          "settings": {
+            "label": "NEW DROPS",
+            "collection": "new-drops"
+          }
+        },
+        "c2": {
+          "type": "channel",
+          "settings": {
+            "label": "Tees",
+            "collection": "tees"
+          }
+        },
+        "c3": {
+          "type": "channel",
+          "settings": {
+            "label": "HOODIES",
+            "collection": "hoodies"
+          }
+        },
+        "c4": {
+          "type": "channel",
+          "settings": {
+            "label": "Shift Knobs",
+            "collection": "shift-knobs"
+          }
+        },
+        "c5": {
+          "type": "channel",
+          "settings": {
+            "label": "Lids",
+            "collection": "lids"
+          }
+        },
+        "c6": {
+          "type": "channel",
+          "settings": {
+            "label": "Stickers",
+            "collection": "stickers"
+          }
+        },
+        "c7": {
+          "type": "channel",
+          "settings": {
+            "label": "RACE DAYS",
+            "collection": "race-days"
+          }
+        },
+        "c8": {
+          "type": "channel",
+          "settings": {
+            "label": "Posters",
+            "collection": "posters"
+          }
+        }
       },
-      "block_order": ["c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8"],
-      "settings": { "title": "Channels", "heading": "Chirpn3rd Channels" }
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4",
+        "c5",
+        "c6",
+        "c7",
+        "c8"
+      ],
+      "settings": {
+        "title": "Channels",
+        "heading": "Chirpn3rd Channels"
+      }
     },
     "featured": {
       "type": "featured-merch",
-      "settings": { "title": "New Drops", "count": 8, "stripe_text": "STRAIGHT OFF THE LIFT" }
+      "settings": {
+        "title": "New Drops",
+        "count": 8,
+        "stripe_text": "STRAIGHT OFF THE LIFT",
+        "collection": "new-drops"
+      }
     },
     "buddies": {
       "type": "buddy-list",
       "blocks": {
-        "b1": { "type": "buddy", "settings": { "screen_name": "xX_FreshTees_Xx", "collection": "tees" } },
-        "b2": { "type": "buddy", "settings": { "screen_name": "HoodieHooligan", "collection": "hoodies" } },
-        "b3": { "type": "buddy", "settings": { "screen_name": "LidLord99", "collection": "lids" } },
-        "b4": { "type": "buddy", "settings": { "screen_name": "ShiftKnobKid", "collection": "shift-knobs" } },
-        "b5": { "type": "buddy", "settings": { "screen_name": "NewDropz2K26", "collection": "new-drops" } },
-        "b6": { "type": "buddy", "settings": { "screen_name": "WallStance", "collection": "posters" } },
-        "b7": { "type": "buddy", "settings": { "screen_name": "TrackDayThugz", "collection": "race-days" } },
-        "b8": { "type": "buddy", "settings": { "screen_name": "PaddockGoodz", "collection": "accessories" } },
-        "b9": { "type": "buddy", "settings": { "screen_name": "StickerBomber", "collection": "stickers" } }
+        "b1": {
+          "type": "buddy",
+          "settings": {
+            "screen_name": "xX_FreshTees_Xx",
+            "collection": "tees"
+          }
+        },
+        "b2": {
+          "type": "buddy",
+          "settings": {
+            "screen_name": "HoodieHooligan",
+            "collection": "hoodies"
+          }
+        },
+        "b3": {
+          "type": "buddy",
+          "settings": {
+            "screen_name": "LidLord99",
+            "collection": "lids"
+          }
+        },
+        "b4": {
+          "type": "buddy",
+          "settings": {
+            "screen_name": "ShiftKnobKid",
+            "collection": "shift-knobs"
+          }
+        },
+        "b5": {
+          "type": "buddy",
+          "settings": {
+            "screen_name": "NewDropz2K26",
+            "collection": "new-drops"
+          }
+        },
+        "b6": {
+          "type": "buddy",
+          "settings": {
+            "screen_name": "WallStance",
+            "collection": "posters"
+          }
+        },
+        "b7": {
+          "type": "buddy",
+          "settings": {
+            "screen_name": "TrackDayThugz",
+            "collection": "race-days"
+          }
+        },
+        "b8": {
+          "type": "buddy",
+          "settings": {
+            "screen_name": "PaddockGoodz",
+            "collection": "accessories"
+          }
+        },
+        "b9": {
+          "type": "buddy",
+          "settings": {
+            "screen_name": "StickerBomber",
+            "collection": "stickers"
+          }
+        }
       },
-      "block_order": ["b1", "b2", "b3", "b4", "b5", "b6", "b7", "b8", "b9"],
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4",
+        "b5",
+        "b6",
+        "b7",
+        "b8",
+        "b9"
+      ],
       "settings": {
         "title": "Buddy List",
         "heading": "Chirpn3rd Buddies",
@@ -89,5 +282,11 @@
       }
     }
   },
-  "order": ["hero", "welcome", "channels", "featured", "buddies"]
+  "order": [
+    "hero",
+    "welcome",
+    "channels",
+    "featured",
+    "buddies"
+  ]
 }

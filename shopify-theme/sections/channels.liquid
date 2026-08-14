@@ -11,12 +11,18 @@
       {%- for block in section.blocks -%}
         {%- assign col = block.settings.collection -%}
         {%- assign style_ix = forloop.index0 | modulo: 8 -%}
-        <a class="chan chan--{{ style_ix }}"
-           href="{{ col.url | default: block.settings.url | default: routes.all_products_collection_url }}"
-           {{ block.shopify_attributes }}>
-          {{ block.settings.label | default: col.title | default: 'Channel' }}
-          {%- if block.settings.soon -%}<span class="chan__soon">SOON</span>{%- endif -%}
-        </a>
+        {%- if block.settings.soon -%}
+          <span class="chan chan--{{ style_ix }}" {{ block.shopify_attributes }}>
+            {{ block.settings.label | default: col.title | default: 'Channel' }}
+            <span class="chan__soon">SOON</span>
+          </span>
+        {%- else -%}
+          <a class="chan chan--{{ style_ix }}"
+             href="{{ col.url | default: block.settings.url | default: routes.all_products_collection_url }}"
+             {{ block.shopify_attributes }}>
+            {{ block.settings.label | default: col.title | default: 'Channel' }}
+          </a>
+        {%- endif -%}
       {%- else -%}
         {%- for col in collections limit: 8 -%}
           {%- assign style_ix = forloop.index0 | modulo: 8 -%}

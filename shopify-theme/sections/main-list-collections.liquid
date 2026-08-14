@@ -8,6 +8,7 @@
     </div>
     <div class="channels__grid">
       {%- for col in collections -%}
+        {%- if col.handle == 'frontpage' -%}{%- continue -%}{%- endif -%}
         {%- assign style_ix = forloop.index0 | modulo: 8 -%}
         <a class="chan chan--{{ style_ix }}" href="{{ col.url }}">{{ col.title }}</a>
       {%- else -%}

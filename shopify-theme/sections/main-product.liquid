@@ -63,6 +63,19 @@
           <input type="hidden" name="id" value="{{ current.id }}" data-variant-id>
 
           {%- unless product.has_only_default_variant -%}
+            <noscript>
+              <div class="field" style="margin-bottom:6px">
+                <label for="ns-variant">Pick one</label>
+                <select id="ns-variant" name="id">
+                  {%- for v in product.variants -%}
+                    <option value="{{ v.id }}" {% unless v.available %}disabled{% endunless %}>
+                      {{ v.title }} - {{ v.price | money }}{% unless v.available %} (sold out){% endunless %}
+                    </option>
+                  {%- endfor -%}
+                </select>
+              </div>
+              <style>[data-option]{display:none}</style>
+            </noscript>
             {%- for option in product.options_with_values -%}
               <div class="field" style="margin-bottom:6px">
                 <label for="opt-{{ forloop.index }}">{{ option.name }}</label>
@@ -87,7 +100,7 @@
             {% if current.available %}Send It{% else %}Sold Out{% endif %}
           </button>
 
-          <p class="imnote">{{ section.settings.disclaimer }}</p>
+          {%- if section.settings.disclaimer != blank -%}<p class="imnote">{{ section.settings.disclaimer }}</p>{%- endif -%}
         {%- endform -%}
       </div>
     </div>

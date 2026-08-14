@@ -7,7 +7,7 @@
   var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
   var money = function (cents) {
     return (window.Chirpn3rd && window.Chirpn3rd.moneyFormat
-      ? window.Chirpn3rd.moneyFormat.replace(/\{\{\s*amount\s*\}\}/, (cents / 100).toFixed(2))
+      ? window.Chirpn3rd.moneyFormat.replace(/\{\{\s*amount[^}]*\}\}/, (cents / 100).toFixed(2))
       : "$" + (cents / 100).toFixed(2));
   };
 
@@ -66,6 +66,7 @@
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape") {
       $$(".menubar__drop").forEach(function (d) { d.classList.remove("open"); });
+      $$("[data-menu]").forEach(function (b) { b.setAttribute("aria-expanded", "false"); });
     }
   });
 
@@ -115,10 +116,12 @@
         return picked.every(function (val, i) { return v.options[i] === val; });
       })[0];
     }
-    function sync() {
+    function sync(userInitiated) {
       var v = match();
       if (!v) {
         if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "Unavailable"; }
+        if (priceEl) priceEl.textContent = "--";
+        if (stockEl) stockEl.innerHTML = '<span class="stock__dot stock__dot--out"></span> That combo does not exist. Yet.';
         return;
       }
       if (idInput) idInput.value = v.id;
@@ -135,27 +138,29 @@
         submitBtn.disabled = !v.available;
         submitBtn.textContent = v.available ? "Send It" : "Sold Out";
       }
-      if (history.replaceState && v.id) {
-        var url = new URL(window.location.href);
-        url.searchParams.set("variant", v.id);
-        history.replaceState({}, "", url.toString());
+      if (userInitiated && history.replaceState && v.id) {
+        try {
+          var url = new URL(window.location.href);
+          url.searchParams.set("variant", v.id);
+          history.replaceState({}, "", url.toString());
+        } catch (err) {}
       }
     }
-    $$("[data-option]", form).forEach(function (sel) { sel.addEventListener("change", sync); });
-    sync();
+    $$("[data-option]", form).forEach(function (sel) {
+      sel.addEventListener("change", function () { sync(true); });
+    });
+    sync(false);
 
     /* AJAX add to cart, with a full-page-post fallback on failure */
     form.addEventListener("submit", function (e) {
-      if (!window.fetch) return;
+      if (!window.fetch || !idInput || !idInput.value) return;
       e.preventDefault();
+      var qty = Math.max(1, parseInt(($("[data-qty]", form) || {}).value, 10) || 1);
       if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "Sending..."; }
       fetch("/cart/add.js", {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          id: idInput.value,
-          quantity: parseInt(($("[data-qty]", form) || {}).value || 1, 10)
-        })
+        body: JSON.stringify({ id: idInput.value, quantity: qty })
       })
         .then(function (r) { return r.json().then(function (b) { return { ok: r.ok, body: b }; }); })
         .then(function (res) {
@@ -186,23 +191,190 @@
   });
 
   /* ---------- cart quantity + remove ---------- */
+  var qtyTimer = null;
   $$("[data-cart-qty]").forEach(function (input) {
     input.addEventListener("change", function () {
-      var form = input.closest("form");
-      if (form) form.submit();
+      clearTimeout(qtyTimer);
+      qtyTimer = setTimeout(function () {
+        var form = input.closest("form");
+        if (form) form.submit();
+      }, 600);
     });
   });
 
-  /* ---------- keyword bar ---------- */
+  /* ---------- keyword bar (with era-correct keywords) ---------- */
+  var KEYWORDS = {
+    chirp:  function () { chirp(); flash("Keyword CHIRP: you're already here, baby."); },
+    garage: function () { window.location.href = "/collections"; },
+    vtec:   function () { chirp(); showToast("<b>VTEC just kicked in.</b><br>Yo."); },
+    "3rd":  function () { chirp(); flash("Third gear located. Send it."); },
+    third:  function () { chirp(); flash("Third gear located. Send it."); },
+    aol:    function () { showToast("<b>You've Got Merch.</b><br>Welcome back to 1999."); },
+    honda:  function () { flash("We know. We love them too."); },
+    sean:   function () { showToast("<b>Sean1n3rd:</b> i do the send its."); },
+    paul:   function () { showToast("<b>ChirpnPaul:</b> me and sean make this stuff between oil changes."); },
+    checkout: function () { window.location.href = "/cart"; },
+    cart:     function () { window.location.href = "/cart"; },
+    merch:    function () { window.location.href = "/collections/all"; },
+    "the garage": function () { window.location.href = "/collections"; },
+    help:     function () { showToast("<b>Help</b><br>Have fun. Shift hard. That is the whole manual."); }
+  };
   var kw = $("[data-keyword-form]");
   if (kw) {
     kw.addEventListener("submit", function (e) {
-      var val = ($("input[name=q]", kw) || {}).value || "";
-      if (/^\s*chirp\s*$/i.test(val)) {
+      var val = (($("input[name=q]", kw) || {}).value || "").trim().toLowerCase();
+      if (KEYWORDS[val]) {
         e.preventDefault();
-        chirp();
-        flash("Keyword CHIRP: you're already here, baby.");
+        KEYWORDS[val]();
       }
+    });
+  }
+
+  /* ---------- nav buttons + sign off ---------- */
+  $$("[data-nav]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      btn.getAttribute("data-nav") === "back" ? history.back() : history.forward();
+    });
+  });
+  $$("[data-signoff]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      try { sessionStorage.removeItem("chirpn3rd-signed-on"); } catch (e) {}
+      window.location.href = "/";
+    });
+  });
+
+  /* ---------- IM reply box ---------- */
+  var imForm = $("[data-im-form]");
+  if (imForm) {
+    var imReply = $("[data-im-reply]", imForm);
+    var convo = imForm.closest(".win__body") ? $(".convo", imForm.closest(".win__body")) : $(".convo");
+    var SLANG = {
+      "a/s/l": "old enough to remember dial-up / the garage / yes",
+      "asl":   "old enough to remember dial-up / the garage / yes",
+      "brb":   "take ur time. the tires aren't going anywhere.",
+      "lol":   "it wasn't that funny. buy a shirt.",
+      "sup":   "oil changes and merch drops. u?",
+      "yo":    "yo. check the new drops.",
+      "u up?": "always. someone has to watch the garage."
+    };
+    imForm.addEventListener("submit", function (e) {
+      var val = (imReply.value || "").trim();
+      if (!val) {
+        e.preventDefault();
+        window.location.href = imForm.getAttribute("data-shop-url") || "/collections/all";
+        return;
+      }
+      var key = val.toLowerCase();
+      if (SLANG[key]) {
+        e.preventDefault();
+        if (convo) {
+          var you = document.createElement("p");
+          you.innerHTML = '<b class="convo__sn convo__sn--you">You:</b> <span class="convo__msg"></span>';
+          you.querySelector(".convo__msg").textContent = val;
+          convo.appendChild(you);
+          var them = document.createElement("p");
+          them.innerHTML = '<b class="convo__sn">Chirpn3rd:</b> <span class="convo__msg"></span>';
+          them.querySelector(".convo__msg").textContent = SLANG[key];
+          convo.appendChild(them);
+          convo.scrollTop = convo.scrollHeight;
+        }
+        chirp();
+        imReply.value = "";
+      }
+      /* anything else falls through to a real search */
+    });
+  }
+
+  /* ---------- AIM formatting buttons actually format ---------- */
+  $$(".imtools .fmt").forEach(function (btn, ix) {
+    var convoEl = btn.closest(".win__body") ? $(".convo", btn.closest(".win__body")) : null;
+    if (!convoEl) return;
+    var classes = ["im-size-up", "im-size-down", "im-bold", "im-italic", "im-underline"];
+    btn.style.cursor = "pointer";
+    btn.addEventListener("click", function () {
+      convoEl.classList.toggle(classes[ix] || "im-bold");
+    });
+  });
+
+  /* ---------- 404 bird has an away message ---------- */
+  if (document.body.classList.contains("template-404")) {
+    var lostBird = $(".template-404 .win img");
+    var birdTaps = 0;
+    if (lostBird) {
+      lostBird.style.cursor = "pointer";
+      lostBird.addEventListener("click", function () {
+        birdTaps++;
+        if (birdTaps === 3) {
+          chirp();
+          showToast("<b>Auto response from TheBird:</b><br>out chirping 3rd. the page u want prob never existed.");
+        }
+      });
+    }
+  }
+
+  /* ---------- idle away message, once per session ---------- */
+  var idleTimer = null, idleFired = false;
+  function armIdle() {
+    if (idleFired) return;
+    clearTimeout(idleTimer);
+    idleTimer = setTimeout(function () {
+      idleFired = true;
+      showToast("<b>Auto response from ChirpnPaul:</b><br>wrenching. brb.");
+    }, 180000);
+  }
+  ["pointerdown", "keydown", "scroll"].forEach(function (evt) {
+    document.addEventListener(evt, armIdle, { passive: true });
+  });
+  armIdle();
+
+  /* ---------- easter eggs ---------- */
+  /* Konami code -> burnout */
+  var KONAMI = ["ArrowUp","ArrowUp","ArrowDown","ArrowDown","ArrowLeft","ArrowRight","ArrowLeft","ArrowRight","b","a"];
+  var kPos = 0;
+  document.addEventListener("keydown", function (e) {
+    kPos = (e.key === KONAMI[kPos]) ? kPos + 1 : (e.key === KONAMI[0] ? 1 : 0);
+    if (kPos === KONAMI.length) {
+      kPos = 0;
+      chirp();
+      document.body.classList.add("is-burnout");
+      setTimeout(function () { document.body.classList.remove("is-burnout"); }, 900);
+      showToast("<b>CHIRP'N 3RD!</b><br>You found the burnout button. Tires are billable.");
+    }
+  });
+
+  /* triple-click the toolbar bird -> victory lap */
+  var logo = $(".toolbar__logo img");
+  if (logo) {
+    var pecks = 0, peckTimer = null;
+    logo.addEventListener("click", function () {
+      pecks++;
+      clearTimeout(peckTimer);
+      peckTimer = setTimeout(function () { pecks = 0; }, 900);
+      if (pecks >= 3) {
+        pecks = 0;
+        chirp();
+        logo.classList.add("is-spinning");
+        setTimeout(function () { logo.classList.remove("is-spinning"); }, 1300);
+        flash("The bird thanks you for your patronage.");
+      }
+    });
+  }
+
+  /* buddy list Setup tab -> the truth */
+  $$(".buddies__tab").forEach(function (tab) {
+    if (tab.classList.contains("on")) return;
+    tab.style.cursor = "pointer";
+    tab.addEventListener("click", function () {
+      showToast("<b>Setup</b><br>Settings are wherever Sean left them.");
+    });
+  });
+
+  /* the clock knows */
+  var clockCell = $("[data-clock]");
+  if (clockCell) {
+    clockCell.style.cursor = "pointer";
+    clockCell.addEventListener("click", function () {
+      flash("It's always 3rd gear somewhere.");
     });
   }
 })();

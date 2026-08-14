@@ -20,6 +20,7 @@
             {%- else -%}
               <a class="card" href="{{ item.url }}">
                 <span class="card__bar"><svg aria-hidden="true"><use href="#i-files"/></svg><span>{{ item.title | truncate: 26 }}</span></span>
+                <span class="card__shot card__shot--empty">{{ item.object_type | capitalize }}</span>
                 <span class="card__meta"><span class="card__name">{{ item.title }}</span></span>
               </a>
             {%- endif -%}
@@ -27,10 +28,22 @@
         </div>
         {% render 'pagination', paginate: paginate %}
       {%- else -%}
-        <p class="center muted" style="padding:20px">
-          No results for "{{ search.terms | escape }}".<br>Try "tee", "hoodie", or "knob".
-        </p>
+        {%- assign terms_down = search.terms | downcase -%}
+        {%- if terms_down contains 'vtec' -%}
+          <p class="center muted" style="padding:20px">
+            VTEC found nothing. VTEC never finds anything until 5,800 RPM.<br>
+            <a href="{{ routes.all_products_collection_url }}">Try the Merch Center</a>
+          </p>
+        {%- else -%}
+          <p class="center muted" style="padding:20px">
+            No results for "{{ search.terms | escape }}".<br>Try "tee", "hoodie", or "knob".
+          </p>
+        {%- endif -%}
       {%- endif -%}
+    {%- else -%}
+      <p class="center muted" style="padding:20px">
+        Type a keyword and hit Go.<br>Try "tee", "hoodie", "knob", or "sticker".
+      </p>
     {%- endif -%}
 {%- endcapture -%}
 {% render 'window', title: 'Find', icon: 'i-search', content: win_body_1 %}

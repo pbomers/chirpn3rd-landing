@@ -446,3 +446,32 @@ ul{list-style:none}
 @media (prefers-reduced-motion:reduce){
   *{animation:none !important;transition:none !important}
 }
+
+/* ---------- JS-only chrome hides itself when JS never arrived ---------- */
+html:not(.js-win) .win__btns,
+html:not(.js-win) .menubar__item[data-menu],
+html:not(.js-win) [data-restore-all],
+html:not(.js-win) [data-arrange],
+html:not(.js-win) [data-nav],
+html:not(.js-win) [data-signoff],
+html:not(.js-win) .tray{display:none}
+
+/* ---------- easter eggs ---------- */
+@keyframes chirp-shake{
+  0%,100%{transform:translate(0,0)}
+  15%{transform:translate(-7px,2px) rotate(-.4deg)}
+  30%{transform:translate(6px,-2px) rotate(.4deg)}
+  45%{transform:translate(-5px,1px)}
+  60%{transform:translate(4px,-1px)}
+  75%{transform:translate(-2px,0)}
+}
+body.is-burnout{animation:chirp-shake .55s ease-in-out both}
+@keyframes chirp-spin{to{transform:rotate(360deg)}}
+.toolbar__logo img.is-spinning{animation:chirp-spin .62s ease-in-out 2}
+
+/* AIM formatting toggles for the hero convo */
+.convo.im-bold .convo__msg{font-weight:bold}
+.convo.im-italic .convo__msg{font-style:italic}
+.convo.im-underline .convo__msg{text-decoration:underline}
+.convo.im-size-up .convo__msg{font-size:13px}
+.convo.im-size-down .convo__msg{font-size:9px}

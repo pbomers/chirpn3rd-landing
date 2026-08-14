@@ -5,16 +5,20 @@
     <span>{{ section.settings.heading }}</span>
   </div>
 
-  <div class="buddies__tabs" aria-hidden="true">
+  <div class="buddies__tabs">
     <span class="buddies__tab on">Online</span>
-    <span class="buddies__tab">Setup</span>
+    <button class="buddies__tab" type="button" data-setup-tab>Setup</button>
   </div>
 
   {%- liquid
     assign online_count = 0
+    assign total_count = 0
     for block in section.blocks
-      if block.type == 'buddy' and block.settings.offline != true
-        assign online_count = online_count | plus: 1
+      if block.type == 'buddy'
+        assign total_count = total_count | plus: 1
+        if block.settings.offline != true
+          assign online_count = online_count | plus: 1
+        endif
       endif
     endfor
   -%}
@@ -22,7 +26,7 @@
   <div class="buddies__list">
     <p class="buddies__group">
       &#9660; {{ section.settings.group_name }}
-      <span class="cnt">({{ online_count }}/{{ online_count }})</span>
+      <span class="cnt">({{ online_count }}/{{ total_count }})</span>
     </p>
     {%- for block in section.blocks -%}
       {%- if block.type == 'buddy' and block.settings.offline != true -%}

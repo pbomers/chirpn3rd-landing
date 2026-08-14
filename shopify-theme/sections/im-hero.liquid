@@ -21,10 +21,12 @@
     <span class="fmt b-out" style="text-decoration:underline">U</span>
   </div>
 
-  <form class="convo" style="margin-top:2px;padding:0" action="{{ section.settings.button_url | default: routes.all_products_collection_url }}" method="get">
+  <form class="convo" style="margin-top:2px;padding:0" action="{{ routes.search_url }}" method="get" data-im-form
+        data-shop-url="{{ section.settings.button_url | default: routes.all_products_collection_url }}">
     <label class="visually-hidden" for="im-reply">Your reply</label>
-    <input id="im-reply" style="width:100%;border:0;padding:8px;font:11px Verdana,sans-serif" readonly
-           value="{{ section.settings.reply_text }}">
+    <input id="im-reply" name="q" autocomplete="off" data-im-reply
+           style="width:100%;border:0;padding:8px;font:11px Verdana,sans-serif"
+           placeholder="{{ section.settings.reply_text }}">
   </form>
 
   <div style="display:flex;gap:6px;justify-content:flex-end;margin-top:7px">

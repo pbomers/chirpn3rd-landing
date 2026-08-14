@@ -17,7 +17,8 @@
                 <div class="cart__item">
                   <span class="cart__thumb">
                     {%- if item.image -%}
-                      {{ item.image | image_url: width: 160 | image_tag: loading: 'lazy', alt: item.title | escape }}
+                      {%- assign thumb_alt = item.title | escape -%}
+                      {{ item.image | image_url: width: 160 | image_tag: loading: 'lazy', alt: thumb_alt }}
                     {%- endif -%}
                   </span>
                   <span>
@@ -32,7 +33,7 @@
               </td>
               <td>
                 <label class="visually-hidden" for="qty-{{ item.index | plus: 1 }}">Quantity for {{ item.title }}</label>
-                <input class="qty" id="qty-{{ item.index | plus: 1 }}" type="number" min="0"
+                <input class="qty" id="qty-{{ item.index | plus: 1 }}" type="number" min="1"
                        name="updates[]" value="{{ item.quantity }}" data-cart-qty
                        style="height:24px;border:0;padding:0 5px;box-shadow:inset 1px 1px 0 #848484,inset 2px 2px 0 #404040">
               </td>
@@ -47,6 +48,7 @@
         <div class="cart__totals">
           <p class="cart__total">Subtotal {{ cart.total_price | money }}</p>
           <p class="cart__note">Shipping and taxes figured at checkout.</p>
+          {%- if cart.total_price == 1999 -%}<p class="cart__note">Exactly one monthly AOL subscription. Respect.</p>{%- endif -%}
         </div>
       </div>
 

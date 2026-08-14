@@ -6,9 +6,10 @@
   </span>
   <span class="card__shot">
     {%- if product.featured_media -%}
+      {%- assign card_alt = product.featured_media.alt | default: product.title | escape -%}
       {{ product.featured_media | image_url: width: 600 | image_tag:
            loading: 'lazy', widths: '200,300,400,600', sizes: '(max-width: 860px) 45vw, 220px',
-           alt: product.featured_media.alt | default: product.title | escape }}
+           alt: card_alt }}
     {%- else -%}
       <span class="card__shot--empty">No image yet</span>
     {%- endif -%}

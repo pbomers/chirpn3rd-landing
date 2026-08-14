@@ -52,7 +52,8 @@
     btn.className = "tray__btn";
     btn.type = "button";
     btn.setAttribute("data-tray-for", id);
-    btn.innerHTML = '<svg aria-hidden="true"><use href="#i-bird"/></svg>' + label;
+    btn.innerHTML = '<svg aria-hidden="true"><use href="#i-bird"/></svg>';
+    btn.appendChild(document.createTextNode(label));
     btn.addEventListener("click", function () { restore(win); });
     tray.appendChild(btn);
   }
@@ -218,6 +219,14 @@
     if (closeBtn) closeBtn.addEventListener("click", function (e) {
       e.stopPropagation();
       win.classList.remove("is-max");
+      /* On shop pages, X collapses in place instead of vanishing content -
+         nobody should be able to close the buy box into the void. */
+      if (!document.body.classList.contains("template-index")) {
+        win.classList.add("is-min");
+        trayAdd(win, label);
+        flash(label + " tucked away. Click its title bar button below to bring it back.");
+        return;
+      }
       win.classList.add("is-closed");
       trayAdd(win, label);
       flash(label + " closed. It is waiting in the tray.");
@@ -287,7 +296,9 @@
       var done = function () {
         splash.classList.remove("is-open");
         try { sessionStorage.setItem("chirpn3rd-signed-on", "1"); } catch (err) {}
-        flash("Welcome to Chirpn3rd Online. You've Got Merch.");
+        var nameSel = splash.querySelector("select");
+        var who = nameSel && nameSel.value ? nameSel.value : "ChirpFan2K3";
+        flash("Welcome back, " + who + ". You've Got Merch.");
       };
       if (btn) btn.addEventListener("click", function () {
         btn.disabled = true;

@@ -51,14 +51,14 @@
     "channels": {
       "type": "channels",
       "blocks": {
-        "c1": { "type": "channel", "settings": { "label": "NEW DROPS" } },
-        "c2": { "type": "channel", "settings": { "label": "Tees" } },
-        "c3": { "type": "channel", "settings": { "label": "HOODIES" } },
-        "c4": { "type": "channel", "settings": { "label": "Shift Knobs" } },
-        "c5": { "type": "channel", "settings": { "label": "Lids" } },
-        "c6": { "type": "channel", "settings": { "label": "Stickers", "soon": true } },
-        "c7": { "type": "channel", "settings": { "label": "RACE DAYS" } },
-        "c8": { "type": "channel", "settings": { "label": "The Story" } }
+        "c1": { "type": "channel", "settings": { "label": "NEW DROPS", "collection": "new-drops" } },
+        "c2": { "type": "channel", "settings": { "label": "Tees", "collection": "tees" } },
+        "c3": { "type": "channel", "settings": { "label": "HOODIES", "collection": "hoodies" } },
+        "c4": { "type": "channel", "settings": { "label": "Shift Knobs", "collection": "shift-knobs" } },
+        "c5": { "type": "channel", "settings": { "label": "Lids", "collection": "lids" } },
+        "c6": { "type": "channel", "settings": { "label": "Stickers", "collection": "stickers" } },
+        "c7": { "type": "channel", "settings": { "label": "RACE DAYS", "collection": "race-days" } },
+        "c8": { "type": "channel", "settings": { "label": "Posters", "collection": "posters" } }
       },
       "block_order": ["c1", "c2", "c3", "c4", "c5", "c6", "c7", "c8"],
       "settings": { "title": "Channels", "heading": "Chirpn3rd Channels" }
@@ -70,14 +70,17 @@
     "buddies": {
       "type": "buddy-list",
       "blocks": {
-        "b1": { "type": "buddy", "settings": { "screen_name": "xX_FreshTees_Xx" } },
-        "b2": { "type": "buddy", "settings": { "screen_name": "HoodieHooligan" } },
-        "b3": { "type": "buddy", "settings": { "screen_name": "LidLord99" } },
-        "b4": { "type": "buddy", "settings": { "screen_name": "ShiftKnobKid" } },
-        "b5": { "type": "buddy", "settings": { "screen_name": "NewDropz2K26" } },
-        "b6": { "type": "buddy", "settings": { "screen_name": "StickerBomber", "offline": true } }
+        "b1": { "type": "buddy", "settings": { "screen_name": "xX_FreshTees_Xx", "collection": "tees" } },
+        "b2": { "type": "buddy", "settings": { "screen_name": "HoodieHooligan", "collection": "hoodies" } },
+        "b3": { "type": "buddy", "settings": { "screen_name": "LidLord99", "collection": "lids" } },
+        "b4": { "type": "buddy", "settings": { "screen_name": "ShiftKnobKid", "collection": "shift-knobs" } },
+        "b5": { "type": "buddy", "settings": { "screen_name": "NewDropz2K26", "collection": "new-drops" } },
+        "b6": { "type": "buddy", "settings": { "screen_name": "WallStance", "collection": "posters" } },
+        "b7": { "type": "buddy", "settings": { "screen_name": "TrackDayThugz", "collection": "race-days" } },
+        "b8": { "type": "buddy", "settings": { "screen_name": "PaddockGoodz", "collection": "accessories" } },
+        "b9": { "type": "buddy", "settings": { "screen_name": "StickerBomber", "collection": "stickers" } }
       },
-      "block_order": ["b1", "b2", "b3", "b4", "b5", "b6"],
+      "block_order": ["b1", "b2", "b3", "b4", "b5", "b6", "b7", "b8", "b9"],
       "settings": {
         "title": "Buddy List",
         "heading": "Chirpn3rd Buddies",

@@ -9,7 +9,7 @@
 
     <div class="channels__grid">
       {%- for block in section.blocks -%}
-        {%- assign col = collections[block.settings.collection] -%}
+        {%- assign col = block.settings.collection -%}
         {%- assign style_ix = forloop.index0 | modulo: 8 -%}
         <a class="chan chan--{{ style_ix }}"
            href="{{ col.url | default: block.settings.url | default: routes.all_products_collection_url }}"

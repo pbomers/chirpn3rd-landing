@@ -298,6 +298,8 @@ a:hover{color:#f26a1b}
       </div>
       <button id="sobtn" class="b-out">Sign On</button>
       <div class="sofine">1,000 Free Hours Of Chirpn3rd. No CD Required.</div>
+      <noscript><div class="sofine" style="margin-top:6px">JavaScript is off, so the desktop won't boot.
+        <a href="https://hduc6n-nk.myshopify.com/">Head straight to the store</a>.</div></noscript>
     </div>
   </div>
 </div>
@@ -423,7 +425,7 @@ a:hover{color:#f26a1b}
               <div class="mast">
                 <div class="on">on</div>
                 <h1>CHIRPN3RD TODAY</h1>
-                <div class="date">Tuesday, August 12, 2026</div>
+                <div class="date" id="mastdate">Tuesday, August 12, 2026</div>
               </div>
               <div class="wcphoto"><img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" data-img="helmet" alt="The Chirpn3rd mascot"></div>
             </div>
@@ -585,7 +587,7 @@ document.addEventListener("click",function(e){
   var c=e.target.closest("[data-close],[data-close-parent]");
   if(c){ closeWin(c.closest(".win")); flash("Window closed. Window menu, Restore All Windows brings it back."); }
   var mn=e.target.closest("[data-min]");
-  if(mn){ var w=mn.closest(".win"); closeWin(w); flash(w.id.replace("w-","")+" minimized. It went to the shadow realm. Use the Window menu."); }
+  if(mn){ var w=mn.closest(".win"); closeWin(w); flash((w.id==="w-cat"||w.id==="w-shop") ? "Closed. Click a buddy or Send to reopen it." : w.id.replace("w-","")+" minimized. Use the Window menu to restore."); }
 });
 
 /* ---- category IM data ---- */
@@ -650,10 +652,13 @@ $("#sendbtn").addEventListener("click",function(){
 
 /* ---- keyword bar ---- */
 function goKeyword(){
-  var v=$("#kwinput").value.toLowerCase();
+  var v=$("#kwinput").value.toLowerCase().trim();
   if(v.indexOf("chirp")>-1){ chirp(); flash("Keyword CHIRP: you're already here, baby."); }
-  else if(!v){ flash("Type a Keyword first. Try CHIRP."); }
-  else { flash("Keyword not found. Try CHIRP."); }
+  else if(v.indexOf("garage")>-1){ openWin($("#w-buddies")); flash("Keyword THE GARAGE: say hi to the buddies."); }
+  else if(v==="shop"||v==="merch"||v==="store"){ openWin($("#w-shop")); }
+  else if(v==="vtec"){ chirp(); flash("VTEC just kicked in, yo."); }
+  else if(!v){ flash("Type a Keyword first. Try CHIRP or THE GARAGE."); }
+  else { flash("Keyword not found. Try CHIRP or THE GARAGE."); }
 }
 $("#gobtn").addEventListener("click",goKeyword);
 $("#kwinput").addEventListener("keydown",function(e){ if(e.key==="Enter") goKeyword(); });
@@ -716,6 +721,45 @@ $("#menusignoff").addEventListener("click",function(){
 
 /* initial focus */
 front($("#w-welcome"));
+
+/* ---- wiring for previously-dead chrome ---- */
+var nav = document.querySelectorAll('#keywordbar .navbtn');
+if (nav.length >= 5) {
+  nav[0].addEventListener('click', function(){ flash("Back? We only go forward. Into 3rd."); });
+  nav[1].addEventListener('click', function(){ flash("Forward. Always forward."); });
+  nav[2].addEventListener('click', function(){ flash("There is no stopping."); });
+  nav[3].addEventListener('click', function(){ location.reload(); });
+  nav[4].addEventListener('click', function(){ restoreAll(); flash("Home sweet garage."); });
+}
+var findBtn = $("#findbtn");
+if (findBtn) findBtn.addEventListener('click', function(){ flash("Find: try Keyword CHIRP, THE GARAGE, or VTEC."); });
+
+$$(".menu").forEach(function(m){
+  var t = (m.textContent||'').trim();
+  if (t === 'File') m.addEventListener('click', function(){ flash("File: everything here ships in a poly bag."); });
+  if (t === 'Edit') m.addEventListener('click', function(){ flash("Edit: undo is not a thing in 1999."); });
+  if (t === 'Help') m.addEventListener('click', function(){ flash("Help: have fun, shift hard. That's the manual."); });
+});
+
+$$(".wbtn.max").forEach(function(b){
+  b.addEventListener('click', function(){ flash("Maximize? It's 1999. Buy a bigger monitor."); });
+});
+
+$$(".bltab").forEach(function(tab){
+  if (!tab.classList.contains('on')) {
+    tab.style.cursor = 'pointer';
+    tab.addEventListener('click', function(){ flash("Setup: warm the tires, check the oil."); });
+  }
+});
+
+var reply = $("#heroreply");
+if (reply) reply.addEventListener('keydown', function(e){
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); $("#sendbtn").click(); }
+});
+
+var md = document.getElementById('mastdate');
+if (md) md.textContent = new Date().toLocaleDateString('en-US',
+  { weekday:'long', month:'long', day:'numeric', year:'numeric' });
 })();
 </script>
 

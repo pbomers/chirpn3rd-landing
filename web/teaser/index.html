@@ -69,9 +69,13 @@
     content:""; position:absolute; inset:0;
     background:repeating-linear-gradient(0deg, rgba(255,255,255,.05) 0 1px, transparent 1px 4px);
   }
-  .brandplate img.wings{width:min(300px,72%); display:block; margin:0 auto; filter:drop-shadow(0 0 14px rgba(255,204,0,.25))}
+  .brandplate img.wings{width:min(170px,44%); display:block; margin:0 auto; filter:drop-shadow(0 0 16px rgba(255,204,0,.3))}
+  .brandplate .wordmark{
+    color:#fff; font-size:clamp(20px,5.4vw,27px); letter-spacing:4px; font-weight:bold; margin-top:10px;
+    text-shadow:0 0 10px rgba(255,255,255,.35);
+  }
   .brandplate .online{
-    color:var(--yell); font-size:13px; letter-spacing:5px; font-weight:bold; margin-top:8px; text-transform:uppercase;
+    color:var(--yell); font-size:13px; letter-spacing:5px; font-weight:bold; margin-top:4px; text-transform:uppercase;
     text-shadow:0 0 8px rgba(255,204,0,.6);
   }
 
@@ -161,7 +165,8 @@
 
   <div class="body">
     <div class="brandplate">
-      <img class="wings" src="/assets/stickers/chirpwingsandbolt.png" alt="Chirp'n3rd winged badge">
+      <img class="wings" src="/assets/mascot-white.png" alt="The Chirp'n3rd helmet bird">
+      <div class="wordmark">CHIRP'N3RD</div>
       <div class="online">Online</div>
     </div>
 

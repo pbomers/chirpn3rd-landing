@@ -71,7 +71,7 @@
   }
   .brandplate img.wings{
     width:min(250px,66%); display:block; margin:0 auto; position:relative;
-    filter:invert(1); mix-blend-mode:screen;
+    filter:drop-shadow(0 0 14px rgba(255,255,255,.18));
   }
   .brandplate .online{
     color:var(--yell); font-size:13px; letter-spacing:5px; font-weight:bold; margin-top:4px; text-transform:uppercase;
@@ -110,7 +110,7 @@
   .gotmerch{display:none; text-align:center}
   .gotmerch.on{display:block}
   .gotmerch .mascot{width:min(230px,58%); margin:6px auto 2px; display:block;
-    mix-blend-mode:multiply;
+    filter:invert(1);
     animation:hop 2.4s ease-in-out infinite;
   }
   @keyframes hop{0%,100%{transform:translateY(0)} 8%{transform:translateY(-7px) rotate(-2deg)} 16%{transform:translateY(0)}}
@@ -165,7 +165,7 @@
 
   <div class="body">
     <div class="brandplate">
-      <img class="wings" src="/assets/chirpinhelmet.jpg" alt="The Chirp'n3rd racing-helmet bird">
+      <img class="wings" src="/assets/mascot-white.png" alt="The Chirp'n3rd racing-helmet bird">
       <div class="online">Online</div>
     </div>
 
@@ -198,7 +198,7 @@
     </div>
 
     <div class="gotmerch" data-stage2>
-      <img class="mascot" src="/assets/chirpinhelmet.jpg" alt="The Chirp'n3rd racing-helmet bird">
+      <img class="mascot" src="/assets/mascot-white.png" alt="The Chirp'n3rd racing-helmet bird">
       <h1>You've Got Merch.</h1>
       <p class="sub">Well — almost. <b>Chirp'n3rd Online</b> is warming up in the garage.<br>
       Tees, lids, knobs, and the whole flock. Doors open soon.</p>

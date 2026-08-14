@@ -106,6 +106,7 @@
   }
 
   /* stage 2 */
+  .win.welcomed .brandplate{display:none}
   .gotmerch{display:none; text-align:center}
   .gotmerch.on{display:block}
   .gotmerch .mascot{width:min(230px,58%); margin:6px auto 2px; display:block;
@@ -217,7 +218,7 @@
 </span></div>
 <div class="fineprint">CHIRP'N3RD MOTORSPORTS</div>
 
-<noscript><style>[data-stage1]{display:none}.gotmerch{display:block}</style></noscript>
+<noscript><style>[data-stage1]{display:none}.gotmerch{display:block}.brandplate{display:none}</style></noscript>
 
 <script>
 (function(){
@@ -265,6 +266,7 @@
     setTimeout(function(){
       $("[data-stage1]").style.display="none";
       $("[data-stage2]").classList.add("on");
+      $(".win").classList.add("welcomed");
       $("[data-title]").textContent="Welcome — Chirp'n3rd Online";
       $("[data-tip]").textContent="Welcome back, "+$("#sn").value+". The Garage opens soon.";
       busy=false;
@@ -278,6 +280,7 @@
   $("[data-replay]").addEventListener("click", function(e){
     e.preventDefault();
     $("[data-stage2]").classList.remove("on");
+    $(".win").classList.remove("welcomed");
     $("[data-stage1]").style.display="";
     var btn=$("[data-signon]"); btn.disabled=false; btn.textContent="Sign On";
     $$("[data-st]").forEach(function(s){s.classList.remove("lit")});

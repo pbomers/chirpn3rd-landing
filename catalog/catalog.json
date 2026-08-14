@@ -82,11 +82,11 @@
     {
       "name": "Sticker sheet",
       "include": true,
-      "reason": "Sticker sheet is core Chirp'n3rd merch \u2014 bird mascot, chirp jokes, slap-on decals. No other brand named.",
+      "reason": "Sticker sheet is core Chirp'n3rd merch — bird mascot, chirp jokes, slap-on decals. No other brand named.",
       "collection": "Stickers",
       "title": "The Chirp'n3rd Sticker Sheet",
       "hook": "One sheet. Nine ways to bird-bomb your build.",
-      "description": "A full sheet of Chirp'n3rd goods \u2014 the helmet chickadee, the chirp gags, and a couple you'll fight your buddy over. Slap 'em on your toolbox, your laptop, the inside of your hood. Weatherproof enough to survive a track day and a car wash you shouldn't have paid for.",
+      "description": "A full sheet of Chirp'n3rd goods — the helmet chickadee, the chirp gags, and a couple you'll fight your buddy over. Slap 'em on your toolbox, your laptop, the inside of your hood. Weatherproof enough to survive a track day and a car wash you shouldn't have paid for.",
       "garment": "sticker",
       "colorway": "die-cut / full-color on clear",
       "tags": [
@@ -101,7 +101,7 @@
     {
       "name": "Shoes?",
       "include": false,
-      "reason": "Ambiguous placeholder with a question mark \u2014 not a defined product, no clear Chirp'n3rd concept or art tied to it. Not something to publish as-is.",
+      "reason": "Ambiguous placeholder with a question mark — not a defined product, no clear Chirp'n3rd concept or art tied to it. Not something to publish as-is.",
       "collection": "Accessories"
     },
     {
@@ -126,13 +126,13 @@
     {
       "name": ".COM",
       "include": false,
-      "reason": "Not a product \u2014 appears to reference the .com / online rebrand (Chirp'n3rd Online), a domain/web concept, not sellable apparel.",
+      "reason": "Not a product — appears to reference the .com / online rebrand (Chirp'n3rd Online), a domain/web concept, not sellable apparel.",
       "collection": "New Drops"
     },
     {
       "name": "Dad Hat",
       "include": true,
-      "reason": "Classic unstructured dad hat with the bird mark \u2014 squarely a Chirp'n3rd lid. No competing brand.",
+      "reason": "Classic unstructured dad hat with the bird mark — squarely a Chirp'n3rd lid. No competing brand.",
       "collection": "Lids",
       "title": "The Chirp'n3rd Dad Hat",
       "hook": "Low profile. High chirp.",
@@ -151,7 +151,7 @@
     {
       "name": "SNAP BACK!",
       "include": true,
-      "reason": "Snapback cap \u2014 obvious Chirp'n3rd lid drop. No other brand tied to it.",
+      "reason": "Snapback cap — obvious Chirp'n3rd lid drop. No other brand tied to it.",
       "collection": "Lids",
       "title": "Chirp'n3rd Snapback",
       "hook": "Flat brim, flat-out sending it.",
@@ -170,7 +170,7 @@
     {
       "name": "HOODEEZE",
       "include": true,
-      "reason": "Hoodie (playful spelling) \u2014 core apparel piece for the brand. No other label named.",
+      "reason": "Hoodie (playful spelling) — core apparel piece for the brand. No other label named.",
       "collection": "Hoodies",
       "title": "The Chirp'n3rd Hoodie",
       "hook": "Cold starts, warm hoodie.",
@@ -227,11 +227,11 @@
     {
       "name": "Base Ball 3/4",
       "include": true,
-      "reason": "Three-quarter-sleeve baseball tee \u2014 a Chirp'n3rd tee variant. Reads as a duplicate/sibling of #9 but still on-brand; no other label.",
+      "reason": "Three-quarter-sleeve baseball tee — a Chirp'n3rd tee variant. Reads as a duplicate/sibling of #9 but still on-brand; no other label.",
       "collection": "Tees",
       "title": "Chirp'n3rd 3/4 Sleeve",
       "hook": "The in-between-seasons chirp shirt.",
-      "description": "Three-quarter sleeve raglan for that weird garage weather \u2014 too warm for the hoodie, too cold for a plain tee. Helmet bird front and center, contrast sleeves, soft-washed so it feels like you've owned it three summers already.",
+      "description": "Three-quarter sleeve raglan for that weird garage weather — too warm for the hoodie, too cold for a plain tee. Helmet bird front and center, contrast sleeves, soft-washed so it feels like you've owned it three summers already.",
       "garment": "tee",
       "colorway": "heather / dark sleeves",
       "tags": [
@@ -246,7 +246,7 @@
     {
       "name": "3/4 For Softball",
       "include": true,
-      "reason": "Another 3/4 raglan variant \u2014 fits as a Chirp'n3rd tee with the same silhouette. No competing brand named.",
+      "reason": "Another 3/4 raglan variant — fits as a Chirp'n3rd tee with the same silhouette. No competing brand named.",
       "collection": "Tees",
       "title": "Chirp'n3rd Softball 3/4",
       "hook": "Beer-league fit, back-road heart.",
@@ -265,7 +265,7 @@
     {
       "name": "Keep Yo Lid Warm",
       "include": true,
-      "reason": "Beanie in the garage voice ('lid warm') \u2014 clearly a Chirp'n3rd knit cap. No other brand.",
+      "reason": "Beanie in the garage voice ('lid warm') — clearly a Chirp'n3rd knit cap. No other brand.",
       "collection": "Lids",
       "title": "Keep Yo Lid Warm Beanie",
       "hook": "Cold garage? Cover the dome.",
@@ -288,7 +288,7 @@
       "collection": "Lids",
       "title": "Keep Your Lid Good Beanie",
       "hook": "Dome protection for degenerates.",
-      "description": "The everyday knit beanie \u2014 pull it low, keep your lid good through the cold months. Embroidered helmet bird on the cuff, stretchy enough for any head, humble enough to lose in the back seat for a month. Basic in the best way.",
+      "description": "The everyday knit beanie — pull it low, keep your lid good through the cold months. Embroidered helmet bird on the cuff, stretchy enough for any head, humble enough to lose in the back seat for a month. Basic in the best way.",
       "garment": "beanie",
       "colorway": "charcoal",
       "tags": [
@@ -302,8 +302,8 @@
     },
     {
       "name": "Slap this on your bumper",
-      "include": true,
-      "reason": "Bumper sticker in pure garage voice \u2014 textbook Chirp'n3rd decal. No other brand named.",
+      "include": false,
+      "reason": "Bumper sticker in pure garage voice — textbook Chirp'n3rd decal. No other brand named.",
       "collection": "Stickers",
       "title": "Bumper Slapper Sticker",
       "hook": "Free real estate for the bird.",
@@ -317,7 +317,8 @@
         "vinyl",
         "bird"
       ],
-      "priceUSD": 5
+      "priceUSD": 5,
+      "excludeReason": "Art is a Slip Angle logo sticker, not Chirp'n3rd — caught at publish time 2026-08-14"
     },
     {
       "name": "The Bloomer Trucker",
@@ -341,7 +342,7 @@
     {
       "name": "They also makes pants out of this",
       "include": false,
-      "reason": "Not a real product \u2014 a joke placeholder note ('they also makes pants out of this'), no defined garment or graphic to sell.",
+      "reason": "Not a real product — a joke placeholder note ('they also makes pants out of this'), no defined garment or graphic to sell.",
       "collection": "New Drops"
     },
     {
@@ -715,13 +716,13 @@
     {
       "name": "F40 Carrera Roller",
       "include": true,
-      "reason": "Supercar rolling-shot render \u2014 car culture, not tied to any excluded label. Leans exotic rather than core JDM, but still fits the wall-art side of the shop.",
+      "reason": "Supercar rolling-shot render — car culture, not tied to any excluded label. Leans exotic rather than core JDM, but still fits the wall-art side of the shop.",
       "collection": "Posters",
       "garment": "poster",
       "colorway": "dark",
       "title": "F40 Roller",
       "hook": "Analog twin-turbo, zero driver aids, all attitude.",
-      "description": "A rolling shot of the last Ferrari that trusted you completely \u2014 no traction control, no safety net, just boost and bad decisions. We're Honda guys at heart but we know a poster-worthy silhouette when we see one. Tape it above the workbench and dream a little.",
+      "description": "A rolling shot of the last Ferrari that trusted you completely — no traction control, no safety net, just boost and bad decisions. We're Honda guys at heart but we know a poster-worthy silhouette when we see one. Tape it above the workbench and dream a little.",
       "tags": [
         "ferrari",
         "f40",
@@ -759,7 +760,7 @@
       "colorway": "black",
       "title": "BMW Slide",
       "hook": "Rear-wheel drive is a lifestyle, not a layout.",
-      "description": "Some cars understeer to the wall. This one waves at it sideways. A tribute to the cheapest way to get a car loose and the most expensive way to keep it that way \u2014 tires. Wear it, then go feed the habit.",
+      "description": "Some cars understeer to the wall. This one waves at it sideways. A tribute to the cheapest way to get a car loose and the most expensive way to keep it that way — tires. Wear it, then go feed the habit.",
       "tags": [
         "bmw",
         "drift",
@@ -772,7 +773,7 @@
     {
       "name": "Vintage Honda",
       "include": true,
-      "reason": "Core Chirp'n3rd \u2014 Honda, import culture, exactly the brand's DNA.",
+      "reason": "Core Chirp'n3rd — Honda, import culture, exactly the brand's DNA.",
       "collection": "Tees",
       "garment": "tee",
       "colorway": "white",
@@ -797,7 +798,7 @@
       "colorway": "black",
       "title": "Classic Nardi",
       "hook": "Wood rim, thin spokes, all feel.",
-      "description": "A three-spoke wheel that's been bolted into every good build since your grandfather's day. No airbag, no buttons, just a direct line from your hands to the front tires. If you know, you know \u2014 and your palms already miss it.",
+      "description": "A three-spoke wheel that's been bolted into every good build since your grandfather's day. No airbag, no buttons, just a direct line from your hands to the front tires. If you know, you know — and your palms already miss it.",
       "tags": [
         "nardi",
         "steering-wheel",
@@ -816,7 +817,7 @@
       "colorway": "black",
       "title": "Turek Corrola",
       "hook": "Spelled wrong, built right.",
-      "description": "The most reliable econobox ever made, beaten mercilessly by every kid who couldn't afford anything faster \u2014 and it just kept running. Yeah we spelled it funny. So did your buddy's dyno sheet. Cheap, light, immortal.",
+      "description": "The most reliable econobox ever made, beaten mercilessly by every kid who couldn't afford anything faster — and it just kept running. Yeah we spelled it funny. So did your buddy's dyno sheet. Cheap, light, immortal.",
       "tags": [
         "toyota",
         "corolla",
@@ -835,7 +836,7 @@
       "colorway": "dark",
       "title": "Carrera GT",
       "hook": "A V10 that files for a manual license.",
-      "description": "Race engine, wooden shift knob, a clutch that separated the brave from the parked. The last hypercar that made you earn it with your left foot. We put a wood knob on our stuff too \u2014 theirs just came with 600 horses behind it. Wall material.",
+      "description": "Race engine, wooden shift knob, a clutch that separated the brave from the parked. The last hypercar that made you earn it with your left foot. We put a wood knob on our stuff too — theirs just came with 600 horses behind it. Wall material.",
       "tags": [
         "porsche",
         "carrera-gt",
@@ -854,7 +855,7 @@
       "colorway": "dark",
       "title": "Huracan Evo Roller",
       "hook": "Loud on purpose, subtle never.",
-      "description": "A screaming V10 wedge caught mid-roll, doing the one thing it was built to do \u2014 make everyone look. Not exactly a garage-build hero but it earns its spot on the wall next to the ones we actually wrench on. Print, hang, admire.",
+      "description": "A screaming V10 wedge caught mid-roll, doing the one thing it was built to do — make everyone look. Not exactly a garage-build hero but it earns its spot on the wall next to the ones we actually wrench on. Print, hang, admire.",
       "tags": [
         "lamborghini",
         "huracan",
@@ -867,7 +868,7 @@
     {
       "name": "NSX",
       "include": true,
-      "reason": "Honda/Acura NSX \u2014 dead-center Chirp'n3rd. JDM icon, no excluded brand.",
+      "reason": "Honda/Acura NSX — dead-center Chirp'n3rd. JDM icon, no excluded brand.",
       "collection": "Tees",
       "garment": "tee",
       "colorway": "black",
@@ -924,13 +925,13 @@
     {
       "name": "Period Correct",
       "include": true,
-      "reason": "Genuine enthusiast phrase for era-accurate builds; not named among excluded labels, so treating as generic car-culture wording. Mild caution \u2014 it echoes an existing apparel name.",
+      "reason": "Genuine enthusiast phrase for era-accurate builds; not named among excluded labels, so treating as generic car-culture wording. Mild caution — it echoes an existing apparel name.",
       "collection": "Tees",
       "garment": "tee",
       "colorway": "white",
       "title": "Period Correct",
       "hook": "No zip ties, no modern shortcuts, all era.",
-      "description": "The purist's badge \u2014 every part right for the year, nothing anachronistic bolted on to cheat. For the builder who'd rather hunt a swap meet for six months than run a repro. Correct down to the valve stem caps.",
+      "description": "The purist's badge — every part right for the year, nothing anachronistic bolted on to cheat. For the builder who'd rather hunt a swap meet for six months than run a repro. Correct down to the valve stem caps.",
       "tags": [
         "period-correct",
         "restomod",
@@ -962,7 +963,7 @@
     {
       "name": "Hell Kitty",
       "include": true,
-      "reason": "JDM sticker-culture Hello Kitty parody \u2014 classic import-scene humor, no excluded brand.",
+      "reason": "JDM sticker-culture Hello Kitty parody — classic import-scene humor, no excluded brand.",
       "collection": "Stickers",
       "garment": "sticker",
       "colorway": "white",
@@ -987,7 +988,7 @@
       "colorway": "black",
       "title": "Ridin Dirty",
       "hook": "Brake dust, bug guts, and a check-engine light for flavor.",
-      "description": "For the daily that never sees a wash bay because there's always a mod to finish first. Fenders full of road grime, trunk full of tools, and zero shame about any of it. Clean car, dirty conscience \u2014 nah, other way around.",
+      "description": "For the daily that never sees a wash bay because there's always a mod to finish first. Fenders full of road grime, trunk full of tools, and zero shame about any of it. Clean car, dirty conscience — nah, other way around.",
       "tags": [
         "humor",
         "daily",
@@ -1381,7 +1382,7 @@
     }
   ],
   "plan": {
-    "summary": "Launch plan for Chirp'n3rd Online (THE GARAGE group). 63 of 101 classified products are INCLUDED, sorted into 9 storefront collections, each mapped to a Y2K AOL buddy-list screen name. 38 products are EXCLUDED \u2014 generic bro/novelty filler with no car-culture or chirp hook, non-products/placeholders (Shoes?, .COM, \"they also makes pants out of this\"), and anything named after an excluded outside brand (Slip Angle, Mars, Glenn, Hoyle Racing, RAMXBRO, Chad G., Eltankrensha). The launch set is 12 pieces balancing the confirmed bird/chirp core (OG Burd, Big Bird, Zippy Boy, CH3RD plate, Crest, sticker sheet, shift knob, flagship hoodie) with the strongest car-culture designs (NSX, Vintage Honda, Better Than a Firebird, You Are A N3rd). Note two duplicate-concept pairs that should ship as alternate colorways rather than separate SKUs: OG Burd / OG Burd (2nd), and the two beanies (Keep Yo Lid Warm / Keep your lid good). Product names use the classified-set \"name\" field as canonical IDs.",
+    "summary": "Launch plan for Chirp'n3rd Online (THE GARAGE group). 63 of 101 classified products are INCLUDED, sorted into 9 storefront collections, each mapped to a Y2K AOL buddy-list screen name. 38 products are EXCLUDED — generic bro/novelty filler with no car-culture or chirp hook, non-products/placeholders (Shoes?, .COM, \"they also makes pants out of this\"), and anything named after an excluded outside brand (Slip Angle, Mars, Glenn, Hoyle Racing, RAMXBRO, Chad G., Eltankrensha). The launch set is 12 pieces balancing the confirmed bird/chirp core (OG Burd, Big Bird, Zippy Boy, CH3RD plate, Crest, sticker sheet, shift knob, flagship hoodie) with the strongest car-culture designs (NSX, Vintage Honda, Better Than a Firebird, You Are A N3rd). Note two duplicate-concept pairs that should ship as alternate colorways rather than separate SKUs: OG Burd / OG Burd (2nd), and the two beanies (Keep Yo Lid Warm / Keep your lid good). Product names use the classified-set \"name\" field as canonical IDs.",
     "collections": [
       {
         "name": "Tees",

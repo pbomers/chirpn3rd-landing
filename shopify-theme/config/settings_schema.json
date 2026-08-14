@@ -1,16 +1,16 @@
 [
   {
     "name": "theme_info",
-    "theme_name": "Chirpn3rd Online",
+    "theme_name": "Chirp'n3rd Online",
     "theme_version": "1.0.0",
-    "theme_author": "Chirpn3rd",
+    "theme_author": "Chirp'n3rd",
     "theme_documentation_url": "https://new.chirpn3rd.com",
     "theme_support_url": "https://new.chirpn3rd.com"
   },
   {
     "name": "Brand",
     "settings": [
-      { "type": "text", "id": "brand_name", "label": "Brand name", "default": "Chirpn3rd",
+      { "type": "text", "id": "brand_name", "label": "Brand name", "default": "Chirp'n3rd",
         "info": "Used across the storefront instead of the Shopify store name, so the shop can stay named whatever you like in admin." },
       { "type": "image_picker", "id": "logo", "label": "Toolbar logo",
         "info": "Small mark shown at the right of the toolbar. Leave empty to use the helmet bird." },

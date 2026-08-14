@@ -1,4 +1,4 @@
-{%- assign sn = section.settings.screen_name | default: 'Chirpn3rd' -%}
+{%- assign sn = section.settings.screen_name | default: "Chirp'n3rd" -%}
 {%- assign win_title = 'Instant Message From: ' | append: sn -%}
 {%- capture win_body_1 -%}
 
@@ -49,12 +49,12 @@
   "tag": "section",
   "class": "section--im",
   "settings": [
-    { "type": "text", "id": "screen_name", "label": "Screen name", "default": "Chirpn3rd" },
+    { "type": "text", "id": "screen_name", "label": "Screen name", "default": "Chirp'n3rd" },
     { "type": "text", "id": "reply_text", "label": "Prefilled reply", "default": "nothin. show me the merch" },
     { "type": "text", "id": "button_label", "label": "Button label", "default": "Send It" },
     { "type": "url", "id": "button_url", "label": "Button link" },
     { "type": "text", "id": "disclaimer", "label": "Small print",
-      "default": "Reminder: Chirpn3rd will never ask for your password, only your compression numbers." }
+      "default": "Reminder: Chirp'n3rd will never ask for your password, only your compression numbers." }
   ],
   "blocks": [
     {

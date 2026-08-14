@@ -1,4 +1,4 @@
-/* Chirpn3rd Online — storefront behavior.
+/* Chirp'n3rd Online — storefront behavior.
    Vanilla, no build step. Everything degrades to plain form posts if JS is off. */
 (function () {
   "use strict";
@@ -273,7 +273,7 @@
           you.querySelector(".convo__msg").textContent = val;
           convo.appendChild(you);
           var them = document.createElement("p");
-          them.innerHTML = '<b class="convo__sn">Chirpn3rd:</b> <span class="convo__msg"></span>';
+          them.innerHTML = '<b class="convo__sn">Chirp\'n3rd:</b> <span class="convo__msg"></span>';
           them.querySelector(".convo__msg").textContent = SLANG[key];
           convo.appendChild(them);
           convo.scrollTop = convo.scrollHeight;

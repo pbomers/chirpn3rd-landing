@@ -42,10 +42,10 @@
         "l5"
       ],
       "settings": {
-        "screen_name": "Chirpn3rd",
+        "screen_name": "Chirp'n3rd",
         "reply_text": "nothin. show me the merch",
         "button_label": "Send It",
-        "disclaimer": "Reminder: Chirpn3rd will never ask for your password, only your compression numbers.",
+        "disclaimer": "Reminder: Chirp'n3rd will never ask for your password, only your compression numbers.",
         "button_url": "/collections/new-drops"
       }
     },
@@ -63,7 +63,7 @@
         "r2": {
           "type": "rail_link",
           "settings": {
-            "label": "Chirpn3rd Channels",
+            "label": "Chirp'n3rd Channels",
             "icon": "i-chan",
             "url": "/collections"
           }
@@ -87,7 +87,7 @@
           "type": "story",
           "settings": {
             "headline": "You've Got Merch.",
-            "body": "What are you waiting for? The new drop is the latest and greatest Chirpn3rd has to offer.",
+            "body": "What are you waiting for? The new drop is the latest and greatest Chirp'n3rd has to offer.",
             "url": "/collections/new-drops"
           }
         },
@@ -109,7 +109,7 @@
         "s3"
       ],
       "settings": {
-        "masthead": "CHIRPN3RD TODAY"
+        "masthead": "CHIRP'N3RD TODAY"
       }
     },
     "channels": {
@@ -184,7 +184,7 @@
       ],
       "settings": {
         "title": "Channels",
-        "heading": "Chirpn3rd Channels"
+        "heading": "Chirp'n3rd Channels"
       }
     },
     "featured": {
@@ -276,7 +276,7 @@
       ],
       "settings": {
         "title": "Buddy List",
-        "heading": "Chirpn3rd Buddies",
+        "heading": "Chirp'n3rd Buddies",
         "group_name": "THE GARAGE",
         "keyword": "THE GARAGE"
       }

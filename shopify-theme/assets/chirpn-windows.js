@@ -1,4 +1,4 @@
-/* Chirpn3rd Online — window manager.
+/* Chirp'n3rd Online — window manager.
    Progressive enhancement: with JS off every window stays open and stacked,
    which is the layout Shopify renders anyway. Nothing here is required to shop. */
 (function () {

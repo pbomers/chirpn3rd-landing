@@ -218,15 +218,9 @@
 
     if (closeBtn) closeBtn.addEventListener("click", function (e) {
       e.stopPropagation();
-      win.classList.remove("is-max");
-      /* On shop pages, X collapses in place instead of vanishing content -
-         nobody should be able to close the buy box into the void. */
-      if (!document.body.classList.contains("template-index")) {
-        win.classList.add("is-min");
-        trayAdd(win, label);
-        flash(label + " tucked away. Click its title bar button below to bring it back.");
-        return;
-      }
+      win.classList.remove("is-max", "is-min");
+      /* X hides the window on every page. The tray button is the way back,
+         so even the buy box can't be closed into the void. */
       win.classList.add("is-closed");
       trayAdd(win, label);
       flash(label + " closed. It is waiting in the tray.");

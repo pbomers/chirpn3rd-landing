@@ -442,6 +442,10 @@ ul{list-style:none}
   .cart__table,.cart__table tbody,.cart__table tr,.cart__table td{display:block;width:100%}
   .cart__table tr{border-bottom:2px solid var(--face)}
   .cart__table td{border:0;text-align:left !important}
+  /* purchase-path controls only: thumb-sized targets, and 16px so iOS
+     doesn't zoom the page on focus. Everything else keeps the tiny chrome. */
+  .product__info select,.product__info .qty,.cart__table .qty{min-height:40px;font-size:16px}
+  .product__info [data-add],.cart__foot .btn,.cart__foot button[name=checkout]{min-height:44px;font-size:14px}
 }
 @media (prefers-reduced-motion:reduce){
   *{animation:none !important;transition:none !important}

@@ -20,7 +20,7 @@
     if current_tags
       assign doc_title = doc_title | append: ' · ' | append: current_tags
     endif
-    if doc_title == blank
+    if doc_title == blank or template.name == 'index'
       assign doc_title = brand
     elsif doc_title contains brand or doc_title contains shop.name
       assign doc_title = doc_title

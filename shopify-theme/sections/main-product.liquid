@@ -132,8 +132,19 @@
 
 {%- endif -%}
 
-{%- assign related = product.collections.first -%}
-{%- if related and related.products.size > 1 -%}
+{%- comment -%}
+  Pick the first collection that has company. Shopify's default "Home page"
+  collection (frontpage) tends to sort first with one product in it, which
+  would silently hide this window.
+{%- endcomment -%}
+{%- assign related = blank -%}
+{%- for c in product.collections -%}
+  {%- if c.handle != 'frontpage' and c.handle != 'all' and c.products.size > 1 -%}
+    {%- assign related = c -%}
+    {%- break -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- if related != blank -%}
   {%- assign win_title_rel = 'Also In ' | append: related.title -%}
 {%- capture win_body_3 -%}
 

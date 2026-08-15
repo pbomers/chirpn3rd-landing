@@ -17,6 +17,11 @@ node server.js
 
 Zero-config. `vercel.json` rewrites all routes into `web/`, so importing this repo and hitting **Deploy** just works — no build command, no output directory to set.
 
+## Store
+
+The Shopify theme is in [`shopify-theme/`](shopify-theme/). How Sean adds, prices and
+removes products, and how the buddy list maps to collections: [`shopify-theme/OPERATIONS.md`](shopify-theme/OPERATIONS.md).
+
 ## Notes
 
 - The **Shop** button and social links are placeholders until the Printful storefront goes live.

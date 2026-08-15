@@ -7,6 +7,17 @@
       {%- for link in linklists[section.settings.menu].links -%}
         <a href="{{ link.url }}">{{ link.title }}</a>
       {%- endfor -%}
+      {%- if section.settings.show_contact -%}
+        <a href="/pages/contact">Contact</a>
+      {%- endif -%}
+      {%- comment -%} Store policies from Settings > Policies. Only the ones that exist render. {%- endcomment -%}
+      {%- if section.settings.show_policies -%}
+        {%- for policy in shop.policies -%}
+          {%- if policy.body != blank -%}
+            <a href="{{ policy.url }}">{{ policy.title }}</a>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
       {%- if settings.social_instagram != blank -%}
         <a href="{{ settings.social_instagram }}" target="_blank" rel="noopener">Instagram</a>
       {%- endif -%}
@@ -34,6 +45,9 @@
   "name": "Footer",
   "settings": [
     { "type": "link_list", "id": "menu", "label": "Footer menu", "default": "footer" },
+    { "type": "checkbox", "id": "show_contact", "label": "Show Contact link", "default": true },
+    { "type": "checkbox", "id": "show_policies", "label": "Show store policies", "default": true,
+      "info": "Privacy, refund, terms and shipping policies from Settings > Policies. Only ones you've written appear." },
     { "type": "text", "id": "fine_print", "label": "Fine print",
       "default": "1,000 Free Hours Of Chirp'n3rd. No CD Required." },
     { "type": "textarea", "id": "tips", "label": "Status bar tips (separate with |)",

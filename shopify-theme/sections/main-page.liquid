@@ -1,11 +1,28 @@
-{%- capture win_body_1 -%}
+{%- comment -%}
+  Shopify creates a "Contact" page in every new store on the plain page template.
+  If it lands here rather than on page.contact, still give it the form.
+{%- endcomment -%}
+{%- if page.handle == 'contact' -%}
+  {%- assign sn = settings.brand_name | default: shop.name -%}
+  {%- assign win_title = 'Instant Message To: ' | append: sn -%}
+  <div style="width:min(520px,100%)">
+    {%- capture win_body_1 -%}
+      {%- if page.content != blank -%}
+        <div class="prose" style="margin-bottom:10px">{{ page.content }}</div>
+      {%- endif -%}
+      {% render 'contact-form', screen_name: sn, intro: 'sup. wrong size, missing order, want a design, just wanna talk cars. all good. hit us.' %}
+    {%- endcapture -%}
+    {% render 'window', title: win_title, icon: 'i-chat', content: win_body_1 %}
+  </div>
+{%- else -%}
+  {%- capture win_body_1 -%}
 
-  <h1 style="font:italic bold 22px Georgia,serif;color:#0d2a70;margin-bottom:8px">{{ page.title }}</h1>
-  <div class="rule"></div>
-  <div class="prose">{{ page.content }}</div>
-{%- endcapture -%}
-{% render 'window', title: page.title, icon: 'i-files', paper: true, content: win_body_1 %}
-
+    <h1 style="font:italic bold 22px Georgia,serif;color:#0d2a70;margin-bottom:8px">{{ page.title }}</h1>
+    <div class="rule"></div>
+    <div class="prose">{{ page.content }}</div>
+  {%- endcapture -%}
+  {% render 'window', title: page.title, icon: 'i-files', paper: true, content: win_body_1 %}
+{%- endif -%}
 
 {% schema %}
 { "name": "Page", "tag": "section", "settings": [] }

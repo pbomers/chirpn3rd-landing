@@ -1,0 +1,27 @@
+{%- liquid
+  assign sn = section.settings.screen_name | default: settings.brand_name | default: shop.name
+  assign win_title = 'Instant Message To: ' | append: sn
+-%}
+<div style="width:min(520px,100%)">
+  {%- capture win_body_1 -%}
+
+    {%- if page.content != blank -%}
+      <div class="prose" style="margin-bottom:10px">{{ page.content }}</div>
+    {%- endif -%}
+    {% render 'contact-form', screen_name: sn, intro: section.settings.intro %}
+{%- endcapture -%}
+{% render 'window', title: win_title, icon: 'i-chat', content: win_body_1 %}
+</div>
+
+{% schema %}
+{
+  "name": "Contact form",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "screen_name", "label": "Screen name the IM goes to",
+      "info": "Leave blank to use the brand name." },
+    { "type": "textarea", "id": "intro", "label": "Opening line",
+      "default": "sup. wrong size, missing order, want a design, just wanna talk cars. all good. hit us." }
+  ]
+}
+{% endschema %}

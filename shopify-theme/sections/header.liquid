@@ -9,24 +9,24 @@
     <button class="menubar__item" type="button" data-signoff>Sign Off</button>
     <button class="menubar__item" type="button" data-menu="menu-help" aria-expanded="false" aria-haspopup="true">Help</button>
 
-    <div class="menubar__drop" id="menu-file" style="left:4px">
+    <div class="menubar__drop" id="menu-file">
       <a href="{{ routes.root_url }}">Home</a>
       <a href="{{ routes.all_products_collection_url }}">All Merch</a>
       <a href="{{ routes.cart_url }}">View Cart</a>
       <a href="{{ routes.search_url }}">Find...</a>
     </div>
-    <div class="menubar__drop" id="menu-shop" style="left:48px">
+    <div class="menubar__drop" id="menu-shop">
       {%- for col in collections limit: 10 -%}
         {%- if col.handle == 'frontpage' -%}{%- continue -%}{%- endif -%}
         <a href="{{ col.url }}">{{ col.title }}</a>
       {%- endfor -%}
       <a href="{{ routes.all_products_collection_url }}">All Merch</a>
     </div>
-    <div class="menubar__drop" id="menu-window" style="left:104px">
+    <div class="menubar__drop" id="menu-window">
       <button type="button" data-restore-all>Restore All Windows</button>
       <button type="button" data-arrange>Arrange Windows</button>
     </div>
-    <div class="menubar__drop" id="menu-help" style="right:8px">
+    <div class="menubar__drop" id="menu-help">
       <button type="button" data-help="howto">How To Chirp 3rd</button>
       <button type="button" data-help="keywords">Keywords</button>
       {%- for link in linklists[section.settings.help_menu].links -%}

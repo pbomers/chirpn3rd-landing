@@ -1,0 +1,63 @@
+{% comment %}
+  Shopify's built-in contact form, dressed as an outgoing IM. Posts to /contact
+  and comes back to the same page with form.posted_successfully? set, so it works
+  on any template with no app and no admin setup. Mail lands at the store's
+  sender email (Settings > Store details).
+
+  Params: screen_name (who the IM is "to"), intro (line above the fields)
+{% endcomment %}
+{%- assign sn = screen_name | default: settings.brand_name | default: shop.name -%}
+
+{%- form 'contact', class: 'imform', id: 'contact_form' -%}
+  {%- if form.posted_successfully? -%}
+    <div class="convo" style="margin-bottom:8px">
+      <p class="convo__line"><b class="convo__sn">{{ sn }}:</b> <span class="convo__msg">got it. we read every one of these between oil changes. talk soon.</span></p>
+    </div>
+    <p class="imnote">Message sent. Hit Welcome or keep shopping.</p>
+  {%- else -%}
+    {%- if form.errors -%}
+      <div class="errors" role="alert" style="margin-bottom:8px">
+        {%- for field in form.errors -%}
+          {%- if field == 'form' -%}
+            {{ form.errors.messages[field] }}
+          {%- else -%}
+            {{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}
+          {%- endif -%}
+          <br>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- if intro != blank -%}
+      <div class="convo" style="margin-bottom:8px">
+        <p class="convo__line"><b class="convo__sn">{{ sn }}:</b> <span class="convo__msg">{{ intro }}</span></p>
+      </div>
+    {%- endif -%}
+
+    <div class="field" style="margin-bottom:6px">
+      <label for="cf-name">Screen Name</label>
+      <input id="cf-name" type="text" name="contact[name]" autocomplete="name"
+             value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}">
+    </div>
+    <div class="field" style="margin-bottom:6px">
+      <label for="cf-email">Email</label>
+      <input id="cf-email" type="email" name="contact[email]" autocomplete="email" required
+             aria-required="true" spellcheck="false" autocapitalize="off"
+             value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}">
+    </div>
+    <div class="field" style="margin-bottom:6px">
+      <label for="cf-order">Order #</label>
+      <input id="cf-order" type="text" name="contact[order]" inputmode="numeric" placeholder="if it's about one"
+             value="{{ form.order }}">
+    </div>
+    <div class="field field--top" style="margin-bottom:8px">
+      <label for="cf-body">Message</label>
+      <textarea id="cf-body" name="contact[body]" rows="6" required aria-required="true">{{ form.body }}</textarea>
+    </div>
+
+    <div style="display:flex;justify-content:flex-end;gap:6px;align-items:center">
+      <span class="imnote" style="margin-right:auto">Reminder: {{ sn }} will never ask for your password, only your compression numbers.</span>
+      <button class="btn btn--send" type="submit">Send</button>
+    </div>
+  {%- endif -%}
+{%- endform -%}

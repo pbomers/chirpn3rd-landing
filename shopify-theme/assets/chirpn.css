@@ -330,6 +330,9 @@ ul{list-style:none}
   flex:1;min-width:0;height:24px;border:0;padding:0 5px;background:#fff;
   box-shadow:inset 1px 1px 0 var(--edge-mid),inset -1px -1px 0 #fff,inset 2px 2px 0 var(--edge-dark)}
 .field textarea{height:auto;padding:5px;resize:vertical}
+.imform .field > label{flex-basis:88px}
+.field--top{align-items:flex-start}
+.field--top > label{padding-top:5px}
 .qty{width:64px;flex:0 0 64px}
 .stock{display:flex;align-items:center;gap:5px;font-size:10px}
 .stock__dot{width:9px;height:9px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#7dff7d,#0a7a0a)}
@@ -414,6 +417,22 @@ ul{list-style:none}
 .toast__body img{width:38px;flex:0 0 auto}
 .toast__msg{line-height:1.4}
 .toast__msg b{color:var(--blue-ink)}
+
+/* ---------- policy pages (Shopify renders these with its own markup) ---------- */
+.shopify-policy__container{width:min(720px,100%);align-self:flex-start;position:relative;z-index:1;background:var(--face);padding:3px;
+  box-shadow:inset -1px -1px 0 var(--edge-dark),inset 1px 1px 0 #fff,inset -2px -2px 0 var(--edge-mid),
+    inset 2px 2px 0 var(--face-lit),3px 3px 0 rgba(0,0,0,.35)}
+.shopify-policy__title{margin:0;padding:3px 6px;background:linear-gradient(90deg,var(--navy),var(--navy-2));
+  color:#fff;font:bold 11px var(--sans);text-align:left}
+.shopify-policy__title h1{font:inherit;margin:0}
+.shopify-policy__body{background:#fff;padding:14px 16px;line-height:1.7;max-height:70vh;overflow:auto;
+  box-shadow:inset 1px 1px 0 var(--edge-mid),inset 2px 2px 0 var(--edge-dark)}
+.shopify-policy__body h1,.shopify-policy__body h2,.shopify-policy__body h3,.shopify-policy__body strong{color:var(--blue-ink)}
+.shopify-policy__body h2{font-size:14px;margin:16px 0 6px}
+.shopify-policy__body h3{font-size:12px;margin:12px 0 4px}
+.shopify-policy__body p{margin:0 0 .85em}
+.shopify-policy__body ul{list-style:disc;padding-left:20px;margin:0 0 .85em}
+.shopify-policy__body a{color:var(--link)}
 
 /* ---------- Help Topics window ---------- */
 .help{position:fixed;inset:0;z-index:290;display:grid;place-items:center;padding:16px;

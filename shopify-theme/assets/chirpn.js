@@ -56,7 +56,17 @@
       var open = drop.classList.contains("open");
       $$(".menubar__drop").forEach(function (d) { d.classList.remove("open"); });
       $$("[data-menu]").forEach(function (b) { b.setAttribute("aria-expanded", "false"); });
-      if (!open) { drop.classList.add("open"); btn.setAttribute("aria-expanded", "true"); }
+      if (!open) {
+        /* Sit under the button that opened it, but never past the right edge. */
+        var bar = btn.parentNode;
+        var left = btn.offsetLeft;
+        drop.style.right = "auto";
+        drop.style.left = left + "px";
+        drop.classList.add("open");
+        var over = left + drop.offsetWidth - bar.clientWidth + 4;
+        if (over > 0) drop.style.left = Math.max(4, left - over) + "px";
+        btn.setAttribute("aria-expanded", "true");
+      }
     });
   });
   document.addEventListener("click", function () {

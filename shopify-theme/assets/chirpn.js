@@ -202,6 +202,46 @@
     });
   });
 
+  /* ---------- Help Topics window ---------- */
+  var helpDlg = $("[data-help-dialog]");
+  var helpReturnFocus = null;
+  function helpShow(topic) {
+    if (!helpDlg) return;
+    helpTopic(topic || "howto");
+    helpReturnFocus = document.activeElement;
+    helpDlg.hidden = false;
+    var first = $('[data-help-topic][aria-selected="true"]', helpDlg);
+    if (first) first.focus();
+  }
+  function helpHide() {
+    if (!helpDlg || helpDlg.hidden) return;
+    helpDlg.hidden = true;
+    if (helpReturnFocus && helpReturnFocus.focus) helpReturnFocus.focus();
+  }
+  function helpTopic(name) {
+    $$("[data-help-topic]", helpDlg).forEach(function (b) {
+      b.setAttribute("aria-selected", b.getAttribute("data-help-topic") === name ? "true" : "false");
+    });
+    $$("[data-help-page]", helpDlg).forEach(function (p) {
+      p.hidden = p.getAttribute("data-help-page") !== name;
+    });
+  }
+  if (helpDlg) {
+    $$("[data-help]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        $$(".menubar__drop").forEach(function (d) { d.classList.remove("open"); });
+        $$("[data-menu]").forEach(function (b) { b.setAttribute("aria-expanded", "false"); });
+        helpShow(btn.getAttribute("data-help"));
+      });
+    });
+    $$("[data-help-topic]", helpDlg).forEach(function (b) {
+      b.addEventListener("click", function () { helpTopic(b.getAttribute("data-help-topic")); });
+    });
+    $$("[data-help-close]", helpDlg).forEach(function (b) { b.addEventListener("click", helpHide); });
+    helpDlg.addEventListener("click", function (e) { if (e.target === helpDlg) helpHide(); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") helpHide(); });
+  }
+
   /* ---------- keyword bar (with era-correct keywords) ---------- */
   var KEYWORDS = {
     chirp:  function () { chirp(); flash("Keyword CHIRP: you're already here, baby."); },
@@ -217,7 +257,9 @@
     cart:     function () { window.location.href = "/cart"; },
     merch:    function () { window.location.href = "/collections/all"; },
     "the garage": function () { window.location.href = "/collections"; },
-    help:     function () { showToast("<b>Help</b><br>Have fun. Shift hard. That is the whole manual."); }
+    help:     function () { helpDlg ? helpShow("howto") : showToast("<b>Help</b><br>Have fun. Shift hard. That is the whole manual."); },
+    about:    function () { helpDlg ? helpShow("about") : showToast("<b>" + document.title + "</b><br>version 3.0"); },
+    keywords: function () { helpDlg ? helpShow("keywords") : flash("Try CHIRP. Or GARAGE. Or MERCH."); }
   };
   var kw = $("[data-keyword-form]");
   if (kw) {

@@ -1,3 +1,4 @@
+{%- assign brand = settings.brand_name | default: shop.name -%}
 <header>
   <nav class="menubar" aria-label="Main">
     <button class="menubar__item" type="button" data-menu="menu-file" aria-expanded="false" aria-haspopup="true">File</button>
@@ -26,13 +27,86 @@
       <button type="button" data-arrange>Arrange Windows</button>
     </div>
     <div class="menubar__drop" id="menu-help" style="right:8px">
+      <button type="button" data-help="howto">How To Chirp 3rd</button>
+      <button type="button" data-help="keywords">Keywords</button>
       {%- for link in linklists[section.settings.help_menu].links -%}
         <a href="{{ link.url }}">{{ link.title }}</a>
-      {%- else -%}
-        <a href="{{ routes.search_url }}">Search The Garage</a>
       {%- endfor -%}
+      <button type="button" data-help="about">About {{ brand }} Online</button>
     </div>
   </nav>
+
+  {%- comment -%} Help Topics window. Opened from the Help menu or the HELP keyword. {%- endcomment -%}
+  {%- liquid
+    assign howto_steps = section.settings.howto_steps | newline_to_br | split: '<br />'
+  -%}
+  <div class="help" data-help-dialog role="dialog" aria-modal="true" aria-labelledby="help-title" hidden>
+    <div class="win help__win">
+      <div class="win__bar">
+        <svg class="win__icon" aria-hidden="true"><use href="#i-info"/></svg>
+        <span class="win__title" id="help-title">Help Topics: {{ brand }} Online</span>
+        <span class="win__btns">
+          <button class="win__btn" type="button" data-help-close aria-label="Close help">
+            <svg aria-hidden="true"><use href="#i-x"/></svg>
+          </button>
+        </span>
+      </div>
+      <div class="win__body help__body">
+        <div class="help__contents" role="tablist" aria-label="Help contents">
+          <p class="help__tab">Contents</p>
+          <button class="help__topic" type="button" role="tab" data-help-topic="howto" aria-selected="true">
+            <svg aria-hidden="true"><use href="#i-files"/></svg>How To Chirp 3rd
+          </button>
+          <button class="help__topic" type="button" role="tab" data-help-topic="keywords" aria-selected="false">
+            <svg aria-hidden="true"><use href="#i-files"/></svg>Keywords
+          </button>
+          <button class="help__topic" type="button" role="tab" data-help-topic="about" aria-selected="false">
+            <svg aria-hidden="true"><use href="#i-info"/></svg>About {{ brand }} Online
+          </button>
+        </div>
+
+        <div class="help__pane">
+          <section class="help__page" data-help-page="howto" role="tabpanel">
+            <h2 class="help__h">How To Chirp 3rd</h2>
+            <ol class="help__steps">
+              {%- for step in howto_steps -%}
+                {%- assign s = step | strip -%}
+                {%- if s != blank -%}<li>{{ s }}</li>{%- endif -%}
+              {%- endfor -%}
+            </ol>
+            {%- if section.settings.howto_fine != blank -%}
+              <p class="help__fine">{{ section.settings.howto_fine }}</p>
+            {%- endif -%}
+          </section>
+
+          <section class="help__page" data-help-page="keywords" role="tabpanel" hidden>
+            <h2 class="help__h">Keywords</h2>
+            <p>Type one into the bar up top and click <b>Go</b>. Some of them do things.</p>
+            <dl class="help__kw">
+              <dt>MERCH</dt><dd>Straight to the Merch Center.</dd>
+              <dt>GARAGE</dt><dd>Every channel, one screen.</dd>
+              <dt>CART</dt><dd>Where the good decisions live.</dd>
+              <dt>CHIRP</dt><dd>You'll hear it.</dd>
+              <dt>HELP</dt><dd>You're soaking in it.</dd>
+            </dl>
+            <p class="help__fine">There are others. We're not going to tell you.</p>
+          </section>
+
+          <section class="help__page help__page--about" data-help-page="about" role="tabpanel" hidden>
+            <img src="{{ 'wings.jpg' | asset_url }}" alt="" width="150" height="108">
+            <p class="help__brand">{{ brand }} Online</p>
+            <p class="help__ver">version 3.0 &middot; Have Fun Shift Hard</p>
+            <p>{{ section.settings.about_text }}</p>
+            <p class="help__fine">&copy; {{ 'now' | date: '%Y' }} {{ brand }}. Printed on demand. Shipped by birds.<br>
+              1,000 Free Hours. No CD Required.</p>
+          </section>
+        </div>
+      </div>
+      <div class="help__foot">
+        <button class="btn" type="button" data-help-close>OK</button>
+      </div>
+    </div>
+  </div>
 
   <div class="toolbar">
     <a class="tbtn" href="{{ routes.root_url }}">
@@ -91,9 +165,17 @@
   "name": "Header",
   "settings": [
     { "type": "link_list", "id": "menu", "label": "Shop menu", "default": "main-menu" },
-    { "type": "link_list", "id": "help_menu", "label": "Help menu" },
+    { "type": "link_list", "id": "help_menu", "label": "Help menu",
+      "info": "Extra links (shipping, returns, contact) shown between the built-in Help topics." },
     { "type": "text", "id": "keyword_placeholder", "label": "Keyword bar placeholder",
-      "default": "Type Keyword or Web Address here and click Go" }
+      "default": "Type Keyword or Web Address here and click Go" },
+    { "type": "header", "content": "Help Topics window" },
+    { "type": "textarea", "id": "howto_steps", "label": "How To Chirp 3rd (one step per line)",
+      "default": "Find a manual. Automatic? Skip to step 6.\nWarm the tires. Cold rubber has nothing to say.\nWind out 2nd. Don't lift.\nClutch in. Grab 3rd. Clutch out quick, foot stays down.\nListen for it. That short little bark is the tires letting go for half a heartbeat. That's the chirp. That's the whole religion.\nBuy the shirt so people know." },
+    { "type": "text", "id": "howto_fine", "label": "How-to fine print",
+      "default": "Closed course, obviously. Chirp'n3rd is not your lawyer, your mechanic, or your mom." },
+    { "type": "textarea", "id": "about_text", "label": "About text",
+      "default": "Two sounds we grew up on: a modem handshake and a set of tires letting go in third. Me and Sean make this stuff between oil changes." }
   ],
   "enabled_on": { "groups": ["header"] }
 }

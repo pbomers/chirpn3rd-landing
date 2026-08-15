@@ -102,7 +102,8 @@ Work down the list; it's always one of these:
 
 Printful's app pushed its own shipping profile into Shopify. It's flat rates that
 match Printful's published table (US tee $4.75 / express $9.99, hat $4.49, etc).
-Mixed carts sum the categories' rates. Don't create a second profile; if rates look
+**US only for now** — there is no international zone, so non-US addresses get no rate
+at checkout by design. Mixed carts sum the categories' rates. Don't create a second profile; if rates look
 wrong, fix them in **Settings → Shipping → the Printful profile**. Live carrier
 rates need Shopify Advanced (or Grow + $20/mo) — not worth it at this size.
 

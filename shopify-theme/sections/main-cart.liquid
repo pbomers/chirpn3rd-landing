@@ -47,7 +47,7 @@
         <button class="btn" type="submit" name="update">Update Cart</button>
         <div class="cart__totals">
           <p class="cart__total">Subtotal {{ cart.total_price | money }}</p>
-          <p class="cart__note">Shipping and taxes figured at checkout.</p>
+          <p class="cart__note">Shipping and taxes figured at checkout. US shipping only for now.</p>
           {%- if cart.total_price == 1999 -%}<p class="cart__note">Exactly one monthly AOL subscription. Respect.</p>{%- endif -%}
         </div>
       </div>

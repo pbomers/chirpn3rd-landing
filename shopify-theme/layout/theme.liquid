@@ -9,11 +9,26 @@
     <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
     <link rel="apple-touch-icon" href="{{ settings.favicon | image_url: width: 180, height: 180 }}">
   {%- else -%}
-    <link rel="icon" type="image/png" href="{{ 'bird-white.png' | asset_url }}">
-    <link rel="apple-touch-icon" href="{{ 'bird-white.png' | asset_url }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ 'favicon-32.png' | asset_url }}">
+    <link rel="icon" type="image/png" sizes="512x512" href="{{ 'favicon-512.png' | asset_url }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ 'apple-touch-icon.png' | asset_url }}">
   {%- endif -%}
 
-  <title>{{ page_title }}{% if current_tags %} &middot; {{ current_tags | join: ', ' }}{% endif %}{% unless page_title contains shop.name %} &middot; {{ settings.brand_name | default: shop.name }}{% endunless %}</title>
+  {%- liquid
+    assign brand = settings.brand_name | default: shop.name
+    assign doc_title = page_title
+    if current_tags
+      assign doc_title = doc_title | append: ' · ' | append: current_tags
+    endif
+    if doc_title == blank
+      assign doc_title = brand
+    elsif doc_title contains brand or doc_title contains shop.name
+      assign doc_title = doc_title
+    else
+      assign doc_title = doc_title | append: ' · ' | append: brand
+    endif
+  -%}
+  <title>{{ doc_title }}</title>
   {%- if page_description -%}<meta name="description" content="{{ page_description | escape }}">{%- endif -%}
 
   {% render 'meta-tags' %}

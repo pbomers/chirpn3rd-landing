@@ -3,7 +3,8 @@
   so without this snippet every shared link renders as a bare URL.
 
   og:image priority: whatever the page is actually about, then the toolbar logo,
-  then the bird. Product and article pages nearly always hit the first branch.
+  then og-image.jpg (1200x630 helmet bird + wordmark on the desktop teal).
+  Product and article pages nearly always hit the first branch.
 
   Shopify URL filters can return protocol-relative URLs (//cdn.shopify.com/...) and
   Open Graph needs an absolute one, hence the prepend guard on each image URL.
@@ -37,7 +38,7 @@
     assign og_desc = shop.description | default: 'Apparel for people who drive like it. Have Fun Shift Hard.'
   endif
 
-  if template.name == 'index'
+  if template.name == 'index' or page_title == blank
     assign og_title = brand
   else
     assign og_title = page_title
@@ -46,7 +47,7 @@
   if og_image != blank
     assign og_src = og_image | image_url: width: 1200
   else
-    assign og_src = 'bird-white.png' | asset_url
+    assign og_src = 'og-image.jpg' | asset_url
   endif
   unless og_src contains 'http'
     assign og_src = og_src | prepend: 'https:'

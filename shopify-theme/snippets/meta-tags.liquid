@@ -1,0 +1,78 @@
+{% comment %}
+  Open Graph + Twitter card tags. Shopify's content_for_header does not emit these,
+  so without this snippet every shared link renders as a bare URL.
+
+  og:image priority: whatever the page is actually about, then the toolbar logo,
+  then the bird. Product and article pages nearly always hit the first branch.
+
+  Shopify URL filters can return protocol-relative URLs (//cdn.shopify.com/...) and
+  Open Graph needs an absolute one, hence the prepend guard on each image URL.
+{% endcomment %}
+
+{%- liquid
+  assign brand = settings.brand_name | default: shop.name
+
+  if template.name == 'product'
+    assign og_type = 'product'
+    assign og_image = product.featured_media.preview_image
+    assign og_desc = product.description | strip_html | truncatewords: 40
+  elsif template.name == 'article'
+    assign og_type = 'article'
+    assign og_image = article.image
+    assign og_desc = article.excerpt_or_content | strip_html | truncatewords: 40
+  elsif template.name == 'collection'
+    assign og_type = 'website'
+    assign og_image = collection.featured_image
+    assign og_desc = collection.description | strip_html | truncatewords: 40
+  else
+    assign og_type = 'website'
+    assign og_desc = page_description
+  endif
+
+  if og_image == blank and settings.logo != blank
+    assign og_image = settings.logo
+  endif
+
+  if og_desc == blank
+    assign og_desc = shop.description | default: 'Apparel for people who drive like it. Have Fun Shift Hard.'
+  endif
+
+  if template.name == 'index'
+    assign og_title = brand
+  else
+    assign og_title = page_title
+  endif
+
+  if og_image != blank
+    assign og_src = og_image | image_url: width: 1200
+  else
+    assign og_src = 'bird-white.png' | asset_url
+  endif
+  unless og_src contains 'http'
+    assign og_src = og_src | prepend: 'https:'
+  endunless
+-%}
+
+<meta property="og:site_name" content="{{ brand | escape }}">
+<meta property="og:type" content="{{ og_type }}">
+<meta property="og:title" content="{{ og_title | escape }}">
+<meta property="og:description" content="{{ og_desc | escape }}">
+<meta property="og:url" content="{{ canonical_url }}">
+<meta property="og:image" content="{{ og_src }}">
+<meta property="og:image:secure_url" content="{{ og_src }}">
+{%- if og_image != blank and og_image.alt != blank -%}
+  <meta property="og:image:alt" content="{{ og_image.alt | escape }}">
+{%- elsif og_image == blank -%}
+  <meta property="og:image:alt" content="{{ brand | escape }}">
+{%- endif -%}
+
+{%- if template.name == 'product' -%}
+  <meta property="product:price:amount" content="{{ product.selected_or_first_available_variant.price | divided_by: 100.0 }}">
+  <meta property="product:price:currency" content="{{ cart.currency.iso_code }}">
+  <meta property="product:availability" content="{% if product.available %}in stock{% else %}out of stock{% endif %}">
+{%- endif -%}
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ og_title | escape }}">
+<meta name="twitter:description" content="{{ og_desc | escape }}">
+<meta name="twitter:image" content="{{ og_src }}">

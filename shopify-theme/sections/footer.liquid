@@ -7,6 +7,12 @@
       {%- for link in linklists[section.settings.menu].links -%}
         <a href="{{ link.url }}">{{ link.title }}</a>
       {%- endfor -%}
+      {%- if settings.social_instagram != blank -%}
+        <a href="{{ settings.social_instagram }}" target="_blank" rel="noopener">Instagram</a>
+      {%- endif -%}
+      {%- if settings.social_youtube != blank -%}
+        <a href="{{ settings.social_youtube }}" target="_blank" rel="noopener">YouTube</a>
+      {%- endif -%}
     </nav>
     <p class="sitefoot__fine">
       {{ section.settings.fine_print }}<br>

@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
@@ -192,12 +201,10 @@
     "featured": {
       "type": "featured-merch",
       "settings": {
-        "title": "Merch Center",
-        "count": 12,
+        "title": "New Drops",
+        "count": 8,
         "stripe_text": "STRAIGHT OFF THE LIFT",
-        "collection": "all",
-        "new_collection": "new-drops",
-        "new_label": "NEW"
+        "collection": "new-drops"
       }
     },
     "buddies": {

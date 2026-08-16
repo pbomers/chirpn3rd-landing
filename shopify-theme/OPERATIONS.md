@@ -4,7 +4,7 @@ For Sean (and future us). How products get from Printful onto the site, how the
 site decides what shows where, and what to check when something doesn't appear.
 
 Store admin: `https://admin.shopify.com/store/hduc6n-nk`
-Storefront: `https://hduc6n-nk.myshopify.com` (theme lives in `shopify-theme/`)
+Storefront: **https://chirpn3rd.com** (primary; `hduc6n-nk.myshopify.com` redirects there). Theme lives in `shopify-theme/`.
 
 ## How the site is wired
 

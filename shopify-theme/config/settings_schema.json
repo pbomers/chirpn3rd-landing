@@ -14,7 +14,10 @@
         "info": "Used across the storefront instead of the Shopify store name, so the shop can stay named whatever you like in admin." },
       { "type": "image_picker", "id": "logo", "label": "Toolbar logo",
         "info": "Small mark shown at the right of the toolbar. Leave empty to use the helmet bird." },
-      { "type": "image_picker", "id": "favicon", "label": "Favicon" }
+      { "type": "image_picker", "id": "favicon", "label": "Favicon" },
+      { "type": "text", "id": "seo_description", "label": "Default search description",
+        "default": "Chirp'n3rd: tees, lids and stickers for people who chirp the tires going into 3rd. Printed to order, shipped in the US. Have Fun Shift Hard.",
+        "info": "Shown in Google results and link previews when a page has no description of its own." }
     ]
   },
   {

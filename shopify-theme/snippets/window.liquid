@@ -2,7 +2,8 @@
   A window frame. Pass the body in as `content`:
     {%- capture win_body -%} ... {%- endcapture -%}
     {% render 'window', title: 'Buddy List', icon: 'i-people', content: win_body %}
-  Params: title, content, icon (symbol id), idle (gray inactive titlebar), paper (white sunken sheet), class
+  Params: title, content, icon (symbol id), idle (gray inactive titlebar), paper (white sunken sheet), class,
+          heading (h1|h2|h3 — the title bar IS the heading; pass 'h1' for the page's main window, default h2)
 
   The titlebar controls are real buttons. With JS off they simply do nothing visible,
   which is why every window renders fully open by default.
@@ -10,7 +11,8 @@
 <div class="win {{ class }}" data-win>
   <div class="win__bar{% if idle %} win__bar--idle{% endif %}" data-win-bar>
     <svg class="win__icon" aria-hidden="true"><use href="#{{ icon | default: 'i-bird' }}"/></svg>
-    <span class="win__title">{{ title }}</span>
+    {%- assign h = heading | default: 'h2' -%}
+    <{{ h }} class="win__title">{{ title }}</{{ h }}>
     <span class="win__btns">
       <button class="win__btn" type="button" data-win-min aria-label="Minimize {{ title | escape }}">
         <svg aria-hidden="true"><use href="#i-min"/></svg>

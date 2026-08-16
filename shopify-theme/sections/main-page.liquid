@@ -12,7 +12,7 @@
       {%- endif -%}
       {% render 'contact-form', screen_name: sn, intro: 'sup. wrong size, missing order, want a design, just wanna talk cars. all good. hit us.' %}
     {%- endcapture -%}
-    {% render 'window', title: win_title, icon: 'i-chat', content: win_body_1 %}
+    {% render 'window', title: win_title, icon: 'i-chat', content: win_body_1, heading: 'h1' %}
   </div>
 {%- else -%}
   {%- capture win_body_1 -%}

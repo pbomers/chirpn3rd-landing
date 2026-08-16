@@ -36,17 +36,17 @@
           </p>
         {%- else -%}
           <p class="center muted" style="padding:20px">
-            No results for "{{ search.terms | escape }}".<br>Try "tee", "hoodie", or "knob".
+            No results for "{{ search.terms | escape }}".<br>Try "tee", "hat", or "sticker".
           </p>
         {%- endif -%}
       {%- endif -%}
     {%- else -%}
       <p class="center muted" style="padding:20px">
-        Type a keyword and hit Go.<br>Try "tee", "hoodie", "knob", or "sticker".
+        Type a keyword and hit Go.<br>Try "tee", "hat", "hoodie", or "sticker".
       </p>
     {%- endif -%}
 {%- endcapture -%}
-{% render 'window', title: 'Find', icon: 'i-search', content: win_body_1 %}
+{% render 'window', title: 'Find', icon: 'i-search', content: win_body_1, heading: 'h1' %}
 
 {%- endpaginate -%}
 

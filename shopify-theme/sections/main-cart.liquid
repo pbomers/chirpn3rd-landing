@@ -49,11 +49,8 @@
           <p class="cart__total">Subtotal {{ cart.total_price | money }}</p>
           <p class="cart__note">Shipping and taxes figured at checkout. US shipping only for now.</p>
           {%- if cart.total_price == 1999 -%}<p class="cart__note">Exactly one monthly AOL subscription. Respect.</p>{%- endif -%}
+          <button class="btn btn--go btn--send cart__checkout" type="submit" name="checkout">Check Out</button>
         </div>
-      </div>
-
-      <div style="display:flex;justify-content:flex-end;margin-top:10px">
-        <button class="btn btn--go btn--send" type="submit" name="checkout">Check Out</button>
       </div>
     </form>
 
@@ -70,7 +67,7 @@
     </div>
   {%- endif -%}
 {%- endcapture -%}
-{% render 'window', title: 'Shopping Cart', icon: 'i-cart', content: win_body_1 %}
+{% render 'window', title: 'Shopping Cart', icon: 'i-cart', content: win_body_1, heading: 'h1' %}
 
 
 {% schema %}

@@ -13,9 +13,9 @@
       {%- comment -%} Store policies from Settings > Policies. Only the ones that exist render. {%- endcomment -%}
       {%- if section.settings.show_policies -%}
         {%- for policy in shop.policies -%}
-          {%- if policy.body != blank -%}
+          {%- unless policy.body == blank or policy.url contains 'contact-information' -%}
             <a href="{{ policy.url }}">{{ policy.title }}</a>
-          {%- endif -%}
+          {%- endunless -%}
         {%- endfor -%}
       {%- endif -%}
       {%- if settings.social_instagram != blank -%}

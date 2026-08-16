@@ -29,7 +29,20 @@
     endif
   -%}
   <title>{{ doc_title }}</title>
-  {%- if page_description -%}<meta name="description" content="{{ page_description | escape }}">{%- endif -%}
+  {%- liquid
+    assign meta_desc = page_description
+    if meta_desc == blank and template.name == 'index'
+      assign meta_desc = shop.description | default: settings.seo_description
+    endif
+    if meta_desc == blank and template.name == 'collection'
+      assign meta_desc = collection.description | strip_html | truncatewords: 30
+    endif
+    if meta_desc == blank
+      assign meta_desc = settings.seo_description
+    endif
+  -%}
+  {%- if meta_desc != blank -%}<meta name="description" content="{{ meta_desc | escape }}">{%- endif -%}
+  {%- if template.name == 'search' or template.name == 'cart' -%}<meta name="robots" content="noindex, follow">{%- endif -%}
 
   {% render 'meta-tags' %}
 
@@ -39,7 +52,7 @@
   <script src="{{ 'chirpn.js' | asset_url }}" defer></script>
   <script src="{{ 'chirpn-windows.js' | asset_url }}" defer></script>
 </head>
-<body class="template-{{ template.name }}">
+<body class="template-{{ template.name }}"{% if customer %} data-customer{% endif %}>
   <a class="skip visually-hidden" href="#main">Skip to content</a>
   {% render 'icons' %}
 
@@ -47,7 +60,7 @@
 
   <main id="main" class="desktop" role="main">
     <img class="desktop__mark" src="{{ 'bird-white.png' | asset_url }}" alt="" aria-hidden="true"
-         width="420" height="305" loading="lazy">
+         width="420" height="305" loading="lazy" decoding="async">
     {{ content_for_layout }}
   </main>
 

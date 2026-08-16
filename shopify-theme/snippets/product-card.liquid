@@ -6,7 +6,9 @@
   </span>
   <span class="card__shot">
     {%- if product.featured_media -%}
-      {%- assign card_alt = product.featured_media.alt | default: product.title | escape -%}
+      {%- assign card_alt = product.featured_media.alt -%}
+      {%- if card_alt == blank or card_alt == 'Product mockup' -%}{%- assign card_alt = product.title -%}{%- endif -%}
+      {%- assign card_alt = card_alt | escape -%}
       {{ product.featured_media | image_url: width: 600 | image_tag:
            loading: 'lazy', widths: '200,300,400,600', sizes: '(max-width: 860px) 45vw, 220px',
            alt: card_alt }}
@@ -19,6 +21,7 @@
     {%- if product.available -%}
       <span class="card__price">
         {%- if product.price_varies -%}from {% endif -%}{{ product.price | money }}
+        {%- if product.compare_at_price > product.price %} <s>{{ product.compare_at_price | money }}</s>{% endif -%}
       </span>
     {%- else -%}
       <span class="card__sold">Sold out</span>

@@ -223,6 +223,8 @@
          so even the buy box can't be closed into the void. */
       win.classList.add("is-closed");
       trayAdd(win, label);
+      var tb = tray && tray.querySelector('[data-tray-for="' + win.getAttribute("data-win-id") + '"]');
+      if (tb) tb.focus();
       flash(label + " closed. It is waiting in the tray.");
     });
 
@@ -300,6 +302,19 @@
       if (welcomeSrc) {
         try { voice = new Audio(welcomeSrc); voice.preload = "auto"; voice.volume = 0.9; } catch (err) { voice = null; }
       }
+      /* Everything behind the splash is inert while it is up, and focus starts inside it. */
+      var behind = $$("header, main, [data-tray], footer");
+      behind.forEach(function (el) { el.setAttribute("inert", ""); el.setAttribute("aria-hidden", "true"); });
+      var firstCtl = $("[data-signon-go]", splash) || $("[data-signon-skip]", splash);
+      if (firstCtl) setTimeout(function () { firstCtl.focus(); }, 30);
+      splash.addEventListener("keydown", function (e) {
+        if (e.key !== "Tab") return;
+        var f = $$("button:not([disabled]), select, [href], input", splash).filter(function (el) { return el.offsetParent !== null; });
+        if (!f.length) return;
+        var first = f[0], last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      });
       var finished = false;
       var done = function () {
         if (finished) return;
@@ -307,7 +322,10 @@
         timers.forEach(clearTimeout);
         if (modem) { try { modem.pause(); } catch (err) {} }
         if (voice) { try { voice.pause(); } catch (err) {} }
+        behind.forEach(function (el) { el.removeAttribute("inert"); el.removeAttribute("aria-hidden"); });
         splash.classList.remove("is-open");
+        var landing = $("main .win .win__bar button, main a, main button");
+        if (landing) { try { landing.focus({ preventScroll: true }); } catch (err) {} }
         try { sessionStorage.setItem("chirpn3rd-signed-on", "1"); } catch (err) {}
         var nameSel = splash.querySelector("select");
         var who = nameSel && nameSel.value ? nameSel.value : "ChirpFan2K3";

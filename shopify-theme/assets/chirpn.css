@@ -50,7 +50,7 @@ button{cursor:pointer}
 h1,h2,h3,h4{font-weight:bold;font-size:inherit}
 ul{list-style:none}
 .visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.skip:focus{position:fixed;left:6px;top:6px;z-index:999;background:#fff;padding:6px 10px}
+.skip:focus{position:fixed;left:6px;top:6px;z-index:999;background:#fff;padding:6px 10px;width:auto;height:auto;clip:auto;overflow:visible;white-space:normal;color:var(--ink);font-weight:bold;box-shadow:0 0 0 2px var(--navy)}
 
 /* ---------- bevels ---------- */
 .b-out{background:var(--face);border:0;
@@ -70,9 +70,9 @@ ul{list-style:none}
              inset -2px -2px 0 var(--edge-mid),inset 2px 2px 0 var(--face-lit)}
 .btn:active{box-shadow:inset 1px 1px 0 var(--edge-dark),inset -1px -1px 0 #fff,inset 2px 2px 0 var(--edge-mid)}
 .btn[disabled]{color:var(--edge-mid);text-shadow:1px 1px 0 #fff;cursor:not-allowed}
-.btn--go{color:#fff;background:var(--orange);
+.btn--go{color:#fff;background:#c94f0a;
   box-shadow:inset -1px -1px 0 #7a3000,inset 1px 1px 0 #ffc499,
-             inset -2px -2px 0 var(--orange-dark),inset 2px 2px 0 var(--orange-lit)}
+             inset -2px -2px 0 #7a3000,inset 2px 2px 0 var(--orange)}
 .btn--go:active{box-shadow:inset 1px 1px 0 #7a3000,inset -1px -1px 0 #ffc499}
 .btn--send{padding:7px 22px;font-size:12px}
 .btn--block{width:100%}
@@ -98,7 +98,7 @@ ul{list-style:none}
 /* ---------- window states (JS on) ---------- */
 /* Inactive windows lose the blue titlebar, exactly like a real MDI desktop. */
 .js-win .win .win__bar{background:linear-gradient(90deg,#7d7a75,#b5b2ac);color:#e6e6e6}
-.js-win .win.is-front .win__bar{background:linear-gradient(90deg,var(--navy),var(--navy-2));color:#fff}
+.js-win .win.is-front .win__bar,.js-win .signon .win__bar,.js-win .help .win__bar,.js-win .toast .win__bar{background:linear-gradient(90deg,var(--navy),var(--navy-2));color:#fff}
 .js-win .win__bar{cursor:default}
 .win.is-min .win__body{display:none}
 .win.is-min .win__bar{margin-bottom:0}
@@ -156,7 +156,7 @@ ul{list-style:none}
 /* ---------- app frame ---------- */
 .menubar{display:flex;gap:2px;padding:2px 4px;background:var(--face);
   box-shadow:inset 0 -1px 0 var(--edge-mid);position:relative;z-index:60}
-.menubar__item{padding:2px 7px;background:none;border:0}
+.menubar__item{padding:2px 7px;background:none;border:0;color:var(--ink);text-decoration:none}
 .menubar__item:hover,.menubar__item[aria-expanded="true"]{background:var(--navy);color:#fff}
 .menubar__drop{position:absolute;top:20px;display:none;flex-direction:column;min-width:170px;z-index:70;
   background:var(--face);
@@ -499,6 +499,14 @@ ul{list-style:none}
 .sitefoot__links{display:flex;gap:12px;flex-wrap:wrap}
 .sitefoot__fine{margin-left:auto;font-size:9px;color:var(--ink-soft);text-align:right}
 
+/* Check Out is the one action on the cart page */
+.cart__checkout{margin-top:8px;min-width:180px}
+@media (max-width:860px){.cart__checkout{width:100%}}
+
+/* keep the buy box and cart from stretching across a huge screen */
+.template-product .desktop > section > .win,.template-cart .desktop > section > .win{max-width:1120px}
+.template-product .desktop > section,.template-cart .desktop > section{align-self:flex-start;width:100%}
+
 /* ---------- responsive ---------- */
 @media (max-width:860px){
   .win.is-max{position:static !important;inset:auto !important;width:100% !important}
@@ -517,6 +525,7 @@ ul{list-style:none}
   .toolbar__logo{display:none}
   /* every toolbar button stays visible on a phone: tighter buttons, no separators, wrap if it must */
   .toolbar{flex-wrap:wrap;overflow:visible;justify-content:center}
+  .menubar{flex-wrap:wrap;row-gap:0}
   .tbtn{width:48px}
   .tsep{display:none}
   .field > label{flex:0 0 62px}
@@ -527,7 +536,10 @@ ul{list-style:none}
   /* purchase-path controls only: thumb-sized targets, and 16px so iOS
      doesn't zoom the page on focus. Everything else keeps the tiny chrome. */
   .product__info select,.product__info .qty,.cart__table .qty{min-height:40px;font-size:16px}
-  .product__info [data-add],.cart__foot .btn,.cart__foot button[name=checkout]{min-height:44px;font-size:14px}
+  .product__info [data-add],.cart__foot .btn,.template-cart button[name=checkout],.template-cart .btn--go{min-height:44px;font-size:14px}
+  .cart__remove{display:inline-block;padding:8px 6px;margin:2px -6px}
+  .cart__table td:nth-child(2)::before{content:'Qty';display:inline-block;width:40px;font-weight:bold}
+  .imnote,.cart__note{font-size:11px}
   .help{padding:8px}
   .help__body{flex-direction:column}
   .help__contents{flex:0 0 auto;flex-direction:row;flex-wrap:wrap;padding:0}

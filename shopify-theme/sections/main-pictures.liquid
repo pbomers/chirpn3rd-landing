@@ -18,7 +18,9 @@
         <svg aria-hidden="true"><use href="#i-back"/></svg>
       </button>
       <figure class="pics__fig">
-        <img class="pics__img" data-pics-img src="{{ 'pics-01.jpg' | asset_url }}" alt="" width="1600" height="1066">
+        {%- assign first_src = 'pics-01.jpg' | asset_url -%}
+        {%- for block in section.blocks -%}{%- if block.settings.image != blank -%}{%- assign first_src = block.settings.image | image_url: width: 1600 -%}{%- break -%}{%- endif -%}{%- endfor -%}
+        <img class="pics__img" data-pics-img src="{{ first_src }}" alt="" width="1600" height="1066">
         <figcaption class="pics__cap"><span data-pics-cap></span>
           <span class="pics__count" data-pics-count></span></figcaption>
       </figure>
@@ -78,7 +80,7 @@
     <p class="imnote" style="margin-top:8px">{{ section.settings.blurb }}</p>
   {%- endif -%}
 {%- endcapture -%}
-{% render 'window', title: section.settings.title, icon: 'i-fav', content: win_body_1, class: 'pics__win' %}
+{% render 'window', title: section.settings.title, icon: 'i-fav', content: win_body_1, class: 'pics__win', heading: 'h1' %}
 
 {% schema %}
 {

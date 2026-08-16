@@ -84,8 +84,11 @@
   var toast = $("[data-toast]"), toastTimer = null;
   function showToast(html) {
     if (!toast) return;
-    $("[data-toast-msg]", toast).innerHTML = html;
+    var msg = $("[data-toast-msg]", toast);
+    msg.textContent = "";
     toast.classList.add("show");
+    /* set the text after it is visible so aria-live actually announces it */
+    setTimeout(function () { msg.innerHTML = html; }, 20);
     if (toastTimer) clearTimeout(toastTimer);
     toastTimer = setTimeout(function () { toast.classList.remove("show"); }, 5200);
   }
@@ -126,8 +129,28 @@
         return picked.every(function (val, i) { return v.options[i] === val; });
       })[0];
     }
+    var stage = $("[data-gallery-stage] img", form.closest("[data-product-root]") || document);
+    var selects = $$("[data-option]", form);
+    /* mark options that lead nowhere in stock as "(sold out)" given the other picks */
+    function markOptions() {
+      selects.forEach(function (sel, si) {
+        var picked = selectedOptions();
+        $$("option", sel).forEach(function (opt) {
+          var trial = picked.slice(); trial[si] = opt.value;
+          var any = variants.some(function (v) { return trial.every(function (val, i) { return v.options[i] === val; }) && v.available; });
+          var base = opt.getAttribute("data-label") || opt.textContent.trim();
+          opt.setAttribute("data-label", base);
+          opt.textContent = any ? base : base + " (sold out)";
+        });
+      });
+    }
     function sync(userInitiated) {
       var v = match();
+      markOptions();
+      if (v && v.image && stage && stage.getAttribute("src") !== v.image) {
+        stage.removeAttribute("srcset"); stage.removeAttribute("sizes"); stage.src = v.image;
+        $$("[data-gallery-thumb]").forEach(function (t) { t.classList.toggle("on", t.getAttribute("data-full") === v.image); });
+      }
       if (!v) {
         if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = "Unavailable"; }
         if (priceEl) priceEl.textContent = "--";
@@ -182,6 +205,12 @@
             '<a href="/cart">View Cart</a>'
           );
           flash("Added to cart. Keyword: CHECKOUT");
+          var sbc = $(".statusbar__cell[data-cart-items]");
+          if (sbc && typeof res.body.quantity !== "undefined") {
+            var n = null;
+            try { n = parseInt(($("[data-cart-count]") || {}).textContent, 10); } catch (err) {}
+            if (n !== null && !isNaN(n)) sbc.textContent = n + (n === 1 ? " item" : " items");
+          }
           return fetch("/cart.js").then(function (r) { return r.json(); });
         })
         .then(function (cart) {
@@ -203,13 +232,18 @@
   /* ---------- cart quantity + remove ---------- */
   var qtyTimer = null;
   $$("[data-cart-qty]").forEach(function (input) {
+    var form = input.closest("form");
     input.addEventListener("change", function () {
       clearTimeout(qtyTimer);
-      qtyTimer = setTimeout(function () {
-        var form = input.closest("form");
-        if (form) form.submit();
-      }, 600);
+      /* give spinner/arrow users a beat to finish before the page reloads */
+      qtyTimer = setTimeout(function () { if (form) form.requestSubmit ? form.requestSubmit() : form.submit(); }, 1200);
     });
+    input.addEventListener("keydown", function (e) { if (e.key === "Enter") { clearTimeout(qtyTimer); } });
+    if (form) {
+      $$("button, a", form).forEach(function (el) {
+        el.addEventListener("click", function () { clearTimeout(qtyTimer); });
+      });
+    }
   });
 
   /* ---------- You've Got Pictures viewer ---------- */
@@ -217,7 +251,7 @@
     var img = $("[data-pics-img]", root), cap = $("[data-pics-cap]", root), count = $("[data-pics-count]", root);
     var thumbs = $$("[data-pics-thumb]", root);
     if (!img || !thumbs.length) return;
-    var ix = 0;
+    var ix = 0, userNav = false;
     function show(i) {
       ix = (i + thumbs.length) % thumbs.length;
       var t = thumbs[ix];
@@ -226,15 +260,17 @@
       if (cap) cap.textContent = t.getAttribute("data-cap") || "";
       if (count) count.textContent = (ix + 1) + " / " + thumbs.length;
       thumbs.forEach(function (b, j) { b.classList.toggle("on", j === ix); });
-      if (t.scrollIntoView) t.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "smooth" });
+      if (userNav && t.scrollIntoView) t.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "smooth" });
       /* warm the neighbours so next/prev feels instant */
       [ix + 1, ix - 1].forEach(function (k) {
         var n = thumbs[(k + thumbs.length) % thumbs.length];
         if (n) { var pre = new Image(); pre.src = n.getAttribute("data-full"); }
       });
     }
-    thumbs.forEach(function (b, j) { b.addEventListener("click", function () { show(j); }); });
+    thumbs.forEach(function (b, j) { b.addEventListener("click", function () { userNav = true; show(j); }); });
     var prev = $("[data-pics-prev]", root), next = $("[data-pics-next]", root);
+    root.addEventListener("click", function () { userNav = true; }, true);
+    root.addEventListener("keydown", function () { userNav = true; }, true);
     if (prev) prev.addEventListener("click", function () { show(ix - 1); });
     if (next) next.addEventListener("click", function () { show(ix + 1); });
     img.addEventListener("click", function () { show(ix + 1); });
@@ -257,19 +293,31 @@
   /* ---------- Help Topics window ---------- */
   var helpDlg = $("[data-help-dialog]");
   var helpReturnFocus = null;
+  var helpBehind = [];
   function helpShow(topic) {
     if (!helpDlg) return;
     helpTopic(topic || "howto");
     helpReturnFocus = document.activeElement;
     helpDlg.hidden = false;
+    helpBehind = $$("header > *:not(.help), main, [data-tray], footer");
+    helpBehind.forEach(function (el) { el.setAttribute("inert", ""); });
     var first = $('[data-help-topic][aria-selected="true"]', helpDlg);
     if (first) first.focus();
   }
   function helpHide() {
     if (!helpDlg || helpDlg.hidden) return;
     helpDlg.hidden = true;
+    helpBehind.forEach(function (el) { el.removeAttribute("inert"); });
     if (helpReturnFocus && helpReturnFocus.focus) helpReturnFocus.focus();
   }
+  if (helpDlg) helpDlg.addEventListener("keydown", function (e) {
+    if (e.key !== "Tab") return;
+    var f = $$("button:not([disabled]), [href], input, select", helpDlg).filter(function (el) { return el.offsetParent !== null; });
+    if (!f.length) return;
+    var first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
   function helpTopic(name) {
     $$("[data-help-topic]", helpDlg).forEach(function (b) {
       b.setAttribute("aria-selected", b.getAttribute("data-help-topic") === name ? "true" : "false");
@@ -319,7 +367,7 @@
   if (kw) {
     kw.addEventListener("submit", function (e) {
       var val = (($("input[name=q]", kw) || {}).value || "").trim().toLowerCase();
-      if (KEYWORDS[val]) {
+      if (Object.prototype.hasOwnProperty.call(KEYWORDS, val)) {
         e.preventDefault();
         KEYWORDS[val]();
       }
@@ -329,13 +377,16 @@
   /* ---------- nav buttons + sign off ---------- */
   $$("[data-nav]").forEach(function (btn) {
     btn.addEventListener("click", function () {
-      btn.getAttribute("data-nav") === "back" ? history.back() : history.forward();
+      var dir = btn.getAttribute("data-nav");
+      if (dir === "back") history.back();
+      else if (dir === "forward") history.forward();
+      else window.location.reload();
     });
   });
   $$("[data-signoff]").forEach(function (btn) {
     btn.addEventListener("click", function () {
       try { sessionStorage.removeItem("chirpn3rd-signed-on"); } catch (e) {}
-      window.location.href = "/";
+      window.location.href = document.body.hasAttribute("data-customer") ? "/account/logout" : "/";
     });
   });
 
@@ -361,7 +412,7 @@
         return;
       }
       var key = val.toLowerCase();
-      if (SLANG[key]) {
+      if (Object.prototype.hasOwnProperty.call(SLANG, key)) {
         e.preventDefault();
         if (convo) {
           var you = document.createElement("p");
@@ -380,6 +431,14 @@
       /* anything else falls through to a real search */
     });
   }
+
+  /* Send It on the hero: if you typed something, that is what gets sent */
+  $$("[data-im-send]").forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      var f = $("[data-im-form]"), inp = f && $("[data-im-reply]", f);
+      if (inp && inp.value.trim()) { e.preventDefault(); f.requestSubmit ? f.requestSubmit() : f.dispatchEvent(new Event("submit", { bubbles: true, cancelable: true })); }
+    });
+  });
 
   /* ---------- AIM formatting buttons actually format ---------- */
   $$(".imtools .fmt").forEach(function (btn, ix) {

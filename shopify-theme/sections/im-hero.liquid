@@ -30,7 +30,7 @@
   </form>
 
   <div style="display:flex;gap:6px;justify-content:flex-end;margin-top:7px">
-    <a class="btn btn--send" href="{{ section.settings.button_url | default: routes.all_products_collection_url }}">
+    <a class="btn btn--send" data-im-send href="{{ section.settings.button_url | default: routes.all_products_collection_url }}">
       {{ section.settings.button_label }}
     </a>
     <a class="btn" href="{{ routes.collections_url }}">Browse Channels</a>

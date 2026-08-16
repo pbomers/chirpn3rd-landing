@@ -140,7 +140,8 @@
           "type": "channel",
           "settings": {
             "label": "Shift Knobs",
-            "collection": "shift-knobs"
+            "collection": "shift-knobs",
+            "soon": true
           }
         },
         "c5": {
@@ -168,7 +169,8 @@
           "type": "channel",
           "settings": {
             "label": "Posters",
-            "collection": "posters"
+            "collection": "posters",
+            "soon": true
           }
         }
       },
@@ -224,7 +226,8 @@
           "type": "buddy",
           "settings": {
             "screen_name": "ShiftKnobKid",
-            "collection": "shift-knobs"
+            "collection": "shift-knobs",
+            "offline": true
           }
         },
         "b5": {
@@ -238,7 +241,8 @@
           "type": "buddy",
           "settings": {
             "screen_name": "WallStance",
-            "collection": "posters"
+            "collection": "posters",
+            "offline": true
           }
         },
         "b7": {

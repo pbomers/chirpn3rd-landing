@@ -24,7 +24,9 @@
       </p>
     {%- endif -%}
 {%- endcapture -%}
-{% render 'window', title: collection.title, icon: 'i-merch', content: win_body_1 %}
+{%- assign coll_title = collection.title -%}
+{%- if collection.handle == 'all' -%}{%- assign coll_title = 'Merch Center' -%}{%- endif -%}
+{% render 'window', title: coll_title, icon: 'i-merch', content: win_body_1, heading: 'h1' %}
 
 {%- endpaginate -%}
 

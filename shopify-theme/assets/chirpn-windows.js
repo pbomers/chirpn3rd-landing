@@ -287,22 +287,76 @@
       splash.classList.add("is-open");
       var btn = $("[data-signon-go]", splash);
       var steps = $("[data-signon-steps]", splash);
+      var timers = [];
+      var modem = null;
+      /* Preload the 16s dial-up handshake so the click plays it instantly. */
+      var dialupSrc = document.documentElement.getAttribute("data-dialup");
+      if (dialupSrc) {
+        try { modem = new Audio(dialupSrc); modem.preload = "auto"; modem.volume = 0.6; } catch (err) { modem = null; }
+      }
+      /* The "Welcome!" line that follows the handshake. Optional; chirp fires after it. */
+      var voice = null;
+      var welcomeSrc = document.documentElement.getAttribute("data-welcome");
+      if (welcomeSrc) {
+        try { voice = new Audio(welcomeSrc); voice.preload = "auto"; voice.volume = 0.9; } catch (err) { voice = null; }
+      }
+      var finished = false;
       var done = function () {
+        if (finished) return;
+        finished = true;
+        timers.forEach(clearTimeout);
+        if (modem) { try { modem.pause(); } catch (err) {} }
+        if (voice) { try { voice.pause(); } catch (err) {} }
         splash.classList.remove("is-open");
         try { sessionStorage.setItem("chirpn3rd-signed-on", "1"); } catch (err) {}
         var nameSel = splash.querySelector("select");
         var who = nameSel && nameSel.value ? nameSel.value : "ChirpFan2K3";
         flash("Welcome back, " + who + ". You've Got Merch.");
       };
+      var at = function (ms, fn) { timers.push(setTimeout(fn, ms)); };
+      var runSequence = function (scale) {
+        /* scale 1 = ride the modem clip (dial 0-5s, handshake 5-14s, connect ~15s, fade to 16s);
+           scale ~0.12 = the old two-second version when audio can't play. */
+        var s = $$("[data-signon-step]", splash);
+        var full = scale === 1;
+        at(150,            function () { if (s[0]) s[0].classList.add("lit"); });
+        at(5600 * scale,   function () { if (s[1]) s[1].classList.add("lit"); });
+        if (full && voice) {
+          /* modem fades out ~15.3s; the Welcome line lands on top of the tail, chirp follows it */
+          at(15300, function () {
+            var landed = false;
+            var land = function () {
+              if (landed) return; landed = true;
+              if (s[2]) s[2].classList.add("chirped");
+              chirp();
+              at(900, done);
+            };
+            voice.onended = land;
+            var p; try { voice.currentTime = 0; p = voice.play(); } catch (err) { p = null; }
+            if (p && p.catch) p.catch(land);
+            at(6000, land); /* belt and braces if onended never fires */
+          });
+        } else {
+          at(14200 * scale,  function () { if (s[2]) s[2].classList.add("chirped"); chirp(); });
+          at(16200 * scale,  done);
+        }
+      };
       if (btn) btn.addEventListener("click", function () {
         btn.disabled = true;
         btn.textContent = "Connecting...";
         if (steps) steps.classList.add("is-on");
-        var s = $$("[data-signon-step]", splash);
-        setTimeout(function () { if (s[0]) s[0].classList.add("lit"); }, 150);
-        setTimeout(function () { if (s[1]) s[1].classList.add("lit"); }, 750);
-        setTimeout(function () { if (s[2]) s[2].classList.add("chirped"); chirp(); }, 1350);
-        setTimeout(done, 1950);
+        if (modem) {
+          var p;
+          try { modem.currentTime = 0; p = modem.play(); } catch (err) { p = null; }
+          if (p && p.then) {
+            p.then(function () { runSequence(1); })
+             .catch(function () { runSequence(0.12); });
+          } else {
+            runSequence(1);
+          }
+        } else {
+          runSequence(0.12);
+        }
       });
       $$("[data-signon-skip]", splash).forEach(function (skip) {
         skip.addEventListener("click", done);

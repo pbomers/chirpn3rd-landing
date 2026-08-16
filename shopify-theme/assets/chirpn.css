@@ -515,6 +515,10 @@ ul{list-style:none}
   .channels__side{flex-direction:row;flex-wrap:wrap;justify-content:center}
   .desktop__mark{display:none}
   .toolbar__logo{display:none}
+  /* every toolbar button stays visible on a phone: tighter buttons, no separators, wrap if it must */
+  .toolbar{flex-wrap:wrap;overflow:visible;justify-content:center}
+  .tbtn{width:48px}
+  .tsep{display:none}
   .field > label{flex:0 0 62px}
   .cart__table thead{display:none}
   .cart__table,.cart__table tbody,.cart__table tr,.cart__table td{display:block;width:100%}

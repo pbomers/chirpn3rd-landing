@@ -44,7 +44,7 @@ Rules that follow from this:
 ## Adding a product (Printful → Shopify)
 
 1. **Printful → Stores → Chirp'n3rd (Shopify) → Add product.**
-   Pick the blank, upload the print file (finals live in `print-files/`), place it,
+   Pick the blank, upload the print file (finals are already in Printful's library, chirpn3rd.com folder; masters live locally in `print-files/`), place it,
    pick colors and sizes, generate mockups.
 2. **Push to store.** Printful creates the Shopify product with its own title,
    a cost-plus price, and a boilerplate description.
@@ -112,5 +112,5 @@ rates need Shopify Advanced (or Grow + $20/mo) — not worth it at this size.
 - `shopify-theme/` — the theme. Push with `shopify theme push` from that folder.
 - `catalog/polish-plan.json` — title / price / collection / description for the launch set.
 - `docs/catalog/catalog.json` — the 101-product triage (63 in, 38 out) and why (local only, not in git).
-- `print-files/` — final print-ready art.
+- `print-files/` — final print-ready art. **Local only, not in git** (the repo is public). Also in Printful's file library under the chirpn3rd.com folder.
 - `mockups/`, `web/` — the mockup site and teaser, not the store.

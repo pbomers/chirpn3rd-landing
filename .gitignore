@@ -25,3 +25,7 @@ web/scripts/
 
 # Shopify CLI local state
 shopify-theme/.shopify/
+
+# Print-ready art stays out of the public repo (local print-files/ + Printful library are the source)
+/print-files/
+/web/print-files/

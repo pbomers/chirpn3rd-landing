@@ -5,8 +5,10 @@ Owners: Paul Bomers + Sean Newton. Fulfilment: Printful. Store: **https://chirpn
 (Shopify store handle `hduc6n-nk`, live theme id `157749575835`, theme name "Chirpn3rd Online").
 
 ## Read these first
+- `shopify-theme/LAUNCH.md` — what is still open before the password comes off.
 - `shopify-theme/OPERATIONS.md` — how products, collections, prices and shipping work.
 - `shopify-theme/EASTER-EGGS.md` — every hidden thing in the storefront (don't break them).
+- `shopify-theme/audit-2026-08-16.json` — the full pre-launch audit (119 findings, what was fixed, what wasn't).
 
 ## Brand rules
 - The brand is written **Chirp'n3rd** — with the apostrophe — in all copy. URLs/handles drop it (`chirpn3rd`).

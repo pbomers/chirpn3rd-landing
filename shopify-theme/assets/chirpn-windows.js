@@ -150,7 +150,7 @@
   }
   function syncDesk() {
     deskEligible() ? deskOn() : deskOff();
-    if (!looseMQ.matches) $$("section", desktop).forEach(function (h) { h.style.transform = ""; h.style.width = ""; h.style.alignSelf = ""; });
+    if (!looseMQ.matches) windows().forEach(function (w) { w.style.transform = ""; w.style.width = ""; w.style.zIndex = ""; w.classList.remove("is-sized"); var b = $("[data-win-body]", w); if (b) b.style.height = ""; });
   }
 
   /* ---------- dragging ---------- */
@@ -167,15 +167,16 @@
 
       if (!desktop.classList.contains("desk-on")) {
         if (!looseEligible()) return;
-        /* loose mode: nudge the section with a transform, keep it in the flow */
-        var m = /translate\((-?[\d.]+)px,\s*(-?[\d.]+)px\)/.exec(host.style.transform || "");
+        /* loose mode: nudge the WINDOW with a transform (several windows can share one section) */
+        var box = win;
+        var m = /translate\((-?[\d.]+)px,\s*(-?[\d.]+)px\)/.exec(box.style.transform || "");
         var baseX = m ? parseFloat(m[1]) : 0, baseY = m ? parseFloat(m[2]) : 0;
         var sx = e.clientX, sy = e.clientY;
         document.body.classList.add("desk-drag");
-        host.style.zIndex = ++zTop;
+        box.style.zIndex = ++zTop;
         var lmove = function (ev) {
-          host.style.transform = "translate(" + (baseX + ev.clientX - sx) + "px," + (baseY + ev.clientY - sy) + "px)";
-          host.setAttribute("data-moved", "");
+          box.style.transform = "translate(" + (baseX + ev.clientX - sx) + "px," + (baseY + ev.clientY - sy) + "px)";
+          box.setAttribute("data-moved", "");
         };
         var lup = function () {
           document.removeEventListener("pointermove", lmove);
@@ -227,10 +228,9 @@
       if (win.classList.contains("is-max")) return;
       var deskMode = desktop.classList.contains("desk-on");
       if (!deskMode && !looseEligible()) return;
-      var host = win.closest("section");
+      var host = deskMode ? win.closest("section") : win;   /* loose mode: size the window itself */
       var body = $("[data-win-body]", win);
       if (!host || !body) return;
-      if (!deskMode) host.style.alignSelf = "flex-start";   /* let a stacked section shrink */
       front(win);
       var startX = e.clientX, startY = e.clientY;
       var startW = host.offsetWidth;
@@ -263,8 +263,9 @@
     });
     /* double-click the grip: back to natural size */
     grip.addEventListener("dblclick", function () {
-      var host = win.closest("section"), body = $("[data-win-body]", win);
-      if (host) { host.removeAttribute("data-sized"); if (!desktop.classList.contains("desk-on")) { host.style.width = ""; host.style.alignSelf = ""; } }
+      var deskMode = desktop.classList.contains("desk-on");
+      var host = deskMode ? win.closest("section") : win, body = $("[data-win-body]", win);
+      if (host) { host.removeAttribute("data-sized"); if (!deskMode) { host.style.width = ""; host.style.transform = ""; host.style.zIndex = ""; } }
       if (body) body.style.height = "";
       win.classList.remove("is-sized");
       syncDesk();
@@ -344,7 +345,8 @@
     btn.addEventListener("click", function () {
       windows().forEach(function (w) {
         var host = w.closest("section");
-        if (host) { host.removeAttribute("data-moved"); host.removeAttribute("data-sized"); host.style.transform = ""; host.style.zIndex = ""; if (!desktop.classList.contains("desk-on")) { host.style.width = ""; host.style.alignSelf = ""; } }
+        if (host) { host.removeAttribute("data-moved"); host.removeAttribute("data-sized"); host.style.transform = ""; if (!desktop.classList.contains("desk-on")) host.style.zIndex = ""; }
+        w.removeAttribute("data-moved"); w.removeAttribute("data-sized"); w.style.transform = ""; w.style.width = ""; w.style.zIndex = "";
         w.classList.remove("is-sized");
         var b = $("[data-win-body]", w); if (b) b.style.height = "";
       });

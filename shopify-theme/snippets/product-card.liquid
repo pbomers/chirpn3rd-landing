@@ -1,8 +1,9 @@
-{% comment %} Params: product {% endcomment %}
+{% comment %} Params: product, badge (optional short label like NEW) {% endcomment %}
 <a class="card" href="{{ product.url }}">
   <span class="card__bar">
     <svg aria-hidden="true"><use href="#i-bird"/></svg>
     <span>{{ product.title | truncate: 26 }}</span>
+    {%- if badge != blank -%}<b class="card__badge">{{ badge }}</b>{%- endif -%}
   </span>
   <span class="card__shot">
     {%- if product.featured_media -%}

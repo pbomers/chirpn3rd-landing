@@ -1,5 +1,17 @@
-{%- assign col = collections[section.settings.collection] -%}
-{%- assign title = section.settings.title | default: col.title | default: 'Featured Merch' -%}
+{%- liquid
+  assign col = collections[section.settings.collection]
+  if col == blank or col.handle == blank
+    assign col = collections['all']
+  endif
+  assign title = section.settings.title | default: col.title | default: 'Merch Center'
+  assign newcol = collections[section.settings.new_collection]
+  assign new_ids = ''
+  if newcol != blank and newcol.handle != blank
+    for np in newcol.products limit: 50
+      assign new_ids = new_ids | append: '|' | append: np.id | append: '|'
+    endfor
+  endif
+-%}
 
 {%- capture win_body_1 -%}
 
@@ -10,11 +22,17 @@
   {%- if col.products.size > 0 -%}
     <div class="grid">
       {%- for product in col.products limit: section.settings.count -%}
-        {% render 'product-card', product: product %}
+        {%- assign pid = '|' | append: product.id | append: '|' -%}
+        {%- assign badge = '' -%}
+        {%- if new_ids contains pid -%}{%- assign badge = section.settings.new_label -%}{%- endif -%}
+        {% render 'product-card', product: product, badge: badge %}
       {%- endfor -%}
     </div>
-    <div style="display:flex;justify-content:flex-end;margin-top:9px">
-      <a class="btn" href="{{ col.url }}">See All {{ col.title }}</a>
+    <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:9px;flex-wrap:wrap">
+      <span class="muted" style="font-size:10px">
+        {%- if col.products.size > section.settings.count -%}Showing {{ section.settings.count }} of {{ col.products.size }}{%- else -%}{{ col.products.size }} item{% unless col.products.size == 1 %}s{% endunless %} on the lift{%- endif -%}
+      </span>
+      <a class="btn" href="{{ col.url }}">See All {{ col.products.size }}</a>
     </div>
   {%- else -%}
     {%- if request.design_mode -%}
@@ -38,10 +56,14 @@
   "tag": "section",
   "class": "section--featured",
   "settings": [
-    { "type": "text", "id": "title", "label": "Window title" },
-    { "type": "collection", "id": "collection", "label": "Collection" },
-    { "type": "range", "id": "count", "label": "Products shown", "min": 2, "max": 16, "step": 1, "default": 8 },
-    { "type": "text", "id": "stripe_text", "label": "Caution stripe text" }
+    { "type": "text", "id": "title", "label": "Window title", "default": "Merch Center" },
+    { "type": "collection", "id": "collection", "label": "Collection",
+      "info": "Leave empty to show the whole catalog." },
+    { "type": "range", "id": "count", "label": "Products shown", "min": 2, "max": 24, "step": 1, "default": 12 },
+    { "type": "collection", "id": "new_collection", "label": "Tag products from this collection",
+      "info": "Anything also in this collection gets the tag below (e.g. New Drops → NEW)." },
+    { "type": "text", "id": "new_label", "label": "Tag text", "default": "NEW" },
+    { "type": "text", "id": "stripe_text", "label": "Caution stripe text", "default": "STRAIGHT OFF THE LIFT" }
   ],
   "presets": [ { "name": "Featured merch" } ]
 }

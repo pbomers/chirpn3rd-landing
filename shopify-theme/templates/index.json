@@ -192,10 +192,12 @@
     "featured": {
       "type": "featured-merch",
       "settings": {
-        "title": "New Drops",
-        "count": 8,
+        "title": "Merch Center",
+        "count": 12,
         "stripe_text": "STRAIGHT OFF THE LIFT",
-        "collection": "new-drops"
+        "collection": "all",
+        "new_collection": "new-drops",
+        "new_label": "NEW"
       }
     },
     "buddies": {

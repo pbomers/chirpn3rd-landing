@@ -77,7 +77,7 @@
     { sel: ".section--im",       x: 0.01, y: 8,   w: 392 },
     { sel: ".section--channels", x: 0.35, y: 22,  w: 545 },
     { sel: ".section--welcome",  x: 0.14, y: 300, w: 600 },
-    { sel: ".section--featured", x: 0.02, y: 610, w: 760 },
+    { sel: ".section--featured", x: 0.02, y: 610, w: 880 },
     { sel: ".section--side",     x: 0.80, y: 14,  w: 232 }
   ];
 

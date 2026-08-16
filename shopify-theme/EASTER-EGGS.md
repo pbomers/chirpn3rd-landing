@@ -77,7 +77,9 @@ Anything else in the bar is a normal search.
 
 - Every window minimizes to a **tray** at the bottom, like a real desktop; X hides it,
   tray button brings it back. Window menu has Restore All / Arrange.
-- Home page above 1180 px is a real overlapping desktop — windows drag by the title bar.
+- Home page above 1180 px is a real overlapping desktop — windows drag by the title bar and
+  **resize from the ribbed grip in the bottom-right corner** (double-click the grip to snap back;
+  Window → Arrange resets everything).
 
 ## Copy jokes that aren't interactive but people notice
 

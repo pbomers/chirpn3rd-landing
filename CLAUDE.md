@@ -30,10 +30,14 @@ Owners: Paul Bomers + Sean Newton. Fulfilment: Printful. Store: **https://chirpn
 ## Working on the theme
 ```bash
 cd shopify-theme
-shopify theme check --fail-level error        # must be 0 offenses before pushing
-shopify theme push --store hduc6n-nk --theme 157749575835 --allow-live
+./sync.sh            # pull Customize edits from live -> theme check -> push live -> git push
+./sync.sh --pull     # after someone used Customize: just capture those edits into git
 ```
-- Commit to `main`; the repo is public on GitHub. Vercel auto-deploys `web/` from `main`.
+- Two people + two Claudes share one live theme. **Always run `./sync.sh` instead of a bare
+  `shopify theme push`** — a bare push overwrites whatever was changed in Customize (templates/*.json,
+  sections/*-group.json, settings_data.json) with git's older copy.
+- `git pull` before you start. Commit to `main`; the repo is public on GitHub. Vercel auto-deploys
+  `web/` from `main`. Never edit code in Shopify's online code editor.
 - `shopify theme dev` currently 404s (the CLI resolves the shop to chirpn3rd.com). To QA locally,
   fetch live HTML with the storefront password cookie and serve it, or use `?preview_theme_id=`.
 - Storefront password is a shared gate code, not a personal credential; the CLI takes it via

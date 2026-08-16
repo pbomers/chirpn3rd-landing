@@ -109,7 +109,9 @@ rates need Shopify Advanced (or Grow + $20/mo) — not worth it at this size.
 
 ## What lives where
 
-- `shopify-theme/` — the theme. Push with `shopify theme push` from that folder.
+- `shopify-theme/` — the theme. Ship changes with `./sync.sh` from that folder (it pulls Customize
+  edits from live first, so nobody's editor changes get overwritten). Editing text in Customize is
+  fine and encouraged; just run `./sync.sh --pull` afterwards so git has it.
 - `catalog/polish-plan.json` — title / price / collection / description for the launch set.
 - `docs/catalog/catalog.json` — the 101-product triage (63 in, 38 out) and why (local only, not in git).
 - `print-files/` — final print-ready art. **Local only, not in git** (the repo is public). Also in Printful's file library under the chirpn3rd.com folder.

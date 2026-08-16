@@ -120,7 +120,8 @@ ul{list-style:none}
     linear-gradient(135deg,transparent 0 45%,#fff 45% 50%,var(--edge-mid) 50% 60%,transparent 60% 70%,#fff 70% 75%,var(--edge-mid) 75% 85%,transparent 85% 88%,#fff 88% 92%,var(--edge-mid) 92%);
   touch-action:none}
 .desktop.desk-on .win__grip{display:block}
-.desktop.desk-on .win.is-sized .win__body{overflow:auto}
+@media (min-width:861px){.win__grip{display:block}.js-win .win__bar[data-win-bar]{cursor:move}}
+.win.is-sized .win__body{overflow:auto}
 .desk-resize,.desk-resize *{cursor:nwse-resize !important;user-select:none}
 .win.is-max{position:fixed !important;left:8px !important;top:96px !important;
   right:8px;bottom:44px;width:auto !important;z-index:120 !important;overflow:auto}

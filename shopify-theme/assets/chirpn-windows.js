@@ -84,6 +84,10 @@
   /* Ask the same breakpoint CSS uses. window.innerWidth lies under device
      emulation and inside embedded frames (it reports the frame, not the page). */
   var wideMQ = window.matchMedia("(min-width: " + DESK_MIN + "px)");
+  /* On every other page (and the home page below DESK_MIN) windows stay in the flow but can still
+     be picked up and moved (translate) or resized. Off on phones: no room, and it eats scrolling. */
+  var looseMQ = window.matchMedia("(min-width: 861px)");
+  function looseEligible() { return looseMQ.matches && !desktop.classList.contains("desk-on"); }
 
   function deskEligible() {
     return document.body.classList.contains("template-index") && wideMQ.matches;
@@ -144,7 +148,10 @@
       var w = $("[data-win]", el); if (w) { w.classList.remove("is-sized"); var b = $("[data-win-body]", w); if (b) b.style.height = ""; }
     });
   }
-  function syncDesk() { deskEligible() ? deskOn() : deskOff(); }
+  function syncDesk() {
+    deskEligible() ? deskOn() : deskOff();
+    if (!looseMQ.matches) $$("section", desktop).forEach(function (h) { h.style.transform = ""; h.style.width = ""; h.style.alignSelf = ""; });
+  }
 
   /* ---------- dragging ---------- */
   function makeDraggable(win) {
@@ -155,9 +162,31 @@
     bar.addEventListener("pointerdown", function (e) {
       if (e.target.closest(".win__btn")) return;
       front(win);
-      if (!desktop.classList.contains("desk-on")) return;
       var host = win.closest("section");
-      if (!host) return;
+      if (!host || win.classList.contains("is-max")) return;
+
+      if (!desktop.classList.contains("desk-on")) {
+        if (!looseEligible()) return;
+        /* loose mode: nudge the section with a transform, keep it in the flow */
+        var m = /translate\((-?[\d.]+)px,\s*(-?[\d.]+)px\)/.exec(host.style.transform || "");
+        var baseX = m ? parseFloat(m[1]) : 0, baseY = m ? parseFloat(m[2]) : 0;
+        var sx = e.clientX, sy = e.clientY;
+        document.body.classList.add("desk-drag");
+        host.style.zIndex = ++zTop;
+        var lmove = function (ev) {
+          host.style.transform = "translate(" + (baseX + ev.clientX - sx) + "px," + (baseY + ev.clientY - sy) + "px)";
+          host.setAttribute("data-moved", "");
+        };
+        var lup = function () {
+          document.removeEventListener("pointermove", lmove);
+          document.removeEventListener("pointerup", lup);
+          document.body.classList.remove("desk-drag");
+        };
+        document.addEventListener("pointermove", lmove);
+        document.addEventListener("pointerup", lup);
+        e.preventDefault();
+        return;
+      }
 
       var hostRect = host.getBoundingClientRect();
       var deskRect = desktop.getBoundingClientRect();
@@ -195,10 +224,13 @@
     var MIN_W = 260, MIN_H = 110;
 
     grip.addEventListener("pointerdown", function (e) {
-      if (!desktop.classList.contains("desk-on") || win.classList.contains("is-max")) return;
+      if (win.classList.contains("is-max")) return;
+      var deskMode = desktop.classList.contains("desk-on");
+      if (!deskMode && !looseEligible()) return;
       var host = win.closest("section");
       var body = $("[data-win-body]", win);
       if (!host || !body) return;
+      if (!deskMode) host.style.alignSelf = "flex-start";   /* let a stacked section shrink */
       front(win);
       var startX = e.clientX, startY = e.clientY;
       var startW = host.offsetWidth;
@@ -209,7 +241,8 @@
       try { grip.setPointerCapture(e.pointerId); } catch (err) {}
 
       function move(ev) {
-        var w = Math.max(MIN_W, Math.min(startW + (ev.clientX - startX), deskW - host.offsetLeft - 8));
+        var maxW = deskMode ? deskW - host.offsetLeft - 8 : deskW - 24;
+        var w = Math.max(MIN_W, Math.min(startW + (ev.clientX - startX), maxW));
         var h = Math.max(MIN_H, startH + (ev.clientY - startY));
         host.style.width = w + "px";
         body.style.height = h + "px";
@@ -231,7 +264,7 @@
     /* double-click the grip: back to natural size */
     grip.addEventListener("dblclick", function () {
       var host = win.closest("section"), body = $("[data-win-body]", win);
-      if (host) { host.removeAttribute("data-sized"); }
+      if (host) { host.removeAttribute("data-sized"); if (!desktop.classList.contains("desk-on")) { host.style.width = ""; host.style.alignSelf = ""; } }
       if (body) body.style.height = "";
       win.classList.remove("is-sized");
       syncDesk();
@@ -311,7 +344,7 @@
     btn.addEventListener("click", function () {
       windows().forEach(function (w) {
         var host = w.closest("section");
-        if (host) { host.removeAttribute("data-moved"); host.removeAttribute("data-sized"); }
+        if (host) { host.removeAttribute("data-moved"); host.removeAttribute("data-sized"); host.style.transform = ""; host.style.zIndex = ""; if (!desktop.classList.contains("desk-on")) { host.style.width = ""; host.style.alignSelf = ""; } }
         w.classList.remove("is-sized");
         var b = $("[data-win-body]", w); if (b) b.style.height = "";
       });

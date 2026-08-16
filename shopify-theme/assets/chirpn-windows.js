@@ -91,7 +91,7 @@
 
   function place(el, x, y, w, width) {
     var wide = Math.min(w, width - 40);
-    el.style.width = wide + "px";
+    if (!el.hasAttribute("data-sized")) el.style.width = wide + "px";
     if (!el.hasAttribute("data-moved")) {
       var left = Math.round(x);
       if (left + wide > width - 12) left = Math.max(12, width - wide - 12);
@@ -130,7 +130,7 @@
     if (desktop.classList.contains("desk-on")) { layoutDesk(); return; }
     desktop.classList.add("desk-on");
     layoutDesk();
-    flash("Tip: drag a window by its title bar.");
+    flash("Tip: drag a window by its title bar. Grab the corner to resize.");
   }
   function deskOff() {
     if (!desktop.classList.contains("desk-on")) return;
@@ -140,6 +140,8 @@
       var el = $(item.sel, desktop);
       if (!el) return;
       el.style.width = el.style.left = el.style.top = el.style.zIndex = "";
+      el.removeAttribute("data-sized");
+      var w = $("[data-win]", el); if (w) { w.classList.remove("is-sized"); var b = $("[data-win-body]", w); if (b) b.style.height = ""; }
     });
   }
   function syncDesk() { deskEligible() ? deskOn() : deskOff(); }
@@ -182,6 +184,57 @@
       document.addEventListener("pointermove", move);
       document.addEventListener("pointerup", up);
       e.preventDefault();
+    });
+  }
+
+  /* ---------- resizing (desktop mode only) ---------- */
+  function makeResizable(win) {
+    var grip = $("[data-win-grip]", win);
+    if (!grip || grip.hasAttribute("data-resize-ready")) return;
+    grip.setAttribute("data-resize-ready", "");
+    var MIN_W = 260, MIN_H = 110;
+
+    grip.addEventListener("pointerdown", function (e) {
+      if (!desktop.classList.contains("desk-on") || win.classList.contains("is-max")) return;
+      var host = win.closest("section");
+      var body = $("[data-win-body]", win);
+      if (!host || !body) return;
+      front(win);
+      var startX = e.clientX, startY = e.clientY;
+      var startW = host.offsetWidth;
+      var startH = body.offsetHeight;
+      var chrome = win.offsetHeight - startH;           // title bar + padding
+      var deskW = desktop.clientWidth;
+      document.body.classList.add("desk-resize");
+      try { grip.setPointerCapture(e.pointerId); } catch (err) {}
+
+      function move(ev) {
+        var w = Math.max(MIN_W, Math.min(startW + (ev.clientX - startX), deskW - host.offsetLeft - 8));
+        var h = Math.max(MIN_H, startH + (ev.clientY - startY));
+        host.style.width = w + "px";
+        body.style.height = h + "px";
+        host.setAttribute("data-sized", "");
+        win.classList.add("is-sized");
+      }
+      function up() {
+        document.removeEventListener("pointermove", move);
+        document.removeEventListener("pointerup", up);
+        document.body.classList.remove("desk-resize");
+        var bottom = host.offsetTop + host.offsetHeight;
+        if (bottom + 40 > desktop.clientHeight) desktop.style.minHeight = bottom + 40 + "px";
+        void chrome;
+      }
+      document.addEventListener("pointermove", move);
+      document.addEventListener("pointerup", up);
+      e.preventDefault(); e.stopPropagation();
+    });
+    /* double-click the grip: back to natural size */
+    grip.addEventListener("dblclick", function () {
+      var host = win.closest("section"), body = $("[data-win-body]", win);
+      if (host) { host.removeAttribute("data-sized"); }
+      if (body) body.style.height = "";
+      win.classList.remove("is-sized");
+      syncDesk();
     });
   }
 
@@ -229,6 +282,7 @@
     });
 
     makeDraggable(win);
+    makeResizable(win);
   }
 
   function initAll() {
@@ -257,7 +311,9 @@
     btn.addEventListener("click", function () {
       windows().forEach(function (w) {
         var host = w.closest("section");
-        if (host) host.removeAttribute("data-moved");
+        if (host) { host.removeAttribute("data-moved"); host.removeAttribute("data-sized"); }
+        w.classList.remove("is-sized");
+        var b = $("[data-win-body]", w); if (b) b.style.height = "";
       });
       syncDesk();
       flash("Windows arranged.");

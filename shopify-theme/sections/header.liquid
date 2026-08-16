@@ -125,6 +125,11 @@
         <svg aria-hidden="true"><use href="#i-files"/></svg>{{ link.title | truncate: 12 }}
       </a>
     {%- endfor -%}
+    {%- if section.settings.pictures_page != blank -%}
+      <a class="tbtn" href="{{ section.settings.pictures_page }}">
+        <svg aria-hidden="true"><use href="#i-fav"/></svg>Pictures
+      </a>
+    {%- endif -%}
     <div class="tsep" aria-hidden="true"></div>
     <a class="tbtn" href="{{ routes.search_url }}">
       <svg aria-hidden="true"><use href="#i-search"/></svg>Find
@@ -169,6 +174,8 @@
       "info": "Extra links (shipping, returns, contact) shown between the built-in Help topics." },
     { "type": "text", "id": "keyword_placeholder", "label": "Keyword bar placeholder",
       "default": "Type Keyword or Web Address here and click Go" },
+    { "type": "url", "id": "pictures_page", "label": "You've Got Pictures page",
+      "info": "Toolbar button. Point at the page that uses the 'page.pictures' template. Leave blank to hide." },
     { "type": "header", "content": "Help Topics window" },
     { "type": "textarea", "id": "howto_steps", "label": "How To Chirp 3rd (one step per line)",
       "default": "Find a manual. Automatic? Skip to step 6.\nWarm the tires. Cold rubber has nothing to say.\nWind out 2nd. Don't lift.\nClutch in. Grab 3rd. Clutch out quick, foot stays down.\nListen for it. That short little bark is the tires letting go for half a heartbeat. That's the chirp. That's the whole religion.\nBuy the shirt so people know." },

@@ -1,0 +1,106 @@
+{%- comment -%}
+  You've Got Pictures. A Win95 image-viewer window: big stage, filmstrip, prev/next.
+
+  Photos come from two places, in this order:
+    1. Blocks added in Customize (image picker + caption) — how Sean adds new shots.
+    2. If there are no blocks, the built-in set shipped as theme assets
+       (pics-01.jpg … pics-NN.jpg, Sean Newton's car photos from Flickr).
+{%- endcomment -%}
+{%- liquid
+  assign credit = section.settings.credit
+  assign builtin_count = section.settings.builtin_count | default: 11
+-%}
+
+{%- capture win_body_1 -%}
+  <div class="pics" data-pics>
+    <div class="pics__stage" data-pics-stage>
+      <button class="pics__nav pics__nav--prev" type="button" data-pics-prev aria-label="Previous photo">
+        <svg aria-hidden="true"><use href="#i-back"/></svg>
+      </button>
+      <figure class="pics__fig">
+        <img class="pics__img" data-pics-img src="{{ 'pics-01.jpg' | asset_url }}" alt="" width="1600" height="1066">
+        <figcaption class="pics__cap"><span data-pics-cap></span>
+          <span class="pics__count" data-pics-count></span></figcaption>
+      </figure>
+      <button class="pics__nav pics__nav--next" type="button" data-pics-next aria-label="Next photo">
+        <svg aria-hidden="true"><use href="#i-fwd"/></svg>
+      </button>
+    </div>
+
+    <div class="pics__strip" data-pics-strip role="list">
+      {%- if section.blocks.size > 0 -%}
+        {%- for block in section.blocks -%}
+          {%- if block.settings.image != blank -%}
+            {%- assign full = block.settings.image | image_url: width: 1600 -%}
+            {%- assign thumb = block.settings.image | image_url: width: 320 -%}
+            {%- assign cap = block.settings.caption | default: block.settings.image.alt -%}
+            <button class="pics__thumb" type="button" role="listitem" data-pics-thumb
+                    data-full="{{ full }}" data-cap="{{ cap | escape }}" {{ block.shopify_attributes }}>
+              <img src="{{ thumb }}" alt="{{ cap | escape }}" width="160" height="107" loading="lazy">
+            </button>
+          {%- endif -%}
+        {%- endfor -%}
+      {%- else -%}
+        {%- for i in (1..builtin_count) -%}
+          {%- assign n = i | prepend: '0' | slice: -2, 2 -%}
+          {%- assign full_name = 'pics-' | append: n | append: '.jpg' -%}
+          {%- assign thumb_name = 'pics-' | append: n | append: '-thumb.jpg' -%}
+          {%- assign full = full_name | asset_url -%}
+          {%- assign thumb = thumb_name | asset_url -%}
+          <button class="pics__thumb" type="button" role="listitem" data-pics-thumb
+                  data-full="{{ full }}" data-cap="{{ credit | escape }}">
+            <img src="{{ thumb }}" alt="Photo {{ i }}" width="160" height="107" loading="lazy">
+          </button>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+
+    <noscript>
+      <div class="grid" style="margin-top:8px">
+        {%- if section.blocks.size > 0 -%}
+          {%- for block in section.blocks -%}
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy' }}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- else -%}
+          {%- for i in (1..builtin_count) -%}
+            {%- assign n = i | prepend: '0' | slice: -2, 2 -%}
+            {%- assign full_name = 'pics-' | append: n | append: '.jpg' -%}
+            <img src="{{ full_name | asset_url }}" alt="Photo {{ i }}" width="800" height="533" loading="lazy">
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+    </noscript>
+  </div>
+
+  {%- if section.settings.blurb != blank -%}
+    <p class="imnote" style="margin-top:8px">{{ section.settings.blurb }}</p>
+  {%- endif -%}
+{%- endcapture -%}
+{% render 'window', title: section.settings.title, icon: 'i-fav', content: win_body_1, class: 'pics__win' %}
+
+{% schema %}
+{
+  "name": "You've Got Pictures",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Window title", "default": "You've Got Pictures" },
+    { "type": "text", "id": "credit", "label": "Caption for built-in photos", "default": "Photo: Sean Newton" },
+    { "type": "range", "id": "builtin_count", "label": "Built-in photos to show", "min": 1, "max": 11, "step": 1, "default": 11,
+      "info": "Only used when no photo blocks are added below." },
+    { "type": "textarea", "id": "blurb", "label": "Line under the viewer",
+      "default": "Sean's shots. Mostly the same red Civic. Add yours: tag it #chirpn3rd." }
+  ],
+  "blocks": [
+    {
+      "type": "photo",
+      "name": "Photo",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Photo" },
+        { "type": "text", "id": "caption", "label": "Caption" }
+      ]
+    }
+  ]
+}
+{% endschema %}

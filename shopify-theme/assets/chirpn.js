@@ -212,6 +212,48 @@
     });
   });
 
+  /* ---------- You've Got Pictures viewer ---------- */
+  $$("[data-pics]").forEach(function (root) {
+    var img = $("[data-pics-img]", root), cap = $("[data-pics-cap]", root), count = $("[data-pics-count]", root);
+    var thumbs = $$("[data-pics-thumb]", root);
+    if (!img || !thumbs.length) return;
+    var ix = 0;
+    function show(i) {
+      ix = (i + thumbs.length) % thumbs.length;
+      var t = thumbs[ix];
+      img.src = t.getAttribute("data-full");
+      img.alt = t.getAttribute("data-cap") || "";
+      if (cap) cap.textContent = t.getAttribute("data-cap") || "";
+      if (count) count.textContent = (ix + 1) + " / " + thumbs.length;
+      thumbs.forEach(function (b, j) { b.classList.toggle("on", j === ix); });
+      if (t.scrollIntoView) t.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "smooth" });
+      /* warm the neighbours so next/prev feels instant */
+      [ix + 1, ix - 1].forEach(function (k) {
+        var n = thumbs[(k + thumbs.length) % thumbs.length];
+        if (n) { var pre = new Image(); pre.src = n.getAttribute("data-full"); }
+      });
+    }
+    thumbs.forEach(function (b, j) { b.addEventListener("click", function () { show(j); }); });
+    var prev = $("[data-pics-prev]", root), next = $("[data-pics-next]", root);
+    if (prev) prev.addEventListener("click", function () { show(ix - 1); });
+    if (next) next.addEventListener("click", function () { show(ix + 1); });
+    img.addEventListener("click", function () { show(ix + 1); });
+    document.addEventListener("keydown", function (e) {
+      if (e.target && /input|textarea|select/i.test(e.target.tagName)) return;
+      if (e.key === "ArrowRight") show(ix + 1);
+      if (e.key === "ArrowLeft") show(ix - 1);
+    });
+    /* swipe on touch */
+    var x0 = null;
+    img.addEventListener("touchstart", function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+    img.addEventListener("touchend", function (e) {
+      if (x0 === null) return;
+      var dx = e.changedTouches[0].clientX - x0; x0 = null;
+      if (Math.abs(dx) > 40) show(dx < 0 ? ix + 1 : ix - 1);
+    }, { passive: true });
+    show(0);
+  });
+
   /* ---------- Help Topics window ---------- */
   var helpDlg = $("[data-help-dialog]");
   var helpReturnFocus = null;
@@ -268,6 +310,8 @@
     merch:    function () { window.location.href = "/collections/all"; },
     "the garage": function () { window.location.href = "/collections"; },
     help:     function () { helpDlg ? helpShow("howto") : showToast("<b>Help</b><br>Have fun. Shift hard. That is the whole manual."); },
+    pics:     function () { var a = $(".tbtn[href*='pictures']"); a ? (window.location.href = a.getAttribute("href")) : flash("You've Got Pictures: 47 shots of the same Civic. Gallery coming soon."); },
+    pictures: function () { KEYWORDS.pics(); },
     about:    function () { helpDlg ? helpShow("about") : showToast("<b>" + document.title + "</b><br>version 3.0"); },
     keywords: function () { helpDlg ? helpShow("keywords") : flash("Try CHIRP. Or GARAGE. Or MERCH."); }
   };

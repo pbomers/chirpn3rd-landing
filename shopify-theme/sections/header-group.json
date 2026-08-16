@@ -6,9 +6,12 @@
       "type": "header",
       "settings": {
         "menu": "main-menu",
-        "keyword_placeholder": "Type Keyword or Web Address here and click Go"
+        "keyword_placeholder": "Type Keyword or Web Address here and click Go",
+        "pictures_page": "/pages/pictures"
       }
     }
   },
-  "order": ["header"]
+  "order": [
+    "header"
+  ]
 }

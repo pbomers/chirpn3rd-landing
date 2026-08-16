@@ -1,6 +1,9 @@
 # Chirp'n3rd Online — easter eggs
 
-Everything hidden in the storefront, as of 2026-08-16. Source: `assets/chirpn.js`,
+Everything hidden in the storefront, as of 2026-08-16. Every interactive one below was
+exercised against the live theme markup on 2026-08-16 (clock, Setup tab, bird triple-click,
+Konami, IM slang, IM formatting, keywords, Help, 404 bird, Pictures viewer). The two audio
+sequences (Sign On modem + voice, add-to-cart chirp) need a real click, so verify by ear. Source: `assets/chirpn.js`,
 `assets/chirpn-windows.js`, `sections/main-cart.liquid`, `sections/header.liquid`.
 
 ## Sign On (home page, once per session)
@@ -40,7 +43,7 @@ Anything else in the bar is a normal search.
 - Empty reply + Send It → straight to the merch.
 - The **A A B I U** formatting buttons actually format the conversation
   (size up/down, bold, italic, underline).
-- **Idle 3 minutes** → one-time auto-response toast: "Auto response from ChirpnPaul: wrenching. brb."
+- **Idle 3 minutes** (no mouse/keys/scroll) → auto-response toast: "Auto response from ChirpnPaul: wrenching. brb." Fires once per page load.
 
 ## Keyboard
 
